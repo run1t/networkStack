@@ -1,16 +1,5 @@
-#include <stdio.h>
-#include <unistd.h>
-#include <string.h>
-
-#include <sys/types.h>
-#include <sys/ioctl.h>
-#include <net/if.h>
-#include <arpa/inet.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-
-int main(int argc, char *argv[])
-{
+#include "socket.h"
+struct in_addr  getIp(char* interface){
 	int sockfd;
 	//Interface request pour avoir l'adresse IP
 	struct ifreq ifr;
@@ -29,7 +18,7 @@ int main(int argc, char *argv[])
 	ifr.ifr_addr.sa_family = AF_INET;
 
 	//On copie dans ifr.ifr_name le nom de l'interface désirée ici eth0, on spécifie la taille a copier avec IFNAMSIZ
-	strncpy(ifr.ifr_name,"eth0",IFNAMSIZ-1);
+	strncpy(ifr.ifr_name,"en0",IFNAMSIZ-1);
 
 	
 	//On créée un socket de la famille INET en gros IP
@@ -45,14 +34,6 @@ int main(int argc, char *argv[])
 	ioctl(sockfd,SIOCGIFADDR,&ifr);
 
 	//inet_ntoa sert à transformer une addresse en byte en texte readable, on lui passe l'addresse de notre adresse ipV4, mais on cast par sockaddr_in pour avoir accès à sin_addr
-	printf("IP eth0: %s\n",inet_ntoa(((struct sockaddr_in * )&ifr.ifr_addr)->sin_addr));
-	
-//On bind le socket à une adress	
-	if(bind(sockfd,(struct sockaddr *)&server_si,sizeof server_si) == -1){
-		perror("Error of binding socket");
-		close(sockfd);
-	}
-
-	return 0;
-
+	return ((struct sockaddr_in * )&ifr.ifr_addr)->sin_addr;
 }
+
