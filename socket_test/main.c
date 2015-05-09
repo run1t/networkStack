@@ -8,7 +8,7 @@ int main(int argc, char *argv[])
 	//tcp_sniffer();
 	getMac_address("eth0");
 	int result = 0;
-//	result = sendPacket();
+	result = sendPacket();
 	if(result == 1)
 	{
 		printf("error");
