@@ -14,7 +14,10 @@
 //Definition des protocoles
 #define ICMP_PROTO 0x01
 #define TCP_PROTO 0x06
-
+typedef uint8_t u8;
+typedef uint16_t u16;
+typedef uint32_t u32;
+typedef uint64_t u64;
 struct sockaddr_ll sa;
 // Remplissage de la structure Seveur
 struct Server createServer(char* ip,int port){
@@ -23,7 +26,11 @@ struct Server createServer(char* ip,int port){
 	s.port = port;
 	return s;
 }
-
+u32 swap32(u32 in)
+{
+	u32 out = in<<24 | ((in&0xff00)<<8) | ((in&0xff0000)>>8) | ((in&0xff000000)>>24);
+	return out;
+}
 //Initialisation de la connection
 int initServer(){
 
@@ -257,10 +264,10 @@ void tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock){
 		//On dit a data d'inserer son message a la fin du paquet d
 		data = datagram + sizeof(struct iphdr) + sizeof(struct tcphdr);
 		strcpy(data,"");
-		printf("%d\n",htons(tcp_hdr->source ));
+		printf("seq %d\n",tcp_hdr->seq);
 		uint16_t dest = htons(tcp_hdr->source);
 		uint32_t seq = 0;
-		uint32_t ack_seq = tcp_hdr->ack_seq+1;
+		uint32_t ack_seq = swap32(swap32(tcp_hdr->seq)+1);
 		uint16_t fin = 0;
 		uint16_t syn = 1;
 		uint16_t ack = 1;
@@ -275,7 +282,7 @@ void tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock){
 		printf("MAke tcp segment\n" );
 		makeTCP_segment(tcpHeader,dest,seq,ack_seq,fin,syn,ack,datagram,data);
 		
-		printf("seq:%u\n",ip_header->ttl);
+		printf("ttl:%u\n",ip_header->ttl);
 		int one = 1;
 		const int *val = &one;
 		
@@ -301,7 +308,7 @@ void tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock){
 			}
 		
 		
-	}else if(tcp_hdr->syn == 1 && tcp_hdr->ack == 1){
+	}/*else if(tcp_hdr->syn == 1 && tcp_hdr->ack == 1){
 			printf("syn ACK Request\n");
 
 	
@@ -340,7 +347,7 @@ void tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock){
 		printf("%d\n",tcp_hdr->source );
 		uint16_t dest = tcp_hdr->source;
 		uint32_t seq = 0;
-		uint32_t ack_seq = 0;
+		uint32_t ack_seq = htonl(ntohl(tcp_hdr->seq)+1);
 		uint16_t fin = 0;
 		uint16_t syn = 0;
 		uint16_t ack = 1;
@@ -382,7 +389,7 @@ void tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock){
 		
 	
 	
-	}
+	}*/
 
 
 }
