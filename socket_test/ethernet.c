@@ -7,7 +7,7 @@ unsigned char * getMac_address(char* interface)
 	//Interface request pour avoir l'adresse Mac
 	struct ifreq ifr;
 
-	//Variablequi va conteniotre adresse MAC
+	//Variablequi va contenir notre adresse MAC
 	unsigned char *macAddress;
 
 	ifr.ifr_addr.sa_family = AF_INET;

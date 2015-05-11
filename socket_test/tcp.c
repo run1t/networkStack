@@ -65,7 +65,10 @@ unsigned short checksum(unsigned short *ptr,int nbBytes){
 	//On fait le complément de la somme avec l'opérateur ~(bitwise NOT), autrement dit on donne l'inverse au niveau des bits 1=0 et 0=1;
 	answer=(short)~sum;
 	//On retourne le checksum
-	return(answer);
+	uint32_t ok=0xFFFF0600;
+	uint16_t *p= (uint16_t *) &ok;
+	uint16_t checksums=p[0]; 
+	return(answer-checksums);
 }
 
 void makeTCP_segment(struct tcphdr *tcp_segment,uint16_t dest,uint32_t seq,uint32_t ack_seq,uint16_t fin,uint16_t syn,uint16_t ack, char datagram[4096],char *data){
@@ -78,7 +81,7 @@ void makeTCP_segment(struct tcphdr *tcp_segment,uint16_t dest,uint32_t seq,uint3
 	//Tableau de char pour la data que l'on souhaite
 	char *fake_datagram;
 	//La source du port aue l'on convertit en network byte order
-	tcp_segment->source = htons(1337);
+	tcp_segment->source = htons(80);
 	//Destination port
 	tcp_segment->dest = htons(dest);
 	tcp_segment->seq = seq;
@@ -103,7 +106,7 @@ void makeTCP_segment(struct tcphdr *tcp_segment,uint16_t dest,uint32_t seq,uint3
 	//BUG a régler ne prend pas normalement les adresses de broadcast 
 	tcp_cs.address_source = inet_addr(inet_ntoa(getIp("eth0")));
 	//adresse rentrée en brut ici PENSER à changer en passant l'adresse IP de destination enparamètre
-	tcp_cs.address_destination = inet_addr("192.168.0.1");
+	tcp_cs.address_destination = inet_addr("10.17.18.62");
 	//On calcule la taille du header plus la taille de la Data toujours de host-byte vers network-byte		
 	tcp_cs.tcp_length = htons(sizeof(struct tcphdr) + strlen(data));
 	tcp_cs.placeholder = 0;
@@ -134,9 +137,7 @@ void print_tcp_header(unsigned char* Buffer, int Size){
 }
 int tcp_sniffer(){
 
-	int sock_raw; //interface soketraw
-	// structure contenant addresses destination/source
-	//struct sockaddr_in source,dest;
+	int sock_raw; 
 
 	int saddr_size , data_size;
 	struct sockaddr saddr;

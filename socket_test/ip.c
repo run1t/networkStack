@@ -58,7 +58,7 @@ int sendPacket(){
 
 	//On dit a data d'inserer son message a la fin du paquet d
 	data = datagram + sizeof(struct iphdr) + sizeof(struct tcphdr);
-	strcpy(data,"hello fucking world");
+	strcpy(data,"GET /repertoire/page.html HTTP/1.1");
 
 	uint16_t dest = 80;
 	uint32_t seq = 666;
@@ -66,6 +66,7 @@ int sendPacket(){
 	uint16_t fin = 0;
 	uint16_t syn = 1;
 	uint16_t ack = 0;
+	
 
 	//On crée notre structure ip Header
 	struct iphdr *ip_header = (struct iphdr *)datagram;
