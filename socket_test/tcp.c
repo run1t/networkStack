@@ -65,17 +65,13 @@ unsigned short checksum(unsigned short *ptr,int nbBytes){
 	sum = sum + (sum>>16);
 	//On fait le complément de la somme avec l'opérateur ~(bitwise NOT), autrement dit on donne l'inverse au niveau des bits 1=0 et 0=1;
 	answer=(short)~sum;
-	
-	
-	
+	//On retourne le checksum
 	return(answer);
 }
 
-void makeTCP_segment(struct tcphdr *tcp_segment,uint16_t dest,uint32_t seq,uint32_t ack_seq,uint16_t fin,uint16_t syn,uint16_t ack, char datagram[4096],char *data,uint16_t psh){
+void makeTCP_segment(struct tcphdr *tcp_segment,uint16_t dest,uint32_t seq,uint32_t ack_seq,uint16_t fin,uint16_t syn,uint16_t ack,char *data,uint16_t psh){
 	//Header du segment TCP, TRAITEMENT à FAIRE le faire égale à un struct tcphdr avec la taille du datagram désiré et avec la taille de IP
-	// = (struct tcphdr *)(datagram + sizeof(struct ip));
 	//On alloue l'emplacement memoire necessaire
-
 
 	struct header_tcp_checksum tcp_cs;
 	//Tableau de char pour la data que l'on souhaite
@@ -125,46 +121,3 @@ void makeTCP_segment(struct tcphdr *tcp_segment,uint16_t dest,uint32_t seq,uint3
 	tcp_segment->check = checksum((unsigned short*) fake_datagram, size_datagram_cs);
 
 }
-void print_tcp_header(unsigned char* Buffer, int Size){
-	unsigned short iphdrlen;
-	struct iphdr *iph = (struct iphdr *)Buffer; // on passe notre buffer en type tcp
-	iphdrlen = iph->ihl*4;
-	struct tcphdr *tcph=(struct tcphdr*)(Buffer + iphdrlen);
-	printf(" PORT Source : %u \n",ntohs(tcph->source) );
-	printf(" PORT Destination : %u \n",ntohs(tcph->dest) );
-	printf(" taille de la window : %u \n",ntohs(tcph->window) );
-	printf(" checksum: %u \n",ntohs(tcph->window) );
-}
-int tcp_sniffer(){
-
-	int sock_raw; 
-
-	int saddr_size , data_size;
-	struct sockaddr saddr;
-	//struct in_addr in;
-	unsigned char *buffer = (unsigned char *)malloc(65536);  // on creer un buffers
-	sock_raw = socket(AF_INET , SOCK_RAW , IPPROTO_TCP);
-	if(sock_raw < 0) // si inferieur à 0 on a un bug reseau
-	{
-		printf("Erreur reseau\n");
-		return 1;
-	}
-	while(1)
-	{
-		saddr_size = sizeof saddr;
-		data_size = recvfrom(sock_raw , buffer , 65536 , 0 , &saddr , &saddr_size);
-		if(data_size <0 )
-		{
-			printf("Erreure de receveur\n");
-			return 1;
-		}
-			//structure ip pour verifier le protocol
-		struct iphdr *iph = (struct iphdr*)buffer;
-		if(iph->protocol == 6){ // on verifie si on recoit du tcp
-			print_tcp_header(buffer,data_size); 
-		}		
-	}
-	close(sock_raw); // on ferme le socket
-	return 0;
-}
-
