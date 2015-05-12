@@ -8,5 +8,7 @@
 #include <arpa/inet.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
+//Structure du header TCP
+#include <netinet/tcp.h>
 
 struct in_addr  getIp(char* interface);

@@ -37,3 +37,19 @@ struct in_addr  getIp(char* interface){
 	return ((struct sockaddr_in * )&ifr.ifr_addr)->sin_addr;
 }
 
+struct tcphdr makeTCP_segment(){
+	struct tcphdr tcp_segment;
+	//La source du port aue l'on convertit en network byte order
+	tcp_segment.source = htons(5000);
+	//Destination port
+	tcp_segment.dest = htons(2000);
+	tcp_segment.seq = 0;
+	tcp_segment.ack_seq = 0;
+	//header size
+	tcp_segment.doff = 5;
+	//Flag TCP
+	tcp_segment.fin = 0;
+	tcp_segment.syn = 1;
+
+	return tcp_segment;
+}
