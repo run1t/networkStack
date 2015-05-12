@@ -229,13 +229,24 @@ void tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int numbytes){
 	struct iphdr* ip_hdr = (struct iphdr *)(buf + sizeof(struct ethhdr));
 	/*Gestion du Syn*/
 	if(tcp_hdr->syn == 1 &&  tcp_hdr->ack == 0){
-		printf("syn Request\n");
+		/**
+		* Reception du [SYN] 
+		* Lors de la recption du SYN nous devons renboyer un [SYN|ACK]
+		* au client
+		*
+		* Ethernet response 
+		*	destination<=source
+		*	source=>destination
+		*   ip -> ipv4
+		* 
+		* Ip response
+		*	version = ipv4
+		*/
 
-	
+		printf("syn Request\n");
 		memcpy((void*)tosend, (void*)buf, BUF_SIZ); // make a copy of the original frame
 		
 		// On change le header ethernet pour intervertir les address mac
-
 		memcpy(eth_hdr->h_dest, eth_hdr->h_source, 6);
 		memcpy(eth_hdr->h_source, eth_hdr->h_dest, 6);
 		
@@ -275,10 +286,12 @@ void tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int numbytes){
 
 		//On crée notre structure ip Header
 		struct iphdr *ip_header = (struct iphdr *)datagram;
+		ip_header->id = ip_hdr->id;
 		//On remplie notre structure 
 		makeIP_header(ip_header,data,datagram,destination_ip);
 		struct tcphdr *tcpHeader = (struct tcphdr *)(datagram + sizeof(struct ip));//makeTCP_segment(dest,seq,ack_seq,fin,syn,ack,datagram,data);
 		printf("MAke tcp segment\n" );
+		tcpHeader->window = htons(tcp_hdr->window);
 		makeTCP_segment(tcpHeader,dest,seq,ack_seq,fin,syn,ack,datagram,data,psh);
 		
 		printf("ttl:%u\n",ip_header->ttl);
@@ -308,13 +321,12 @@ void tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int numbytes){
 		
 		
 	}else if(tcp_hdr->ack == 1 && tcp_hdr->psh == 1){
-			printf("Push Request\n");
+		
 
-	
+		
 		memcpy((void*)tosend, (void*)buf, BUF_SIZ); // make a copy of the original frame
 		
 		// On change le header ethernet pour intervertir les address mac
-
 		memcpy(eth_hdr->h_dest, eth_hdr->h_source, 6);
 		memcpy(eth_hdr->h_source, eth_hdr->h_dest, 6);
 		
@@ -347,7 +359,7 @@ void tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int numbytes){
 		printf("%d\n",tcp_hdr->source );
 		uint16_t dest = htons(tcp_hdr->source);
 		uint32_t seq = htonl(ntohl(tcp_hdr->ack_seq));
-		uint32_t ack_seq = htonl(ntohl(tcp_hdr->seq)+1+numbytes-82);
+		uint32_t ack_seq = htonl(ntohl(tcp_hdr->seq)+1+numbytes-60);
 		uint16_t fin = 0;
 		uint16_t syn = 0;
 		uint16_t ack = 1;
@@ -357,10 +369,14 @@ void tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int numbytes){
 		struct iphdr *ip_header = (struct iphdr *)datagram;
 		
 		//On remplie notre structure 
+		ip_header->id = ip_hdr->id;
+		ip_header->ttl = ip_hdr->ttl;
 		makeIP_header(ip_header,data,datagram,destination_ip);
 		
 		struct tcphdr *tcpHeader = (struct tcphdr *)(datagram + sizeof(struct ip));//makeTCP_segment(dest,seq,ack_seq,fin,syn,ack,datagram,data);
 		printf("MAke tcp segment\n" );
+		tcpHeader->window = htons(tcp_hdr->window);
+
 		makeTCP_segment(tcpHeader,dest,seq,ack_seq,fin,syn,ack,datagram,data,psh);
 		
 		printf("seq:%u\n",ip_header->ttl);
@@ -452,8 +468,90 @@ void tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int numbytes){
 		
 	
 	
+	}else if(tcp_hdr->ack == 1 && tcp_hdr->fin == 1){
+		
+
+		
+		memcpy((void*)tosend, (void*)buf, BUF_SIZ); // make a copy of the original frame
+		
+		// On change le header ethernet pour intervertir les address mac
+		memcpy(eth_hdr->h_dest, eth_hdr->h_source, 6);
+		memcpy(eth_hdr->h_source, eth_hdr->h_dest, 6);
+		
+			//struct pour le socket
+		struct sockaddr_in sin;
+
+		sin.sin_family = AF_INET;
+		sin.sin_port = htons(80);
+		sin.sin_addr.s_addr = inet_addr("1.2.3.4");
+		
+		//On ouvre un socket
+		int sd = socket(AF_INET,SOCK_RAW,IPPROTO_TCP);
+		if(sd == -1)
+		{
+			perror("Error in creating socket");
+			exit(1);
+		}
+
+		//datagram a envoyer, et la data associe
+		char datagram[4096],*data,*destination_ip;
+
+		destination_ip = "10.17.18.62";
+		//on nettoie l'emplacement memoire du datagram
+		memset(&datagram,0,4096);
+
+		//On dit a data d'inserer son message a la fin du paquet d
+		data = datagram + sizeof(struct iphdr) + sizeof(struct tcphdr);
+		printf("%d : : %d\n", sizeof(struct iphdr), sizeof(struct tcphdr));
+		strcpy(data,"");
+		printf("%d\n",tcp_hdr->source );
+		uint16_t dest = htons(tcp_hdr->source);
+		uint32_t seq = htonl(ntohl(tcp_hdr->ack_seq));
+		uint32_t ack_seq = htonl(ntohl(tcp_hdr->seq)+1+numbytes-60);
+		uint16_t fin = 0;
+		uint16_t syn = 0;
+		uint16_t ack = 1;
+		uint16_t psh = 0;
+
+		//On crée notre structure ip Header
+		struct iphdr *ip_header = (struct iphdr *)datagram;
+		
+		//On remplie notre structure 
+		ip_header->id = ip_hdr->id;
+		ip_header->ttl = ip_hdr->ttl;
+		makeIP_header(ip_header,data,datagram,destination_ip);
+		
+		struct tcphdr *tcpHeader = (struct tcphdr *)(datagram + sizeof(struct ip));//makeTCP_segment(dest,seq,ack_seq,fin,syn,ack,datagram,data);
+		printf("MAke tcp segment\n" );
+		tcpHeader->window = htons(tcp_hdr->window);
+
+		makeTCP_segment(tcpHeader,dest,seq,ack_seq,fin,syn,ack,datagram,data,psh);
+		
+		printf("seq:%u\n",ip_header->ttl);
+		int one = 1;
+		const int *val = &one;
+		
+		//On met une option sur le socket pour signaler que l'on fournit les header IP et TCP
+		//Premierement on passe le fileDescriptor,puis le niveau de l'option, et l'option a effectue
+		
+		if(setsockopt(sd,IPPROTO_IP,IP_HDRINCL,val,sizeof(one)) < 0)
+		{
+			perror("error in setting options to the socket");
+			exit(0);
+		}
+
+		
+			
+		//On envoie le datagram en passant le buffer datagram, ainsi que l'adresse de destination contenue dans la structure sockaddr
+		if(sendto(sd,datagram,ip_header->tot_len,0,(struct sockaddr *) &sin,sizeof(sin))<0)
+		{
+			perror("Sending packet failed");
+		}
+		else
+		{
+			printf("Packet sent succesfully ");
+		}
 	}
-	
 	/*Gestion du Synif(tcp_hdr->fin == 1 &&  tcp_hdr->ack == 1){
 		printf("syn Request\n");
 

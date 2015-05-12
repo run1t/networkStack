@@ -96,7 +96,7 @@ void makeTCP_segment(struct tcphdr *tcp_segment,uint16_t dest,uint32_t seq,uint3
 	tcp_segment->psh = psh;
 	tcp_segment->urg= 0;
 	//Taille de la window, nombre d'octet que l'on souhaite recevoir 
-	tcp_segment->window = htons(4000);
+
 	//On remplit le checksum plus tard
 	tcp_segment->check = 0;
 	tcp_segment->urg_ptr = 0;

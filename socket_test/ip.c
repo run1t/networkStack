@@ -15,7 +15,7 @@ void makeIP_header(struct iphdr *ip,char *data,char datagram[4096],char *destina
 	//Nous laissons le type of service a 0, comme indiaue dans la rfc 793
 	ip->tos = 0;
 	//On convertit l'id du paquet ip en network byte order avec htonl()
-	ip->id = htonl(123);
+	//ip->id = htonl(123);
 	//Nous ne souhaitons pas de fragmentation donc 0
 	ip->frag_off = 0;
 	//Nous le laissons un Time to Live par defaut a 0
