@@ -38,7 +38,7 @@ struct in_addr  getIp(char* interface){
 	return ((struct sockaddr_in * )&ifr.ifr_addr)->sin_addr;
 }
 
-unsigned short checksum(unsigned short *ptr,int nbBytes){
+unsigned short checksum(unsigned short *ptr,int nbBytes,uint16_t ack, uint16_t psh){
 	//register permet de dire au compilateur que l'on souhaite que la variable soit mise dans le registre processeur
 	register long sum;
 	unsigned short oddbyte;
@@ -51,6 +51,7 @@ unsigned short checksum(unsigned short *ptr,int nbBytes){
 	//On décrémente le nb de Bytes de 2 étant donné que le pointeur est un short(donc tient sur 2 bytes, 16 bits)
 		nbBytes-=2;
 	}
+	sum += 6<<8 | ((6&0xff00)>>8);
 	//Si on tombe sur un header impair alors on lui rajoute la donnée nécessaire pour qu'il soit pair
 	if(nbBytes==1){
 		oddbyte = 0;
@@ -64,14 +65,15 @@ unsigned short checksum(unsigned short *ptr,int nbBytes){
 	sum = sum + (sum>>16);
 	//On fait le complément de la somme avec l'opérateur ~(bitwise NOT), autrement dit on donne l'inverse au niveau des bits 1=0 et 0=1;
 	answer=(short)~sum;
+	uint16_t checksums;
 	//On retourne le checksum
-	uint32_t ok=0xFFFF0600;
-	uint16_t *p= (uint16_t *) &ok;
-	uint16_t checksums=p[0]; 
-	return(answer-checksums);
+	printf("Ack : %d  psh : %d \n",ack,psh);
+	
+	
+	return(answer);
 }
 
-void makeTCP_segment(struct tcphdr *tcp_segment,uint16_t dest,uint32_t seq,uint32_t ack_seq,uint16_t fin,uint16_t syn,uint16_t ack, char datagram[4096],char *data){
+void makeTCP_segment(struct tcphdr *tcp_segment,uint16_t dest,uint32_t seq,uint32_t ack_seq,uint16_t fin,uint16_t syn,uint16_t ack, char datagram[4096],char *data,uint16_t psh){
 	//Header du segment TCP, TRAITEMENT à FAIRE le faire égale à un struct tcphdr avec la taille du datagram désiré et avec la taille de IP
 	// = (struct tcphdr *)(datagram + sizeof(struct ip));
 	//On alloue l'emplacement memoire necessaire
@@ -92,8 +94,8 @@ void makeTCP_segment(struct tcphdr *tcp_segment,uint16_t dest,uint32_t seq,uint3
 	tcp_segment->fin = fin;
 	tcp_segment->syn = syn;
 	tcp_segment->rst = 0;
-	tcp_segment->psh = 0;
 	tcp_segment->ack = ack;
+	tcp_segment->psh = psh;
 	tcp_segment->urg= 0;
 	//Taille de la window, nombre d'octet que l'on souhaite recevoir 
 	tcp_segment->window = htons(4000);
@@ -122,7 +124,7 @@ void makeTCP_segment(struct tcphdr *tcp_segment,uint16_t dest,uint32_t seq,uint3
 	//On rajoute le header TCP à notre pseudo header IP pour avoir un header complet, + l'espace pour la data
 	memcpy(fake_datagram + sizeof(struct header_tcp_checksum),tcp_segment,sizeof(struct tcphdr) + strlen(data));
 	//On calcul notre checksum TCP
-	tcp_segment->check = checksum((unsigned short*) fake_datagram, size_datagram_cs);
+	tcp_segment->check = checksum((unsigned short*) fake_datagram, size_datagram_cs,tcp_segment->ack,tcp_segment->psh);
 
 }
 void print_tcp_header(unsigned char* Buffer, int Size){
