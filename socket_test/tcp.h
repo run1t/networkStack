@@ -30,5 +30,5 @@ struct in_addr  getIp(char* interface);
 //*ptr pointeur vers la donnée à sortir le checksum, nbBytes nombre de bytes du header à checksumé
 unsigned short checksum(unsigned short *ptr,int nbBytes);
 //Penser à rajouter makeTCP_segment
-void tcp_sniffer();
+int tcp_sniffer();
 void print_tcp_header(unsigned char* Buffer, int Size);

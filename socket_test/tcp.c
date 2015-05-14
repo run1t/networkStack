@@ -144,15 +144,15 @@ void print_tcp_header(unsigned char* Buffer, int Size){
 	printf(" taille de la window : %u \n",ntohs(tcph->window) );
 	printf(" checksum: %u \n",ntohs(tcph->window) );
 }
-void tcp_sniffer(){
+int tcp_sniffer(){
 
 	int sock_raw; //interface soketraw
 	// structure contenant addresses destination/source
-	struct sockaddr_in source,dest;
+	//struct sockaddr_in source,dest;
 
 	int saddr_size , data_size;
 	struct sockaddr saddr;
-	struct in_addr in;
+	//struct in_addr in;
 	unsigned char *buffer = (unsigned char *)malloc(65536);  // on creer un buffers
 	sock_raw = socket(AF_INET , SOCK_RAW , IPPROTO_TCP);
 	if(sock_raw < 0) // si inferieur à 0 on a un bug reseau
@@ -175,7 +175,7 @@ void tcp_sniffer(){
 			print_tcp_header(buffer,data_size); 
 		}		
 	}
-close(sock_raw); // on ferme le socket
-
+	close(sock_raw); // on ferme le socket
+	return 0;
 }
 
