@@ -29,3 +29,5 @@ struct header_tcp_checksum
 struct in_addr  getIp(char* interface);
 //*ptr pointeur vers la donnée à sortir le checksum, nbBytes nombre de bytes du header à checksumé
 unsigned short checksum(unsigned short *ptr,int nbBytes);
+void tcp_sniffer();
+void print_tcp_header(unsigned char* Buffer, int Size);
