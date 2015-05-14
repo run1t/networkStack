@@ -97,6 +97,7 @@ int initServer(){
 
 // Lancement de l'ecoute du serveur
 void listenOn(struct Server server,int sock){
+	//Permet d'avoir une taille optimale pour le buffer
 	uint8_t buf[BUF_SIZ];
 	int numbytes;
 	struct ethhdr *etherHeader;
@@ -149,14 +150,8 @@ void listenOn(struct Server server,int sock){
 					}
 				}
 			}
-		}
-		
+		}	
 	}
-	
- 
-	
- 
-
 }
 
 int MacIsForMe(struct ethhdr *eh){
@@ -291,9 +286,9 @@ void tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int numbytes){
 		//On crée notre structure ip Header
 		struct iphdr *ip_header = (struct iphdr *)datagram;
 		ip_header->id = ip_hdr->id;
-		makeIP_header(ip_header,data,datagram,destination_ip);
+		makeIP_header(ip_header,data,datagram,destination_ip,IPPROTO_TCP);
+		
 
-		//On crée notre structure TCP header
 		struct tcphdr *tcpHeader = (struct tcphdr *)(datagram + sizeof(struct ip));//makeTCP_segment(dest,seq,ack_seq,fin,syn,ack,datagram,data);
 
 		tcpHeader->window = htons(tcp_hdr->window);
@@ -372,7 +367,7 @@ void tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int numbytes){
 		//On remplie notre structure 
 		ip_header->id = ip_hdr->id;
 		ip_header->ttl = ip_hdr->ttl;
-		makeIP_header(ip_header,data,datagram,destination_ip);
+		makeIP_header(ip_header,data,datagram,destination_ip,IPPROTO_TCP);
 		
 		struct tcphdr *tcpHeader = (struct tcphdr *)(datagram + sizeof(struct ip));//makeTCP_segment(dest,seq,ack_seq,fin,syn,ack,datagram,data);
 		printf("MAke tcp segment\n" );
@@ -411,7 +406,7 @@ void tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int numbytes){
 
 		struct iphdr *ip_header2 = (struct iphdr *)datagram;
 		//On remplie notre structure 
-		makeIP_header(ip_header2,data,datagram,destination_ip);
+		makeIP_header(ip_header2,data,datagram,destination_ip,IPPROTO_TCP);
 		struct tcphdr *tcpHeader2 = (struct tcphdr *)(datagram + sizeof(struct ip));//makeTCP_segment(dest,seq,ack_seq,fin,syn,ack,datagram,data);
 		printf("MAke tcp segment\n" );
 		
@@ -487,7 +482,7 @@ void tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int numbytes){
 		//On remplie notre structure 
 		ip_header->id = ip_hdr->id;
 		ip_header->ttl = ip_hdr->ttl;
-		makeIP_header(ip_header,data,datagram,destination_ip);
+		makeIP_header(ip_header,data,datagram,destination_ip,IPPROTO_TCP);
 		
 		struct tcphdr *tcpHeader = (struct tcphdr *)(datagram + sizeof(struct ip));//makeTCP_segment(dest,seq,ack_seq,fin,syn,ack,datagram,data);
 		printf("MAke tcp segment\n" );
@@ -540,5 +535,6 @@ void tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int numbytes){
 
 
 
+	// = (struct tcphdr *)(datagram + sizeof(struct ip));
 
 

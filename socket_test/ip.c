@@ -4,7 +4,7 @@
 //TODO Penser a faire un memset de datagram dans la couche superieur, On Top
 
 //On renvoie un pointeur vers notre structure IP
-void makeIP_header(struct iphdr *ip,char *data,char datagram[4096],char *destination_ip){
+void makeIP_header(struct iphdr *ip,char *data,char datagram[4096],char *destination_ip,int protocol_id){
 	//(struct iphdr *) datagram;
 	//On alloue la memoire necessaire a l'aide d'un malloc
 	ip->ihl = 5;
@@ -20,8 +20,14 @@ void makeIP_header(struct iphdr *ip,char *data,char datagram[4096],char *destina
 	ip->frag_off = 0;
 	//Nous le laissons un Time to Live par defaut a 0
 	ip->ttl = 255;
+	if(protocol_id == IPPROTO_TCP)
+	{
 	//Le protocole de la couche superieur est TCP
-	ip->protocol = IPPROTO_TCP;
+		ip->protocol = IPPROTO_TCP;
+	}else if(protocol_id == IPPROTO_ICMP){
+		ip->protocol = IPPROTO_ICMP;
+	}
+
 	//Le checksum est calcule plus tard
 	ip->check = 0;
 	//Nous convertissons les adresses IP source et destination en network byte order
