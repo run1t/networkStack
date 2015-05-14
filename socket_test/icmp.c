@@ -22,6 +22,7 @@ void makeICMP_header(struct icmphdr *icmp,u_int8_t typeICMP,int seq_number,int i
 	icmp->un.echo.id = htons(rand());
 
 	if(typeICMP == ICMP_ECHOREPLY){
+		printf("seq: %d\n",seq_number);
 		icmp->un.echo.sequence = htons(seq_number + 1);
 		icmp->un.echo.id = id_number;
 	}else if(typeICMP == ICMP_ECHO){
@@ -38,6 +39,7 @@ void sendICMP_request(struct icmphdr *ICMP_received,int type_ICMP)
 	struct sockaddr_in sin;
 	sin.sin_family = AF_INET;
 	sin.sin_addr.s_addr = inet_addr("10.17.19.94");
+
 
 	//On ouvre un socket
 	int sd;
