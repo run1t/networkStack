@@ -69,30 +69,30 @@ unsigned short checksum(unsigned short *ptr,int nbBytes){
 
 struct tcphdr makeTCP_segment(uint16_t dest,uint32_t seq,uint32_t ack_seq,uint16_t fin,uint16_t syn,uint16_t ack, struct iphdr ip_header){
 	//Header du segment TCP, TRAITEMENT à FAIRE le faire égale à un struct tcphdr avec la taille du datagram désiré et avec la taille de IP
-	struct tcphdr tcp_segment;
+	struct tcphdr *tcp_segment;
 	struct header_tcp_checksum tcp_cs;
 	//Tableau de char pour la data que l'on souhaite
 	char *data, *fake_datagram;
 	//La source du port aue l'on convertit en network byte order
-	tcp_segment.source = htons(1337);
+	tcp_segment->source = htons(1337);
 	//Destination port
-	tcp_segment.dest = htons(dest);
-	tcp_segment.seq = seq;
-	tcp_segment.ack_seq = ack_seq;
+	tcp_segment->dest = htons(dest);
+	tcp_segment->seq = seq;
+	tcp_segment->ack_seq = ack_seq;
 	//header size
-	tcp_segment.doff = 5;
+	tcp_segment->doff = 5;
 	//Flag TCP
-	tcp_segment.fin = fin;
-	tcp_segment.syn = syn;
-	tcp_segment.rst = 0;
-	tcp_segment.psh = 0;
-	tcp_segment.ack = ack;
-	tcp_segment.urg= 0;
+	tcp_segment->fin = fin;
+	tcp_segment->syn = syn;
+	tcp_segment->rst = 0;
+	tcp_segment->psh = 0;
+	tcp_segment->ack = ack;
+	tcp_segment->urg= 0;
 	//Taille de la window, nombre d'octet que l'on souhaite recevoir 
-	tcp_segment.window = htons(4000);
+	tcp_segment->window = htons(4000);
 	//On remplit le checksum plus tard
-	tcp_segment.check = 0;
-	tcp_segment.urg_ptr = 0;
+	tcp_segment->check = 0;
+	tcp_segment->urg_ptr = 0;
 
 	//Etant donné que l'on décalle de 16bits notre checksum nous devons calculer avec les adresses IP du header ip
 	//On convertit notre adresse Ip source en adresse pour le réseau (donnée binaire)
@@ -113,9 +113,25 @@ struct tcphdr makeTCP_segment(uint16_t dest,uint32_t seq,uint32_t ack_seq,uint16
 	//On copie notre header ip partiel au début de notre datagramme fake pour calculer le checksum
 	memcpy(fake_datagram,(char*) &tcp_cs,sizeof(struct header_tcp_checksum));
 	//On rajoute le header TCP à notre pseudo header IP pour avoir un header complet, + l'espace pour la data
-	memcpy(fake_datagram + struct(header_tcp_checksum),tcp_segment,sizeof(struct tcphdr) + strlen(data));
+	memcpy(fake_datagram + sizeof(struct header_tcp_checksum),tcp_segment,sizeof(struct tcphdr) + strlen(data));
 	//On calcul notre checksum TCP
-	tcp_segment.check = checksum((unsigned short*) fake_datagram, size_datagram_cs);
+	tcp_segment->check = checksum((unsigned short*) fake_datagram, size_datagram_cs);
+	//Structure de renvoi
+	struct tcphdr tcph;
+	tcph.dest = tcp_segment->dest;
+	tcph.source = tcp_segment->source;
+	tcph.seq = tcp_segment->seq;
+	tcph.ack_seq = tcp_segment->ack_seq;
+	tcph.doff = tcp_segment->doff;
+	tcph.fin = tcp_segment->fin;
+	tcph.syn = tcp_segment->syn;
+	tcph.rst = tcp_segment->rst;
+	tcph.psh = tcp_segment->psh;
+	tcph.ack = tcp_segment->ack;
+	tcph.urg = tcp_segment->urg;
+	tcph.window = tcp_segment->window;
+	tcph.check = tcp_segment->check;
+	tcph.urg_ptr = tcp_segment->urg_ptr;
 
-	return tcp_segment;
+	return tcph;
 }

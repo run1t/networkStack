@@ -1,8 +1,11 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <string.h>
+//Pour avoir accès à malloc
+#include <stdlib.h>
 
 #include <sys/types.h>
+//Pour avoir accès à ioctl qui donne accès aux informations du kernel
 #include <sys/ioctl.h>
 #include <net/if.h>
 #include <arpa/inet.h>
@@ -10,7 +13,8 @@
 #include <netinet/in.h>
 //Structure du header TCP
 #include <netinet/tcp.h>
-
+//Structure header IP
+#include <netinet/ip.h>
 //12 octets header nécessaire pour le calcul du checksum
 struct header_tcp_checksum
 {
