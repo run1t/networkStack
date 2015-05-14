@@ -67,8 +67,12 @@ unsigned short checksum(unsigned short *ptr,int nbBytes){
 	return(answer);
 }
 
-struct tcphdr makeTCP_segment(uint16_t dest,uint32_t seq,uint32_t ack_seq,uint16_t fin,uint16_t syn,uint16_t ack){
+struct tcphdr makeTCP_segment(uint16_t dest,uint32_t seq,uint32_t ack_seq,uint16_t fin,uint16_t syn,uint16_t ack, struct iphdr ip_header){
+	//Header du segment TCP, TRAITEMENT à FAIRE le faire égale à un struct tcphdr avec la taille du datagram désiré et avec la taille de IP
 	struct tcphdr tcp_segment;
+	struct header_tcp_checksum tcp_cs;
+	//Tableau de char pour la data que l'on souhaite
+	char *data, *fake_datagram;
 	//La source du port aue l'on convertit en network byte order
 	tcp_segment.source = htons(1337);
 	//Destination port
@@ -89,6 +93,29 @@ struct tcphdr makeTCP_segment(uint16_t dest,uint32_t seq,uint32_t ack_seq,uint16
 	//On remplit le checksum plus tard
 	tcp_segment.check = 0;
 	tcp_segment.urg_ptr = 0;
+
+	//Etant donné que l'on décalle de 16bits notre checksum nous devons calculer avec les adresses IP du header ip
+	//On convertit notre adresse Ip source en adresse pour le réseau (donnée binaire)
+	//BUG a régler ne prend pas normalement les adresses de broadcast 
+	tcp_cs.address_source = inet_addr(inet_ntoa(getIp("eth0")));
+	//adresse rentrée en brut ici PENSER à changer en passant l'adresse IP de destination enparamètre
+	tcp_cs.address_destination = inet_addr("192.168.0.1");
+	//On calcule la taille du header plus la taille de la Data toujours de host-byte vers network-byte		
+	tcp_cs.tcp_length = htons(sizeof(struct tcphdr) + strlen(data));
+	tcp_cs.placeholder = 0;
+	//Constante de numéro de protocole ici égal à 6
+	tcp_cs.protocol = IPPROTO_IP;
 	
+	//On donne la taille du datagram complet avec tout les éléments nécessaire
+	int size_datagram_cs = sizeof(struct header_tcp_checksum) + sizeof(struct tcphdr) + strlen(data);
+	//on allloue la mémoire nécessaire à notre datagramme, afin de pouvoir réaliser un memcpy à cet emplacement mémoire
+	fake_datagram = malloc(size_datagram_cs);
+	//On copie notre header ip partiel au début de notre datagramme fake pour calculer le checksum
+	memcpy(fake_datagram,(char*) &tcp_cs,sizeof(struct header_tcp_checksum));
+	//On rajoute le header TCP à notre pseudo header IP pour avoir un header complet, + l'espace pour la data
+	memcpy(fake_datagram + struct(header_tcp_checksum),tcp_segment,sizeof(struct tcphdr) + strlen(data));
+	//On calcul notre checksum TCP
+	tcp_segment.check = checksum((unsigned short*) fake_datagram, size_datagram_cs);
+
 	return tcp_segment;
 }
