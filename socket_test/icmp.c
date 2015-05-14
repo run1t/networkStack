@@ -5,16 +5,17 @@
 void makeICMP_header(struct icmphdr *icmp,u_int8_t typeICMP)
 {
 
+
 	char *fake_datagram;
 	//On remplit le paquet
 	icmp->type = typeICMP;
-	icmp->code = 0;
+	icmp->code = 8;
 	//On met le checksum à 0 avant de le calculer
 	icmp->checksum = 0;
 	//Valeur au hasard permettant de distinguer différent paquet ICMP
-	icmp->un.echo.id = 0;
+	icmp->un.echo.id = htons(rand());
 	//On met la séquence à 0
-	icmp->un.echo.sequence = 0;
+	icmp->un.echo.sequence = htons(1);
 
 	//On calcule le checksum
 	icmp->checksum = checksum((unsigned short*)icmp, sizeof(struct icmphdr));
@@ -23,47 +24,51 @@ void makeICMP_header(struct icmphdr *icmp,u_int8_t typeICMP)
 void sendICMP_request()
 {
 	//Le file descriptor de notre socket, ainsi que pour le setsockopt
-	int sockfd,value = 1;
-	//Valeur choisie par l'OS pour avour avoir une taille optimale de buffer
-	uint8_t buf[BUFSIZ];
+	//struct pour le socket
+	struct sockaddr_in sin;
+	sin.sin_family = AF_INET;
+	sin.sin_addr.s_addr = inet_addr("10.17.18.62");
 
-	struct sockaddr_in socket_connection;
-	char *data;
-	//Notre buffer pour notre datagram
-	char datagram[4096];
+	//On ouvre un socket
+	int sd = socket(AF_INET,SOCK_RAW,IPPROTO_TCP);
+		
+	//datagram a envoyer, et la data associe
+	char datagram[4096],*data,*destination_ip;
 
-	//notre header IP
-	struct iphdr *IPheader = (struct iphdr *)datagram;
+	//Ip destination
+	destination_ip = "10.17.18.62";
+
+	//on nettoie l'emplacement memoire du datagram
+	memset(&datagram,0,4096);
+
+	//On dit a data d'inserer son message a la fin du paquet d
+	data = datagram + sizeof(struct iphdr) + sizeof(struct tcphdr);
+	strcpy(data,"");
+
+	//On crée notre structure ip Header
+	struct iphdr *ip_header = (struct iphdr *)datagram;
+	makeIP_header(ip_header,data,datagram,destination_ip,IPPROTO_ICMP);
+
+
+	
 	//Notre header ICMP
-	struct icmphdr *ICMPheader = (struct icmphdr *)(datagram +sizeof(struct iphdr));
+	struct icmphdr *ICMPheader = (struct icmphdr *)(data + sizeof(struct ip));
+	makeICMP_header(ICMPheader,ICMP_ECHO);
 
 
-	//On alloue de la memoire a notre datagram(paquet)
-	data = malloc(sizeof(struct iphdr)+sizeof(struct icmphdr));
-	//On set les paramètres de notre socket
-	socket_connection.sin_family = AF_INET;
-	//On set l'adresse source de notre socket avec la fonction getIp
-	socket_connection.sin_addr.s_addr = inet_addr(inet_ntoa(getIp("eth0")));
-
+	
 	//On ouvre le socket
-	if((sockfd = socket(AF_INET,SOCK_RAW,IPPROTO_ICMP)) == -1){
+	if((sd = socket(AF_INET,SOCK_RAW,IPPROTO_ICMP)) == -1){
 		perror("Could not load ICMP socket!");
 	}
 
-	//On precise au kernel que nous allons fournir notre header IP
-	if(setsockopt(sockfd,IPPROTO_IP,IP_HDRINCL,&value,sizeof(int))){
-		perror("Could not load Custom IPHEADER!");
-	}
-
-	//On fait notre header IP
-	char *destination_ip = "192.168.122.1";
-	makeIP_header(IPheader,data,datagram,destination_ip,IPPROTO_ICMP);
-	makeICMP_header(ICMPheader,ICMP_ECHO);
-	
-
 	int i = 4;
 	while(i > 0){
-	sendto(sockfd,data,IPheader->tot_len,0,(struct sockaddr *)&socket_connection, sizeof(struct sockaddr));
+	if(sendto(sd,data,ip_header->tot_len,0,(struct sockaddr *)&sin, sizeof(struct sockaddr)) < 0){
+		printf("fail\n");
+	}else{
+		printf(" ok\n");
+	}
 	printf("Sending ICMP\n");
 	sleep(2);
 	}
