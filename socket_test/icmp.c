@@ -6,7 +6,7 @@
 /**
 * \file icmp.c
 * \brief Fichier d'envoie de de packet ICMP 
-* \author Thomas Viaud
+* \author Thomas Viaud,Reunan Le noc
 * Fichier qui permet l'envoie de packet ICMP pour réaliser un ping sur la machine 
 */
 
@@ -37,7 +37,7 @@ void sendICMP_request(struct icmphdr *ICMP_received,int type_ICMP)
 	//struct pour le socket
 	struct sockaddr_in sin;
 	sin.sin_family = AF_INET;
-	sin.sin_addr.s_addr = inet_addr("10.17.19.135");
+	sin.sin_addr.s_addr = inet_addr("10.17.19.94");
 
 	//On ouvre un socket
 	int sd;
@@ -46,7 +46,7 @@ void sendICMP_request(struct icmphdr *ICMP_received,int type_ICMP)
 	char datagram[4096],*data,*destination_ip;
 
 	//Ip destination
-	destination_ip = "10.17.19.135";
+	destination_ip = "10.17.19.94";
 
 	//on nettoie l'emplacement memoire du datagram
 	memset(&datagram,0,4096);
