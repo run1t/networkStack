@@ -1,1 +1,1 @@
-struct iphdr makeIP_header(char *data,char *destination_ip);
+struct iphdr *makeIP_header(char *data,char datagram[4096],char *destination_ip);

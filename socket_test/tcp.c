@@ -33,6 +33,7 @@ struct in_addr  getIp(char* interface){
 	//On demande au kernel l'adresse IP, et il nous remplit la structure ifr
 	ioctl(sockfd,SIOCGIFADDR,&ifr);
 
+	close(sockfd);
 	//inet_ntoa sert à transformer une addresse en byte en texte readable, on lui passe l'addresse de notre adresse ipV4, mais on cast par sockaddr_in pour avoir accès à sin_addr
 	return ((struct sockaddr_in * )&ifr.ifr_addr)->sin_addr;
 }
