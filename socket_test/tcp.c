@@ -68,12 +68,15 @@ unsigned short checksum(unsigned short *ptr,int nbBytes){
 	return(answer);
 }
 
-struct tcphdr makeTCP_segment(uint16_t dest,uint32_t seq,uint32_t ack_seq,uint16_t fin,uint16_t syn,uint16_t ack, struct iphdr ip_header){
+struct tcphdr *makeTCP_segment(uint16_t dest,uint32_t seq,uint32_t ack_seq,uint16_t fin,uint16_t syn,uint16_t ack, char datagram[4096],char *data){
 	//Header du segment TCP, TRAITEMENT à FAIRE le faire égale à un struct tcphdr avec la taille du datagram désiré et avec la taille de IP
-	struct tcphdr *tcp_segment;
+	struct tcphdr *tcp_segment = (struct tcphdr *)(datagram + sizeof(struct ip));
+	//On alloue l'emplacement memoire necessaire
+	tcp_segment = malloc(sizeof(datagram)+sizeof(struct ip));
+
 	struct header_tcp_checksum tcp_cs;
 	//Tableau de char pour la data que l'on souhaite
-	char *data, *fake_datagram;
+	char *fake_datagram;
 	//La source du port aue l'on convertit en network byte order
 	tcp_segment->source = htons(1337);
 	//Destination port
@@ -117,23 +120,8 @@ struct tcphdr makeTCP_segment(uint16_t dest,uint32_t seq,uint32_t ack_seq,uint16
 	memcpy(fake_datagram + sizeof(struct header_tcp_checksum),tcp_segment,sizeof(struct tcphdr) + strlen(data));
 	//On calcul notre checksum TCP
 	tcp_segment->check = checksum((unsigned short*) fake_datagram, size_datagram_cs);
-	//Structure de renvoi
-	struct tcphdr tcph;
-	tcph.dest = tcp_segment->dest;
-	tcph.source = tcp_segment->source;
-	tcph.seq = tcp_segment->seq;
-	tcph.ack_seq = tcp_segment->ack_seq;
-	tcph.doff = tcp_segment->doff;
-	tcph.fin = tcp_segment->fin;
-	tcph.syn = tcp_segment->syn;
-	tcph.rst = tcp_segment->rst;
-	tcph.psh = tcp_segment->psh;
-	tcph.ack = tcp_segment->ack;
-	tcph.urg = tcp_segment->urg;
-	tcph.window = tcp_segment->window;
-	tcph.check = tcp_segment->check;
-	tcph.urg_ptr = tcp_segment->urg_ptr;
-	return tcph;
+
+	return tcp_segment;
 }
 void print_tcp_header(unsigned char* Buffer, int Size){
 	unsigned short iphdrlen;

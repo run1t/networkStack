@@ -1,12 +1,13 @@
 #include "tcp.h"
 #include "ip.h"
 
+//TODO Penser a faire un memset de datagram dans la couche superieur, On Top
+
+//On renvoie un pointeur vers notre structure IP
 struct iphdr *makeIP_header(char *data,char datagram[4096],char *destination_ip){
-	struct iphdr *ip_header;
+	struct iphdr *ip_header = (struct iphdr *) datagram;
 	//On alloue la memoire necessaire a l'aide d'un malloc
 	ip_header = malloc(sizeof(struct iphdr));
-	//On nettoie notre tableau en le remplissant de zero
-	memset(datagram,0,4096);
 
 	ip_header->ihl = 5;
 	//Nous sommes en IPv4
@@ -35,7 +36,7 @@ struct iphdr *makeIP_header(char *data,char datagram[4096],char *destination_ip)
 	return ip_header;
 }
 
-int sendPacket(struct iphdr *ip_header,struct tcphdr *tcp_header){
+int sendPacket(){
 	//struct pour le socket
 	struct sockaddr_in sin;
 
@@ -52,13 +53,25 @@ int sendPacket(struct iphdr *ip_header,struct tcphdr *tcp_header){
 	}
 
 	//datagram a envoyer, et la data associe
-	char datagram[4096],*data;
+	char datagram[4096],*data,*destination_ip;
+
+	destination_ip = "1.2.3.4";
 	//on nettoie l'emplacement memoire du datagram
 	memset(datagram,0,4096);
 
 	//On dit a data d'inserer son message a la fin du paquet
 	data = datagram + sizeof(struct iphdr) + sizeof(struct tcphdr);
 	strcpy(data,"hello World");
+
+	uint16_t dest = 80;
+	uint32_t seq = 0;
+	uint32_t ack_seq = 0;
+	uint16_t fin = 0;
+	uint16_t syn = 1;
+	uint16_t ack = 0;
+
+	struct iphdr *ipHeader = makeIP_header(data,datagram,destination_ip);
+	struct tcphdr *tcpHeader = makeTCP_segment(dest,seq,ack_seq,fin,syn,ack,datagram,data);
 
 	int one = 1;
 	const int *val = &one;
@@ -74,13 +87,13 @@ int sendPacket(struct iphdr *ip_header,struct tcphdr *tcp_header){
 	while(1)
 	{
 		//On envoie le datagram en passant le buffer datagram, ainsi que l'adresse de destination contenue dans la structure sockaddr
-		if(sendto(sd,datagram,ip_header->tot_len,0,(struct sockaddr *) &sin,sizeof(sin))<0)
+		if(sendto(sd,datagram,ipHeader->tot_len,0,(struct sockaddr *) &sin,sizeof(sin))<0)
 		{
 			perror("Sending packet failed");
 		}
 		else
 		{
-			printf("Packet sent succesfully");
+			printf("Packet sent succesfully ");
 		}
 	}
 	return 0;
