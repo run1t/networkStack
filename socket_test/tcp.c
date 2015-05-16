@@ -28,7 +28,7 @@ struct in_addr  getIp(char* interface){
 		//Si il y a une erreur on la renvoie
 		perror("Error Socket");
 	}
-	printf("%d\n",sockfd);
+//	printf("%d\n",sockfd);
 	
 	//On demande au kernel l'adresse IP, et il nous remplit la structure ifr
 	ioctl(sockfd,SIOCGIFADDR,&ifr);
@@ -70,7 +70,7 @@ unsigned short checksum(unsigned short *ptr,int nbBytes){
 
 struct tcphdr *makeTCP_segment(uint16_t dest,uint32_t seq,uint32_t ack_seq,uint16_t fin,uint16_t syn,uint16_t ack, char datagram[4096],char *data){
 	//Header du segment TCP, TRAITEMENT à FAIRE le faire égale à un struct tcphdr avec la taille du datagram désiré et avec la taille de IP
-	struct tcphdr *tcp_segment = (struct tcphdr *)(datagram + sizeof(struct ip));
+	struct tcphdr *tcp_segment;// = (struct tcphdr *)(datagram + sizeof(struct ip));
 	//On alloue l'emplacement memoire necessaire
 	tcp_segment = malloc(sizeof(datagram)+sizeof(struct ip));
 

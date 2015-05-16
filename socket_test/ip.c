@@ -5,7 +5,7 @@
 
 //On renvoie un pointeur vers notre structure IP
 struct iphdr *makeIP_header(char *data,char datagram[4096],char *destination_ip){
-	struct iphdr *ip_header = (struct iphdr *) datagram;
+	struct iphdr *ip_header; //(struct iphdr *) datagram;
 	//On alloue la memoire necessaire a l'aide d'un malloc
 	ip_header = malloc(sizeof(struct iphdr));
 
@@ -57,27 +57,32 @@ int sendPacket(){
 
 	destination_ip = "1.2.3.4";
 	//on nettoie l'emplacement memoire du datagram
-	memset(datagram,0,4096);
+	memset(&datagram,0,4096);
 
 	//On dit a data d'inserer son message a la fin du paquet
 	data = datagram + sizeof(struct iphdr) + sizeof(struct tcphdr);
 	strcpy(data,"hello World");
 
 	uint16_t dest = 80;
-	uint32_t seq = 0;
+	uint32_t seq = 666;
 	uint32_t ack_seq = 0;
 	uint16_t fin = 0;
 	uint16_t syn = 1;
 	uint16_t ack = 0;
 
-	struct iphdr *ipHeader = makeIP_header(data,datagram,destination_ip);
-	struct tcphdr *tcpHeader = makeTCP_segment(dest,seq,ack_seq,fin,syn,ack,datagram,data);
+	struct iphdr *ipHeader = (struct iphdr *)datagram;//makeIP_header(data,datagram,destination_ip);
+	ipHeader = makeIP_header(data,datagram,destination_ip);
 
+	struct tcphdr *tcpHeader = (struct tcphdr *)(datagram + sizeof(struct ip));//makeTCP_segment(dest,seq,ack_seq,fin,syn,ack,datagram,data);
+	tcpHeader = makeTCP_segment(dest,seq,ack_seq,fin,syn,ack,datagram,data);
+	
+	printf("seq:%u\n",ipHeader->ttl);
 	int one = 1;
 	const int *val = &one;
 	
 	//On met une option sur le socket pour signaler que l'on fournit les header IP et TCP
 	//Premierement on passe le fileDescriptor,puis le niveau de l'option, et l'option a effectue
+	
 	if(setsockopt(sd,IPPROTO_IP,IP_HDRINCL,val,sizeof(one)) < 0)
 	{
 		perror("error in setting options to the socket");
