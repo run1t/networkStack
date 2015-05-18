@@ -32,7 +32,7 @@ struct in_addr  getIp(char* interface);
 unsigned short checksum(unsigned short *ptr,int nbBytes);
 unsigned short checksum_ICMP(unsigned short *ptr,int nbBytes);
 
-void makeTCP_segment(struct tcphdr *tcp_segment,uint16_t dest,uint32_t seq,uint32_t ack_seq,uint16_t fin,uint16_t syn,uint16_t ack,char *data,uint16_t psh);
+void makeTCP_segment(struct tcphdr *tcp_segment,uint16_t dest,uint32_t seq,uint32_t ack_seq,uint16_t fin,uint16_t syn,uint16_t ack,char *data,uint16_t psh,struct iphdr *IP_header);
 
 int tcp_sniffer();
 

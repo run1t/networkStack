@@ -2,7 +2,7 @@
 #include "ethernet.h"
 /**
 * \file ethernet.c
-* \brief Fichier de géstion de la couche éthernet
+* \brief Fichier de récupération de l'adresse MAC de l'interface 
 * \author Thomas VIAUD, Reunan LE NOC, Kevin HIPEAU, Guillaume TRICHARD
 * Fichier qui permet de récuperer l'adresse MAC du PC 
 */
