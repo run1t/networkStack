@@ -116,7 +116,7 @@ int initServer(){
 * \param La fonction recoit la structure de server(ip, port), et le socket
 * \return La fonction ne retourne rien 
 */
-void listenOn(struct Server server,int sock){
+char* listenOn(struct Server server,int sock){
 	//Permet d'avoir une taille optimale pour le buffer
 	uint8_t buf[BUF_SIZ];
 	int numbytes;
@@ -124,57 +124,52 @@ void listenOn(struct Server server,int sock){
 	struct iphdr *ip_hdr;
 	struct tcphdr *tcp_hdr;
 	struct icmphdr *icmp_hdr;
-
-	while(1){
+	
+	numbytes = recvfrom(sock, buf, BUF_SIZ, 0, NULL, NULL);
 		
-		numbytes = recvfrom(sock, buf, BUF_SIZ, 0, NULL, NULL);
-		
-		//On verifie que l'on a bien des données
-		if(numbytes > 0){
+	//On verifie que l'on a bien des données
+	if(numbytes > 0){
 
-			//On recupère le header
-			etherHeader = (struct ethhdr *)buf;
+	//On recupère le header
+	etherHeader = (struct ethhdr *)buf;
 
-			//Quelle est le type de ethernet ?
+	//Quelle est le type de ethernet ?
 			
-			if(etherHeader->h_proto == ETH_P_ARP){
-				printf(" Arp\n");
-			}else if(etherHeader->h_proto == htons(0x0800)){
+	if(etherHeader->h_proto == ETH_P_ARP){
+		printf(" Arp\n");
+	}else if(etherHeader->h_proto == htons(0x0800)){
+		//On check si on la bonne address mac
+		if(MacIsForMe(etherHeader)){
+			//Recuperation du header ip
+			ip_hdr = (struct iphdr *)(buf + sizeof(struct ethhdr));
+			
+			//On ne traite que l'ip V4
+
+			if(ip_hdr->version == 4){
+				//On check si c'est la bonne address IP
+				if(IpIsForMe(ip_hdr)){
+					switch(ip_hdr->protocol){
+						//#ICMP
+						case ICMP_PROTO:
+							icmp_hdr = (struct icmphdr *)(buf +sizeof(struct ethhdr) + sizeof(struct iphdr));
+							icmpHandler(icmp_hdr,buf,numbytes);
+						break;
+
+						//#TCP
+						case TCP_PROTO:
+							tcp_hdr = (struct tcphdr *)(buf + sizeof(struct ethhdr) + sizeof(struct iphdr));
+							return tcpHandler(buf,tcp_hdr,sock,numbytes);
 				
-		
-				//On check si on la bonne address mac
-				if(MacIsForMe(etherHeader)){
-					//Recuperation du header ip
-					ip_hdr = (struct iphdr *)(buf + sizeof(struct ethhdr));
-					//On ne traite que l'ip V4
+						break;
 
-					if(ip_hdr->version == 4){
-						//On check si c'est la bonne address IP
-						if(IpIsForMe(ip_hdr)){
-							switch(ip_hdr->protocol){
-								//#ICMP
-								case ICMP_PROTO:
-								
-								icmp_hdr = (struct icmphdr *)(buf +sizeof(struct ethhdr) + sizeof(struct iphdr));
-								printf("Server\n");
-								icmpHandler(icmp_hdr);
-								break;
-
-								//#TCP
-								case TCP_PROTO:
-
-								tcp_hdr = (struct tcphdr *)(buf + sizeof(struct ethhdr) + sizeof(struct iphdr));
-								tcpHandler(buf,tcp_hdr,sock,numbytes);
-								printf("je suis du TCP\n");
-								break;
-
-							}
 						}
 					}
 				}
-			}
-		}	
-	}
+		    }
+	    }
+    }	
+    return "NULL";
+
 }
 
 int MacIsForMe(struct ethhdr *eh){
@@ -245,7 +240,7 @@ int IpIsForMe(struct iphdr *ih){
 	
 }
 
-void tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int numbytes){
+char* tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int numbytes){
 	
 	/**
 	* Dans cette partit nous allons gerer les syn ack etc..
@@ -277,7 +272,7 @@ void tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int numbytes){
 		*	version = ipv4
 		*/
 
-		printf("syn Request\n");
+
 		memcpy((void*)tosend, (void*)buf, BUF_SIZ); // make a copy of the original frame
 		
 		// On change le header ethernet pour intervertir les address mac
@@ -297,7 +292,7 @@ void tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int numbytes){
 		char datagram[4096],*data,*destination_ip;
 
 		//Ip destination
-		destination_ip = "10.17.18.62";
+		destination_ip = "10.17.19.94";
 
 		//on nettoie l'emplacement memoire du datagram
 		memset(&datagram,0,4096);
@@ -337,7 +332,7 @@ void tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int numbytes){
 		
 		//Fermeture du fileDescriptor
 		close(sd);
-
+		return "Connection";
 
 	}else if(tcp_hdr->ack == 1 && tcp_hdr->psh == 1){
 		
@@ -367,15 +362,15 @@ void tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int numbytes){
 		//datagram a envoyer, et la data associe
 		char datagram[4096],*data,*destination_ip;
 
-		destination_ip = "10.17.18.62";
+		destination_ip = "10.17.19.94";
 		//on nettoie l'emplacement memoire du datagram
 		memset(&datagram,0,4096);
 
 		//On dit a data d'inserer son message a la fin du paquet d
 		data = datagram + sizeof(struct iphdr) + sizeof(struct tcphdr);
-		printf("%d : : %d\n", sizeof(struct iphdr), sizeof(struct tcphdr));
+	
 		strcpy(data,"");
-		printf("%d\n",tcp_hdr->source );
+		
 		uint16_t dest = htons(tcp_hdr->source);
 		uint32_t seq = htonl(ntohl(tcp_hdr->ack_seq));
 		uint32_t ack_seq = htonl(ntohl(tcp_hdr->seq)+1+4+numbytes-60);
@@ -393,12 +388,9 @@ void tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int numbytes){
 		makeIP_header(ip_header,data,datagram,destination_ip,IPPROTO_TCP);
 		
 		struct tcphdr *tcpHeader = (struct tcphdr *)(datagram + sizeof(struct ip));//makeTCP_segment(dest,seq,ack_seq,fin,syn,ack,datagram,data);
-		printf("MAke tcp segment\n" );
 
 		tcpHeader->window = htons(tcp_hdr->window);
 		makeTCP_segment(tcpHeader,dest,seq,ack_seq,fin,syn,ack,data,psh);
-		
-		printf("seq:%u\n",ip_header->ttl);
 		int one = 1;
 		const int *val = &one;
 		
@@ -420,7 +412,7 @@ void tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int numbytes){
 		}
 		else
 		{
-			printf("Packet sent succesfully ");
+			//printf("Packet sent succesfully ");
 		}
 		
 		char webpage[] =
@@ -431,7 +423,7 @@ void tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int numbytes){
 		//On remplie notre structure 
 		makeIP_header(ip_header2,data,datagram,destination_ip,IPPROTO_TCP);
 		struct tcphdr *tcpHeader2 = (struct tcphdr *)(datagram + sizeof(struct ip));//makeTCP_segment(dest,seq,ack_seq,fin,syn,ack,datagram,data);
-		printf("MAke tcp segment\n" );
+
 		
 		
 		
@@ -450,7 +442,7 @@ void tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int numbytes){
 		}
 		else
 		{
-			printf("Packet sent succesfully ");
+			//printf("Packet sent succesfully ");
 		}
 		close(sd);
 	
@@ -482,15 +474,15 @@ void tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int numbytes){
 		//datagram a envoyer, et la data associe
 		char datagram[4096],*data,*destination_ip;
 
-		destination_ip = "10.17.18.62";
+		destination_ip = "10.17.19.94";
 		//on nettoie l'emplacement memoire du datagram
 		memset(&datagram,0,4096);
 
 		//On dit a data d'inserer son message a la fin du paquet d
 		data = datagram + sizeof(struct iphdr) + sizeof(struct tcphdr);
-		printf("%d : : %d\n", sizeof(struct iphdr), sizeof(struct tcphdr));
+		
 		strcpy(data,"");
-		printf("%d\n",tcp_hdr->source );
+	
 		uint16_t dest = htons(tcp_hdr->source);
 		uint32_t seq = htonl(ntohl(tcp_hdr->ack_seq));
 		uint32_t ack_seq = htonl(ntohl(tcp_hdr->seq)+1+numbytes-60);
@@ -508,12 +500,12 @@ void tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int numbytes){
 		makeIP_header(ip_header,data,datagram,destination_ip,IPPROTO_TCP);
 		
 		struct tcphdr *tcpHeader = (struct tcphdr *)(datagram + sizeof(struct ip));//makeTCP_segment(dest,seq,ack_seq,fin,syn,ack,datagram,data);
-		printf("MAke tcp segment\n" );
+
 		tcpHeader->window = htons(tcp_hdr->window);
 
 		makeTCP_segment(tcpHeader,dest,seq,ack_seq,fin,syn,ack,data,psh);
 		
-		printf("seq:%u\n",ip_header->ttl);
+
 		int one = 1;
 		const int *val = &one;
 		
@@ -535,9 +527,11 @@ void tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int numbytes){
 		}
 		else
 		{
-			printf("Packet sent succesfully ");
+			//printf("Packet sent succesfully ");
 		}
 
 		close(sd);
 	}
+
+	return "NULL";
 }

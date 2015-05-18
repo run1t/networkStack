@@ -23,8 +23,8 @@ struct Server{
 };
 
 struct Server createServer(char* ip,int port);
-void listenOn(struct Server,int socket);
+char* listenOn(struct Server,int socket);
 int initServer();
-void tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int numbytes);
+char* tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int numbytes);
 int MacIsForMe(struct ethhdr *eh);
 int IpIsForMe(struct iphdr *ih);

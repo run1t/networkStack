@@ -34,8 +34,6 @@ void makeIP_header(struct iphdr *ip,char *data,char datagram[4096],char *destina
 	ip->saddr = inet_addr(inet_ntoa(getIp("eth0")));
 	ip->daddr = inet_addr(destination_ip);
 
-	printf("%s\n", inet_ntoa(getIp("eth0")));
-	printf("%s\n", destination_ip);
 
 	//Nous calculons le checksum IP
 	ip->check = checksum((unsigned short *) datagram, ip->tot_len);

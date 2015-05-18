@@ -32,7 +32,7 @@ void makeICMP_header(struct icmphdr *icmp,u_int8_t typeICMP,int seq_number,int i
 	icmp->checksum = checksum_ICMP((unsigned short*)icmp, sizeof(struct icmphdr));
 }
 
-void sendICMP_request(struct icmphdr *ICMP_received,int type_ICMP)
+void sendICMP_request(struct icmphdr *ICMP_received,int type_ICMP,uint8_t buf[],int numbytes)
 {
 	//Le file descriptor de notre socket, ainsi que pour le setsockopt
 	//struct pour le socket
@@ -85,7 +85,7 @@ void sendICMP_request(struct icmphdr *ICMP_received,int type_ICMP)
 	}
 }
 
-void icmpHandler(struct icmphdr *icmpHeader)
+void icmpHandler(struct icmphdr *icmpHeader,uint8_t buf[],int numbytes)
 {
 	//Si c'est un echo alors on désactive la réponse du kernel aux échos
 	if(icmpHeader->type == ICMP_ECHO)
@@ -104,7 +104,7 @@ void icmpHandler(struct icmphdr *icmpHeader)
 			perror("Error writing to file\n");
 		}
 		else if(nbByteWrite > 0){
-			sendICMP_request(icmpHeader,ICMP_ECHOREPLY);
+			sendICMP_request(icmpHeader,ICMP_ECHOREPLY,buf,numbytes);
 			printf("Succes writing to file\n");
 			int closeSuccess = close(fdProc);
 			if(closeSuccess == 0){

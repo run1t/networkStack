@@ -135,7 +135,7 @@ void makeTCP_segment(struct tcphdr *tcp_segment,uint16_t dest,uint32_t seq,uint3
 	//BUG a régler ne prend pas normalement les adresses de broadcast 
 	tcp_cs.address_source = inet_addr(inet_ntoa(getIp("eth0")));
 	//adresse rentrée en brut ici PENSER à changer en passant l'adresse IP de destination enparamètre
-	tcp_cs.address_destination = inet_addr("10.17.18.62");
+	tcp_cs.address_destination = inet_addr("10.17.19.94");
 	//On calcule la taille du header plus la taille de la Data toujours de host-byte vers network-byte		
 	tcp_cs.tcp_length = htons(sizeof(struct tcphdr) + strlen(data));
 	tcp_cs.placeholder = 0;

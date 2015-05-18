@@ -28,10 +28,21 @@ int main(int argc, char *argv[])
 	int sock;
 	struct Server server  = createServer("192.168.1.2",80);
 	sock = initServer();
-	listenOn(server,sock);
-	//struct icmphdr icmp;
-	//sendICMP_request(icmp,ICMP_ECHO);	
+	
 
+	while(1){
+		char* ok = listenOn(server,sock);
+		if(strcmp (ok,"NULL") != 0){
+
+			if(strcmp(ok,"Connection") == 0){
+				printf("New user connected\n");
+			}
+
+
+			
+		}
+		
+	}
 
 	return 0;
 }
