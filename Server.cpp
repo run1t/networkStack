@@ -8,6 +8,20 @@
 //
 
 #include "Server.h"
+vector<string> split(string str, char delimiter) {
+  vector<string> internal;
+  stringstream ss(str); // Turn the string into a stream.
+  string tok;
+  
+  while(getline(ss, tok, delimiter)) {
+    internal.push_back(tok);
+  }
+  
+  return internal;
+}
+/**
+* Gestion de la stack IP
+*/
 
 void Stack(void* args){
  	Server *s = static_cast<Server*>(args);
@@ -18,11 +32,25 @@ void Stack(void* args){
     while (1) {
         
 		char* ok = listenOn(server,sock);
-		
+		vector<string> sep = split(ok, ':');
+  		string commande(ok);
 		if(strcmp (ok,"NULL") != 0){
 
 			if(strcmp(ok,"Connection") == 0){
-				s->onClient(2,4);
+				Client newClient = *new Client(124,80,"192.168.1.2");
+				if(s->onClient != NULL)
+					s->onClient(newClient);
+				s->addClient(newClient);
+			}
+
+			else if(sep.at(0).compare("Data") == 0){
+				if(s->onData != NULL)
+					s->onData(sep.at(1),*new Client(21,80,"123.2.3.4."));
+			}
+
+			else if(strcmp(ok,"close") == 0){
+				if(s->onLeave != NULL)
+					s->onLeave(*new Client(21,80,"123.2.3.4."));
 			}
 		}
 		
@@ -35,9 +63,58 @@ Server::Server(){
     
 }
 
-void Server::on(string event, function<void (int, int)> func){
-        this->onClient = func;
+
+/**
+* Gestion des evenements qui sorte 
+* de notre pile
+*/
+
+
+void Server::addEventClient (function<void(Client)> func){
+	this->onClient = func;
 }
+
+void Server::addEventData   (function<void(string,Client)> func){
+	this->onData = func;
+}
+
+void Server::addEventLeave  (function<void(Client)> func){
+	this->onLeave = func;
+}
+
+void Server::addEventPing   (function<void(string)> func){
+	this->onPing = func;
+}
+
+void Server::addEventARP    (function<void(string)> func){
+	this->onARP = func;
+}
+
+/**
+* Gestion de l'envoi des données
+*/
+
+//Envoi des données
+void Server::send (string message,Client client){
+
+}
+
+/*
+* Gestion de la pile utilsateur
+*/
+void Server::addClient(Client client){
+
+}
+
+
+void Server::removeClient(Client client){
+
+}
+
+Client Server::getClient(int id){
+
+}
+
 
 void Server::listen(){
 	unsigned short *ok;

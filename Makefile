@@ -11,7 +11,8 @@ OBJECTC = socket_test/tcp.o socket_test/ip.o socket_test/ethernet.o socket_test/
 
 CXXSOURCES = \
     main.cpp \
-	Server.cpp 
+	Server.cpp \
+	Client.cpp
 
 all: server
 

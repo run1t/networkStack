@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
 	* permanence sur un certain port.
 	*/ 	
 	int sock;
-	struct Server server  = createServer("192.168.1.2",80);
+	struct Servers server  = createServer("192.168.1.2",80);
 	sock = initServer();
 	
 
@@ -37,8 +37,6 @@ int main(int argc, char *argv[])
 			if(strcmp(ok,"Connection") == 0){
 				printf("New user connected\n");
 			}
-
-
 			
 		}
 		

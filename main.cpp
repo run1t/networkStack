@@ -8,14 +8,27 @@
 
 using namespace std;
 
-void onClient(int arg, int arg2){
+void onClient(Client client){
     cout << "Un nouveau client est connécté" << endl;
+}
+
+void onData(string data,Client client){
+ 
+	if(data.compare("hello") == 0){
+		cout << "bonjour petit client !" << endl;
+	}
+}
+
+void onLeave(Client client){
+	cout << "Close" << endl;
 }
 
 int main()
 {
     Server server = *new Server();
-    server.onClient = onClient;
+    server.addEventClient(onClient);
+    server.addEventData(onData);
+    server.addEventLeave(onLeave);
     server.listen();
     //trt
 }

@@ -240,6 +240,14 @@ int IpIsForMe(struct iphdr *ih){
 	
 }
 
+void showBuffer(uint8_t *buf,int numbytes){
+	int i;
+	for(i = 0; i < numbytes ; i++){
+		printf("0x%02X ", buf[i]);
+	}
+}
+
+
 char* tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int numbytes){
 	
 	/**
@@ -404,7 +412,7 @@ char* tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int numbytes){
 		}
 
 		
-			
+		
 		//On envoie le datagram en passant le buffer datagram, ainsi que l'adresse de destination contenue dans la structure sockaddr
 		if(sendto(sd,datagram,ip_header->tot_len,0,(struct sockaddr *) &sin,sizeof(sin))<0)
 		{
@@ -414,8 +422,18 @@ char* tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int numbytes){
 		{
 			//printf("Packet sent succesfully ");
 		}
-		
-		char webpage[] =
+		char *test;
+		test = malloc(sizeof(char)*300);
+
+
+		char *dataLib;
+		dataLib = malloc(sizeof(char)*300);
+		strcpy(dataLib,"Data:");
+		memcpy(&dataLib[5],&buf[54],numbytes-53);
+	
+
+		return dataLib;
+		/*char webpage[] =
 			"HTTP/1.1 404 Not Found\n";
 		strcpy(data,webpage);
 
@@ -443,7 +461,7 @@ char* tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int numbytes){
 		else
 		{
 			//printf("Packet sent succesfully ");
-		}
+		}*/
 		close(sd);
 	
 	}else if(tcp_hdr->ack == 1 && tcp_hdr->fin == 1){
@@ -531,6 +549,7 @@ char* tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int numbytes){
 		}
 
 		close(sd);
+		return "close";
 	}
 
 	return "NULL";
