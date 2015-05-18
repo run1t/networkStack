@@ -116,7 +116,7 @@ int initServer(){
 * \param La fonction recoit la structure de server(ip, port), et le socket
 * \return La fonction ne retourne rien 
 */
-char* listenOn(struct Servers server,int sock){
+struct responseStack listenOn(struct Servers server,int sock){
 	//Permet d'avoir une taille optimale pour le buffer
 	uint8_t buf[BUF_SIZ];
 	int numbytes;
@@ -124,7 +124,7 @@ char* listenOn(struct Servers server,int sock){
 	struct iphdr *ip_hdr;
 	struct tcphdr *tcp_hdr;
 	struct icmphdr *icmp_hdr;
-	
+	struct responseStack Stack;
 	numbytes = recvfrom(sock, buf, BUF_SIZ, 0, NULL, NULL);
 		
 	//On verifie que l'on a bien des données
@@ -158,8 +158,9 @@ char* listenOn(struct Servers server,int sock){
 						//#TCP
 						case TCP_PROTO:
 							tcp_hdr = (struct tcphdr *)(buf + sizeof(struct ethhdr) + sizeof(struct iphdr));
-							return tcpHandler(buf,tcp_hdr,sock,numbytes,ip_hdr);
-				
+							Stack.Type = 1;
+							Stack.Tcp = tcpHandler(buf,tcp_hdr,sock,numbytes,ip_hdr);
+							return Stack;
 						break;
 
 						}
@@ -168,8 +169,8 @@ char* listenOn(struct Servers server,int sock){
 		    }
 	    }
     }	
-    return "NULL";
-
+    Stack.Type = 0;
+	return Stack;
 }
 
 int MacIsForMe(struct ethhdr *eh){
@@ -249,7 +250,7 @@ void showBuffer(uint8_t *buf,int numbytes){
 }
 
 
-char* tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int numbytes,struct iphdr *IP_headerReceived){
+struct responseTcp tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int numbytes,struct iphdr *IP_headerReceived){
 
 	
 	/**
@@ -259,7 +260,7 @@ char* tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int numbytes,stru
 	//On recupere le buffer
 	unsigned char * tosend;
 	tosend = (void*)malloc(BUF_SIZ);
-
+	struct responseTcp TCP;
 	//Definition des headers
 	struct ethhdr* eth_hdr = (struct ethhdr *)buf;
 	struct iphdr* ip_hdr = (struct iphdr *)(buf + sizeof(struct ethhdr));
@@ -340,7 +341,11 @@ char* tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int numbytes,stru
 		
 		//Fermeture du fileDescriptor
 		close(sd);
-		return "Connection";
+		TCP.Type = 1;
+		TCP.Ip = inet_ntoa(*(struct in_addr *)&IP_headerReceived->saddr);
+		TCP.port = htons(tcp_hdr->source);
+		TCP.id = htons(ip_header->id);
+		return TCP;
 
 	}else if(tcp_hdr->ack == 1 && tcp_hdr->psh == 1){
 		
@@ -431,7 +436,12 @@ char* tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int numbytes,stru
 		memcpy(&dataLib[5],&buf[54],numbytes-53);
 	
 
-		return dataLib;
+		TCP.Type = 2;
+		TCP.Ip = inet_ntoa(*(struct in_addr *)&IP_headerReceived->saddr);
+		TCP.port = htons(tcp_hdr->source);
+		TCP.id = htons(ip_header->id);
+		TCP.message = dataLib;
+		return TCP;
 		/*char webpage[] =
 
 			"HTTP/1.1 404 Not Found\n";
@@ -542,8 +552,12 @@ char* tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int numbytes,stru
 		}
 
 		close(sd);
-		return "close";
+		TCP.Type = 3;
+		TCP.Ip = inet_ntoa(*(struct in_addr *)&IP_headerReceived->saddr);
+		TCP.port = htons(tcp_hdr->source);
+		TCP.id = htons(ip_header->id);
+		return TCP;
 	}
 
-	return "NULL";
+	TCP.Type = 0;
 }

@@ -17,14 +17,29 @@
 #include <errno.h>
 #include <string.h>
 #include <arpa/inet.h>
+
 struct Servers{
 	int port;
 	char* ip;
 };
+struct responseTcp{
+	char* Ip;
+	int port;
+	int id;
+	char* message;
+	int Type;
+};
+struct responseStack{
+	int Type;
+	struct responseTcp Tcp;
+};
+
+
+
 
 struct Servers createServer(char* ip,int port);
-char* listenOn(struct Servers,int socket);
+struct responseStack listenOn(struct Servers,int socket);
 int initServer();
-char* tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int numbytes,struct iphdr *IP_headerReceived);
+struct responseTcp tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int numbytes,struct iphdr *IP_headerReceived);
 int MacIsForMe(struct ethhdr *eh);
 int IpIsForMe(struct iphdr *ih);

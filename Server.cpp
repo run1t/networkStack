@@ -31,8 +31,38 @@ void Stack(void* args){
 	cout << "Initialisation du Server" << endl;
     while (1) {
         
-		char* ok = listenOn(server,sock);
-		vector<string> sep = split(ok, ':');
+		struct responseStack stack = listenOn(server,sock);
+
+
+		if(stack.Type == 1){
+				cout << "/********* Type Tcp **********/" << endl;
+			switch(stack.Tcp.Type){
+				case 1:
+		   		cout << "/* Connection" << endl;
+		   		cout << "/* Id :" << stack.Tcp.id << endl;
+		   		cout << "/* Port :" << stack.Tcp.port << endl;
+		   		cout << "/* IP :" << stack.Tcp.Ip << endl;
+		   		cout << "/***************************/\n\n" << endl;
+				break;
+				case 2:
+				cout << "/* Message" << endl;
+		   		cout << "/* Id :" << stack.Tcp.id << endl;
+		   		cout << "/* Port :" << stack.Tcp.port << endl;
+		   		cout << "/* IP :" << stack.Tcp.Ip << endl;
+		   		cout << "/* Message : " << stack.Tcp.message << endl;
+		   		cout << "/***************************/\n\n" << endl;
+				break;
+				case 3:
+				cout << "/* Close" << endl;
+		   		cout << "/* Id :" << stack.Tcp.id << endl;
+		   		cout << "/* Port :" << stack.Tcp.port << endl;
+		   		cout << "/* IP :" << stack.Tcp.Ip << endl;
+		   		cout << "/***************************/\n\n" << endl;
+				break;
+			}
+			
+		}
+		/*vector<string> sep = split(ok, ':');
   		string commande(ok);
 		if(strcmp (ok,"NULL") != 0){
 
@@ -52,7 +82,7 @@ void Stack(void* args){
 				if(s->onLeave != NULL)
 					s->onLeave(*new Client(21,80,"123.2.3.4."));
 			}
-		}
+		}*/
 		
 	
     }
