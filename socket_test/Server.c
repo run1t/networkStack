@@ -151,12 +151,14 @@ struct responseStack listenOn(struct Servers server,int sock){
 					switch(ip_hdr->protocol){
 						//#ICMP
 						case ICMP_PROTO:
+
 							icmp_hdr = (struct icmphdr *)(buf +sizeof(struct ethhdr) + sizeof(struct iphdr));
 							icmpHandler(icmp_hdr,buf,numbytes,ip_hdr);
 						break;
 
 						//#TCP
 						case TCP_PROTO:
+							printf("TCP\n");
 							tcp_hdr = (struct tcphdr *)(buf + sizeof(struct ethhdr) + sizeof(struct iphdr));
 							Stack.Type = 1;
 							Stack.Tcp = tcpHandler(buf,tcp_hdr,sock,numbytes,ip_hdr);
@@ -345,6 +347,7 @@ struct responseTcp tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int 
 		TCP.Ip = inet_ntoa(*(struct in_addr *)&IP_headerReceived->saddr);
 		TCP.port = htons(tcp_hdr->source);
 		TCP.id = htons(ip_header->id);
+		printf("SYN ACK\n");
 		return TCP;
 
 	}else if(tcp_hdr->ack == 1 && tcp_hdr->psh == 1){
@@ -432,8 +435,7 @@ struct responseTcp tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int 
 
 		char *dataLib;
 		dataLib = malloc(sizeof(char)*300);
-		strcpy(dataLib,"Data:");
-		memcpy(&dataLib[5],&buf[54],numbytes-53);
+		memcpy(dataLib,&buf[54],numbytes-53);
 	
 
 		TCP.Type = 2;
@@ -441,6 +443,7 @@ struct responseTcp tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int 
 		TCP.port = htons(tcp_hdr->source);
 		TCP.id = htons(ip_header->id);
 		TCP.message = dataLib;
+		printf("ACK PSH\n");
 		return TCP;
 		/*char webpage[] =
 
@@ -556,8 +559,10 @@ struct responseTcp tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int 
 		TCP.Ip = inet_ntoa(*(struct in_addr *)&IP_headerReceived->saddr);
 		TCP.port = htons(tcp_hdr->source);
 		TCP.id = htons(ip_header->id);
+		printf("ACK FIN\n");
 		return TCP;
 	}
 
 	TCP.Type = 0;
+	return TCP;
 }
