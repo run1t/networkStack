@@ -17,13 +17,13 @@
 #include <errno.h>
 #include <string.h>
 #include <arpa/inet.h>
-struct Server{
+struct Servers{
 	int port;
 	char* ip;
 };
 
-struct Server createServer(char* ip,int port);
-char* listenOn(struct Server,int socket);
+struct Servers createServer(char* ip,int port);
+char* listenOn(struct Servers,int socket);
 int initServer();
 char* tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int numbytes);
 int MacIsForMe(struct ethhdr *eh);

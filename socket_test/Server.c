@@ -35,8 +35,8 @@ typedef uint32_t u32;
 typedef uint64_t u64;
 struct sockaddr_ll sa;
 // Remplissage de la structure Seveur
-struct Server createServer(char* ip,int port){
-	struct Server s;
+struct Servers createServer(char* ip,int port){
+	struct Servers s;
 	s.ip = ip;
 	s.port = port;
 	return s;
@@ -116,7 +116,7 @@ int initServer(){
 * \param La fonction recoit la structure de server(ip, port), et le socket
 * \return La fonction ne retourne rien 
 */
-char* listenOn(struct Server server,int sock){
+char* listenOn(struct Servers server,int sock){
 	//Permet d'avoir une taille optimale pour le buffer
 	uint8_t buf[BUF_SIZ];
 	int numbytes;
