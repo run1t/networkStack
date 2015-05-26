@@ -4,36 +4,33 @@
 //TODO Penser a faire un memset de datagram dans la couche superieur, On Top
 
 //On renvoie un pointeur vers notre structure IP
-struct iphdr *makeIP_header(char *data,char datagram[4096],char *destination_ip){
-	struct iphdr *ip_header; //(struct iphdr *) datagram;
+void makeIP_header(struct iphdr *ip,char *data,char datagram[4096],char *destination_ip){
+	//(struct iphdr *) datagram;
 	//On alloue la memoire necessaire a l'aide d'un malloc
-	ip_header = malloc(sizeof(struct iphdr));
-
-	ip_header->ihl = 5;
+	ip->ihl = 5;
 	//Nous sommes en IPv4
-	ip_header->version = 4;
+	ip->version = 4;
 	//La taille du packet ip
-	ip_header->tot_len = sizeof(struct iphdr) + sizeof(struct tcphdr) + strlen(data);
+	ip->tot_len = sizeof(struct iphdr) + sizeof(struct tcphdr) + strlen(data);
 	//Nous laissons le type of service a 0, comme indiaue dans la rfc 793
-	ip_header->tos = 0;
+	ip->tos = 0;
 	//On convertit l'id du paquet ip en network byte order avec htonl()
-	ip_header->id = htonl(123);
+	ip->id = htonl(123);
 	//Nous ne souhaitons pas de fragmentation donc 0
-	ip_header->frag_off = 0;
+	ip->frag_off = 0;
 	//Nous le laissons un Time to Live par defaut a 0
-	ip_header->ttl = 255;
+	ip->ttl = 255;
 	//Le protocole de la couche superieur est TCP
-	ip_header->protocol = IPPROTO_TCP;
+	ip->protocol = IPPROTO_TCP;
 	//Le checksum est calcule plus tard
-	ip_header->check = 0;
+	ip->check = 0;
 	//Nous convertissons les adresses IP source et destination en network byte order
-	ip_header->saddr = inet_addr(inet_ntoa(getIp("eth0")));
-	ip_header->daddr = inet_addr(destination_ip);
+	ip->saddr = inet_addr(inet_ntoa(getIp("eth0")));
+	ip->daddr = inet_addr(destination_ip);
 
 	//Nous calculons le checksum IP
-	ip_header->check = checksum((unsigned short *) datagram, ip_header->tot_len);
-
-	return ip_header;
+	ip->check = checksum((unsigned short *) datagram, ip->tot_len);
+	 
 }
 
 int sendPacket(){
@@ -55,13 +52,13 @@ int sendPacket(){
 	//datagram a envoyer, et la data associe
 	char datagram[4096],*data,*destination_ip;
 
-	destination_ip = "1.2.3.4";
+	destination_ip = "1.2.1.4";
 	//on nettoie l'emplacement memoire du datagram
 	memset(&datagram,0,4096);
 
-	//On dit a data d'inserer son message a la fin du paquet
+	//On dit a data d'inserer son message a la fin du paquet d
 	data = datagram + sizeof(struct iphdr) + sizeof(struct tcphdr);
-	strcpy(data,"hello World");
+	strcpy(data,"hello fucking world");
 
 	uint16_t dest = 80;
 	uint32_t seq = 666;
@@ -70,13 +67,17 @@ int sendPacket(){
 	uint16_t syn = 1;
 	uint16_t ack = 0;
 
-	struct iphdr *ipHeader = (struct iphdr *)datagram;
-	ipHeader = makeIP_header(data,datagram,destination_ip);
-
-	struct tcphdr *tcpHeader = (struct tcphdr *)(datagram + sizeof(struct ip));//makeTCP_segment(dest,seq,ack_seq,fin,syn,ack,datagram,data);
-	tcpHeader = makeTCP_segment(dest,seq,ack_seq,fin,syn,ack,datagram,data);
+	//On crée notre structure ip Header
+	struct iphdr *ip_header = (struct iphdr *)datagram;
 	
-	printf("seq:%u\n",ipHeader->ttl);
+	//On remplie notre structure 
+	makeIP_header(ip_header,data,datagram,destination_ip);
+	
+	struct tcphdr *tcpHeader = (struct tcphdr *)(datagram + sizeof(struct ip));//makeTCP_segment(dest,seq,ack_seq,fin,syn,ack,datagram,data);
+	printf("MAke tcp segment\n" );
+	makeTCP_segment(tcpHeader,dest,seq,ack_seq,fin,syn,ack,datagram,data);
+	
+	printf("seq:%u\n",ip_header->ttl);
 	int one = 1;
 	const int *val = &one;
 	
@@ -90,9 +91,12 @@ int sendPacket(){
 	}
 
 	while(1)
-	{
+	{	
+		int i;
+		for(i=0;i<100000000;i++)
+		{}
 		//On envoie le datagram en passant le buffer datagram, ainsi que l'adresse de destination contenue dans la structure sockaddr
-		if(sendto(sd,datagram,ipHeader->tot_len,0,(struct sockaddr *) &sin,sizeof(sin))<0)
+		if(sendto(sd,datagram,ip_header->tot_len,0,(struct sockaddr *) &sin,sizeof(sin))<0)
 		{
 			perror("Sending packet failed");
 		}

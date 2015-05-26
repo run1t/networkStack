@@ -68,11 +68,11 @@ unsigned short checksum(unsigned short *ptr,int nbBytes){
 	return(answer);
 }
 
-struct tcphdr *makeTCP_segment(uint16_t dest,uint32_t seq,uint32_t ack_seq,uint16_t fin,uint16_t syn,uint16_t ack, char datagram[4096],char *data){
+void makeTCP_segment(struct tcphdr *tcp_segment,uint16_t dest,uint32_t seq,uint32_t ack_seq,uint16_t fin,uint16_t syn,uint16_t ack, char datagram[4096],char *data){
 	//Header du segment TCP, TRAITEMENT à FAIRE le faire égale à un struct tcphdr avec la taille du datagram désiré et avec la taille de IP
-	struct tcphdr *tcp_segment;// = (struct tcphdr *)(datagram + sizeof(struct ip));
+	// = (struct tcphdr *)(datagram + sizeof(struct ip));
 	//On alloue l'emplacement memoire necessaire
-	tcp_segment = malloc(sizeof(datagram)+sizeof(struct ip));
+
 
 	struct header_tcp_checksum tcp_cs;
 	//Tableau de char pour la data que l'on souhaite
@@ -121,7 +121,6 @@ struct tcphdr *makeTCP_segment(uint16_t dest,uint32_t seq,uint32_t ack_seq,uint1
 	//On calcul notre checksum TCP
 	tcp_segment->check = checksum((unsigned short*) fake_datagram, size_datagram_cs);
 
-	return tcp_segment;
 }
 void print_tcp_header(unsigned char* Buffer, int Size){
 	unsigned short iphdrlen;
