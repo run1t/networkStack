@@ -70,7 +70,7 @@ int sendPacket(){
 	uint16_t syn = 1;
 	uint16_t ack = 0;
 
-	struct iphdr *ipHeader = (struct iphdr *)datagram;//makeIP_header(data,datagram,destination_ip);
+	struct iphdr *ipHeader = (struct iphdr *)datagram;
 	ipHeader = makeIP_header(data,datagram,destination_ip);
 
 	struct tcphdr *tcpHeader = (struct tcphdr *)(datagram + sizeof(struct ip));//makeTCP_segment(dest,seq,ack_seq,fin,syn,ack,datagram,data);
