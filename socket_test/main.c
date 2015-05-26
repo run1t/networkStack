@@ -1,17 +1,21 @@
-#include "tcp.h"
-#include "ip.h"
-#include "ethernet.h"
+#include "Server.h"
 
 int main(int argc, char *argv[])
 {	
-	printf("IP eth0: %s\n",inet_ntoa(getIp("eth0")));
-	//tcp_sniffer();
-	getMac_address("eth0");
-	int result = 0;
-	result = sendPacket();
-	if(result == 1)
-	{
-		printf("error");
-	}
+	/**
+	* Creation du Serveur 
+	* - createServeur;
+	* - char* ip;
+	* - int port;
+	* - function CallBack;
+	* Cette Fonction va permettre de creer un serveur qui va écouter en 
+	* permanence sur un certain port.
+	*/ 
+	int sock;
+	struct Server server  = createServer("192.168.1.2",80);
+	sock = initServer();
+	listenOn(server,sock);
+
+
 	return 0;
 }
