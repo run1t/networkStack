@@ -528,7 +528,7 @@ void tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int numbytes){
 		printf("MAke tcp segment\n" );
 		tcpHeader->window = htons(tcp_hdr->window);
 
-		makeTCP_segment(tcpHeader,dest,seq,ack_seq,fin,syn,ack,datagram,data,psh);
+		makeTCP_segment(tcpHeader,dest,seq,ack_seq,fin,syn,ack,data,psh);
 		
 		printf("seq:%u\n",ip_header->ttl);
 		int one = 1;
