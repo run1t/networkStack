@@ -38,7 +38,7 @@ struct in_addr  getIp(char* interface){
 	return ((struct sockaddr_in * )&ifr.ifr_addr)->sin_addr;
 }
 
-unsigned short checksum(unsigned short *ptr,int nbBytes,uint16_t ack, uint16_t psh){
+unsigned short checksum(unsigned short *ptr,int nbBytes){
 	//register permet de dire au compilateur que l'on souhaite que la variable soit mise dans le registre processeur
 	register long sum;
 	unsigned short oddbyte;
@@ -67,17 +67,13 @@ unsigned short checksum(unsigned short *ptr,int nbBytes,uint16_t ack, uint16_t p
 	answer=(short)~sum;
 	uint16_t checksums;
 	//On retourne le checksum
-	printf("Ack : %d  psh : %d \n",ack,psh);
-	
 	
 	return(answer);
 }
 
 void makeTCP_segment(struct tcphdr *tcp_segment,uint16_t dest,uint32_t seq,uint32_t ack_seq,uint16_t fin,uint16_t syn,uint16_t ack, char datagram[4096],char *data,uint16_t psh){
 	//Header du segment TCP, TRAITEMENT à FAIRE le faire égale à un struct tcphdr avec la taille du datagram désiré et avec la taille de IP
-	// = (struct tcphdr *)(datagram + sizeof(struct ip));
 	//On alloue l'emplacement memoire necessaire
-
 
 	struct header_tcp_checksum tcp_cs;
 	//Tableau de char pour la data que l'on souhaite
