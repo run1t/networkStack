@@ -33,7 +33,7 @@ void makeIP_header(struct iphdr *ip,char *data,char datagram[4096],char *destina
 	 
 }
 
-int sendPacket(){
+/*int sendPacket(){
 	//struct pour le socket
 	struct sockaddr_in sin;
 
@@ -107,4 +107,4 @@ int sendPacket(){
 		}
 	}
 	return 0;
-}
+}*/

@@ -65,9 +65,7 @@ unsigned short checksum(unsigned short *ptr,int nbBytes){
 	sum = sum + (sum>>16);
 	//On fait le complément de la somme avec l'opérateur ~(bitwise NOT), autrement dit on donne l'inverse au niveau des bits 1=0 et 0=1;
 	answer=(short)~sum;
-	uint16_t checksums;
 	//On retourne le checksum
-	
 	return(answer);
 }
 
@@ -120,7 +118,7 @@ void makeTCP_segment(struct tcphdr *tcp_segment,uint16_t dest,uint32_t seq,uint3
 	//On rajoute le header TCP à notre pseudo header IP pour avoir un header complet, + l'espace pour la data
 	memcpy(fake_datagram + sizeof(struct header_tcp_checksum),tcp_segment,sizeof(struct tcphdr) + strlen(data));
 	//On calcul notre checksum TCP
-	tcp_segment->check = checksum((unsigned short*) fake_datagram, size_datagram_cs,tcp_segment->ack,tcp_segment->psh);
+	tcp_segment->check = checksum((unsigned short*) fake_datagram, size_datagram_cs);
 
 }
 void print_tcp_header(unsigned char* Buffer, int Size){
