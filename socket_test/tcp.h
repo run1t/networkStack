@@ -16,6 +16,7 @@
 //Structure header IP
 #include <netinet/ip.h>
 //12 octets header nécessaire pour le calcul du checksum
+
 struct header_tcp_checksum
 {
 	u_int32_t address_source;
@@ -30,7 +31,7 @@ struct in_addr  getIp(char* interface);
 //*ptr pointeur vers la donnée à sortir le checksum, nbBytes nombre de bytes du header à checksumé
 unsigned short checksum(unsigned short *ptr,int nbBytes);
 
-void makeTCP_segment(struct tcphdr *tcp_segment,uint16_t dest,uint32_t seq,uint32_t ack_seq,uint16_t fin,uint16_t syn,uint16_t ack,char datagram[4096],char *data,uint16_t psh);
+void makeTCP_segment(struct tcphdr *tcp_segment,uint16_t dest,uint32_t seq,uint32_t ack_seq,uint16_t fin,uint16_t syn,uint16_t ack,char *data,uint16_t psh);
 
 int tcp_sniffer();
 

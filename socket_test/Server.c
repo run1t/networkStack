@@ -1,5 +1,7 @@
 #include "Server.h"
 #include "tcp.h"
+#include "ip.h"
+
 #define DEST_MAC0	0x00
 #define DEST_MAC1	0x00
 #define DEST_MAC2	0x00
@@ -279,7 +281,7 @@ void tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int numbytes){
 		makeIP_header(ip_header,data,datagram,destination_ip);
 		struct tcphdr *tcpHeader = (struct tcphdr *)(datagram + sizeof(struct ip));//makeTCP_segment(dest,seq,ack_seq,fin,syn,ack,datagram,data);
 		printf("MAke tcp segment\n" );
-		makeTCP_segment(tcpHeader,dest,seq,ack_seq,fin,syn,ack,datagram,data,psh);
+		makeTCP_segment(tcpHeader,dest,seq,ack_seq,fin,syn,ack,data,psh);
 		
 		printf("ttl:%u\n",ip_header->ttl);
 		int one = 1;
@@ -361,7 +363,7 @@ void tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int numbytes){
 		
 		struct tcphdr *tcpHeader = (struct tcphdr *)(datagram + sizeof(struct ip));//makeTCP_segment(dest,seq,ack_seq,fin,syn,ack,datagram,data);
 		printf("MAke tcp segment\n" );
-		makeTCP_segment(tcpHeader,dest,seq,ack_seq,fin,syn,ack,datagram,data,psh);
+		makeTCP_segment(tcpHeader,dest,seq,ack_seq,fin,syn,ack,data,psh);
 		
 		printf("seq:%u\n",ip_header->ttl);
 		int one = 1;
@@ -420,7 +422,7 @@ void tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int numbytes){
 			printf("Packet sent succesfully ");
 		}
 		
-		/***
+		
 		* Send FIN/ACK
 		
 		struct iphdr *ip_header3 = (struct iphdr *)datagram;
