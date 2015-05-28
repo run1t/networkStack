@@ -24,18 +24,36 @@ void sendICMP_request()
 {
 	//Le file descriptor de notre socket, ainsi que pour le setsockopt
 	int sockfd,value = 1;
-	struct sockaddr_in socket_connection;
+	//Valeur choisie par l'OS pour avour avoir une taille optimale de buffer
+	uint8_t buf[BUFSIZ];
 
+	struct sockaddr_in socket_connection;
+	char *data;
+	//Notre buffer pour notre datagram
+	char datagram[4096];
+
+	//notre header IP
+	struct iphdr *IPheader = (struct iphdr *)datagram;
+	//Notre header ICMP
+	struct icmphdr *ICMPheader = (struct icmphdr *)(datagram +sizeof(struct iphdr));
+	
 	//On set les paramètres de notre socket
 	socket_connection.sin_family = AF_INET;
 	//On set l'adresse source de notre socket avec la fonction getIp
-	socket_connection.sin_addr.s_addr = inet_addr(getIp("eth0"));
+	socket_connection.sin_addr.s_addr = inet_addr(inet_ntoa(getIp("eth0")));
 
 	//On ouvre le socket
 	if(sockfd = socket(AF_INET,SOCK_STREAM,IPPROTO_ICMP) == -1){
 		perror("Could not load ICMP socket!");
-}
+	}
 
 	if(setsockopt(sockfd,IPPROTO_IP,IP_HDRINCL,&value,sizeof(int))){
-		perror("Could not load Custom IPHEADER!);
+		perror("Could not load Custom IPHEADER!");
+	}
+
+	//On fait notre header IP
+	char *destination_ip = "192.168.1.2";
+	//makeIP_header
+
+	sendto(sockfd,data,IPheader->tot_len,0,(struct sockaddr *)&socket_connection, sizeof(struct sockaddr));
 	}

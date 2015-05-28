@@ -1,2 +1,2 @@
-void makeIP_header(struct iphdr *ip,char *data,char datagram[4096],char *destination_ip);
+void makeIP_header(struct iphdr *ip,char *data,char datagram[4096],char *destination_ip,int protocol_id);
 int sendPacket();
