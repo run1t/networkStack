@@ -42,7 +42,7 @@ void sendICMP_request()
 	memset(&datagram,0,4096);
 
 	//On dit a data d'inserer son message a la fin du paquet d
-	data = datagram + sizeof(struct iphdr) + sizeof(struct tcphdr);
+	data = datagram + sizeof(struct iphdr) + sizeof(struct icmphdr);
 	strcpy(data,"");
 
 	//On crée notre structure ip Header
@@ -52,7 +52,7 @@ void sendICMP_request()
 
 	
 	//Notre header ICMP
-	struct icmphdr *ICMPheader = (struct icmphdr *)(data + sizeof(struct ip));
+	struct icmphdr *ICMPheader = (struct icmphdr *)(datagram + sizeof(struct ip));
 	makeICMP_header(ICMPheader,ICMP_ECHO);
 
 
