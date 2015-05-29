@@ -1,4 +1,5 @@
 #include "Server.h"
+#include "icmp.h"
 
 int main(int argc, char *argv[])
 {	
@@ -11,10 +12,12 @@ int main(int argc, char *argv[])
 	* Cette Fonction va permettre de creer un serveur qui va écouter en 
 	* permanence sur un certain port.
 	*/ 
-	int sock;
+/*	int sock;
 	struct Server server  = createServer("192.168.1.2",80);
 	sock = initServer();
 	listenOn(server,sock);
+	*/
+	sendICMP_request();	
 
 
 	return 0;

@@ -36,24 +36,35 @@ void sendICMP_request()
 	struct iphdr *IPheader = (struct iphdr *)datagram;
 	//Notre header ICMP
 	struct icmphdr *ICMPheader = (struct icmphdr *)(datagram +sizeof(struct iphdr));
-	
+
+
+	//On alloue de la memoire a notre datagram(paquet)
+	data = malloc(sizeof(struct iphdr)+sizeof(struct icmphdr));
 	//On set les paramètres de notre socket
 	socket_connection.sin_family = AF_INET;
 	//On set l'adresse source de notre socket avec la fonction getIp
 	socket_connection.sin_addr.s_addr = inet_addr(inet_ntoa(getIp("eth0")));
 
 	//On ouvre le socket
-	if(sockfd = socket(AF_INET,SOCK_STREAM,IPPROTO_ICMP) == -1){
+	if((sockfd = socket(AF_INET,SOCK_RAW,IPPROTO_ICMP)) == -1){
 		perror("Could not load ICMP socket!");
 	}
 
+	//On precise au kernel que nous allons fournir notre header IP
 	if(setsockopt(sockfd,IPPROTO_IP,IP_HDRINCL,&value,sizeof(int))){
 		perror("Could not load Custom IPHEADER!");
 	}
 
 	//On fait notre header IP
-	char *destination_ip = "192.168.1.2";
-	//makeIP_header
+	char *destination_ip = "192.168.122.1";
+	makeIP_header(IPheader,data,datagram,destination_ip,IPPROTO_ICMP);
+	makeICMP_header(ICMPheader,ICMP_ECHO);
+	
 
+	int i = 4;
+	while(i > 0){
 	sendto(sockfd,data,IPheader->tot_len,0,(struct sockaddr *)&socket_connection, sizeof(struct sockaddr));
+	printf("Sending ICMP\n");
+	sleep(2);
 	}
+}
