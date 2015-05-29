@@ -9,7 +9,7 @@ void makeICMP_header(struct icmphdr *icmp,u_int8_t typeICMP)
 	char *fake_datagram;
 	//On remplit le paquet
 	icmp->type = typeICMP;
-	icmp->code = 8;
+	icmp->code = 0;
 	//On met le checksum à 0 avant de le calculer
 	icmp->checksum = 0;
 	//Valeur au hasard permettant de distinguer différent paquet ICMP
@@ -18,7 +18,7 @@ void makeICMP_header(struct icmphdr *icmp,u_int8_t typeICMP)
 	icmp->un.echo.sequence = htons(1);
 
 	//On calcule le checksum
-	icmp->checksum = checksum((unsigned short*)icmp, sizeof(struct icmphdr));
+	icmp->checksum = checksum_ICMP((unsigned short*)icmp, sizeof(struct icmphdr));
 }
 
 void sendICMP_request()
@@ -52,8 +52,9 @@ void sendICMP_request()
 
 	
 	//Notre header ICMP
-	struct icmphdr *ICMPheader = (struct icmphdr *)(datagram + sizeof(struct ip));
+	struct icmphdr *ICMPheader = (struct icmphdr *)(data);
 	makeICMP_header(ICMPheader,ICMP_ECHO);
+	printf(" code de ouf%d",ICMPheader->code);
 
 
 	
@@ -61,6 +62,7 @@ void sendICMP_request()
 	if((sd = socket(AF_INET,SOCK_RAW,IPPROTO_ICMP)) == -1){
 		perror("Could not load ICMP socket!");
 	}
+	
 
 	int i = 4;
 	while(i > 0){

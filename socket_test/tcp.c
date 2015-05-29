@@ -51,7 +51,40 @@ unsigned short checksum(unsigned short *ptr,int nbBytes){
 	//On décrémente le nb de Bytes de 2 étant donné que le pointeur est un short(donc tient sur 2 bytes, 16 bits)
 		nbBytes-=2;
 	}
+
 	sum += 6<<8 | ((6&0xff00)>>8);
+	//Si on tombe sur un header impair alors on lui rajoute la donnée nécessaire pour qu'il soit pair
+	if(nbBytes==1){
+		oddbyte = 0;
+		*((u_char *)&oddbyte) = *(u_char*)ptr;
+		sum+=oddbyte;
+	}
+
+	//On bouge la somme de 16 bits vers la droite en gros divisé par 65536 (16 bits) et on lui ajoute et on ajoute le reste avec le low_order de 16 bits
+	sum = (sum>>16)+(sum & 0xffff);
+	//On redécalle le sum de 16bits 
+	sum = sum + (sum>>16);
+	//On fait le complément de la somme avec l'opérateur ~(bitwise NOT), autrement dit on donne l'inverse au niveau des bits 1=0 et 0=1;
+	answer=(short)~sum;
+	//On retourne le checksum
+	return(answer);
+}
+
+unsigned short checksum_ICMP(unsigned short *ptr,int nbBytes){
+	//register permet de dire au compilateur que l'on souhaite que la variable soit mise dans le registre processeur
+	register long sum;
+	unsigned short oddbyte;
+	register short answer;
+
+	sum = 0;
+	while(nbBytes>1){
+	//on avance dans le pointeur et on incrémente la valeur de sum avec la valeur du pointeur à sa position
+		sum+=*ptr++;
+	//On décrémente le nb de Bytes de 2 étant donné que le pointeur est un short(donc tient sur 2 bytes, 16 bits)
+		nbBytes-=2;
+	}
+	
+
 	//Si on tombe sur un header impair alors on lui rajoute la donnée nécessaire pour qu'il soit pair
 	if(nbBytes==1){
 		oddbyte = 0;
