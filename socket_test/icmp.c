@@ -4,8 +4,6 @@
 
 void makeICMP_header(struct icmphdr *icmp,u_int8_t typeICMP)
 {
-
-
 	char *fake_datagram;
 	//On remplit le paquet
 	icmp->type = typeICMP;

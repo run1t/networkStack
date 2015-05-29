@@ -518,23 +518,3 @@ void tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int numbytes){
 		close(sd);
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	// = (struct tcphdr *)(datagram + sizeof(struct ip));
-
-
