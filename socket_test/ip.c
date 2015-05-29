@@ -11,7 +11,11 @@ void makeIP_header(struct iphdr *ip,char *data,char datagram[4096],char *destina
 	//Nous sommes en IPv4
 	ip->version = 4;
 	//La taille du packet ip
-	ip->tot_len = sizeof(struct iphdr) + sizeof(struct tcphdr) + strlen(data);
+	if(protocol_id == IPPROTO_TCP){
+		ip->tot_len = sizeof(struct iphdr) + sizeof(struct tcphdr) + strlen(data);
+	}else if(protocol_id == IPPROTO_ICMP){
+		ip->tot_len = sizeof(struct iphdr) + sizeof(struct icmphdr);
+	}
 	//Nous laissons le type of service a 0, comme indiaue dans la rfc 793
 	ip->tos = 0;
 	//On convertit l'id du paquet ip en network byte order avec htonl()
