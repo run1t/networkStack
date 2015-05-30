@@ -1,10 +1,10 @@
 #include "tcp.h"
 #include "ip.h"
 #include "icmp.h"
+#include <fcntl.h>
 
 void makeICMP_header(struct icmphdr *icmp,u_int8_t typeICMP)
 {
-	char *fake_datagram;
 	//On remplit le paquet
 	icmp->type = typeICMP;
 	icmp->code = 0;
@@ -52,7 +52,7 @@ void sendICMP_request()
 	//Notre header ICMP
 	struct icmphdr *ICMPheader = (struct icmphdr *)(data);
 	makeICMP_header(ICMPheader,ICMP_ECHO);
-	printf(" code de ouf%d",ICMPheader->code);
+	printf(" code ICMP%d",ICMPheader->code);
 
 
 	
@@ -71,5 +71,35 @@ void sendICMP_request()
 	}
 	printf("Sending ICMP\n");
 	sleep(2);
+	}
+}
+
+void icmpHandler(struct icmphdr *icmpHeader)
+{
+	//Si c'est un echo alors on désactive la réponse du kernel aux échos
+	if(icmpHeader->type == ICMP_ECHO)
+	{
+		printf("ICMP ECHO Received \n");
+		// le file descriptor du fichier /proc à modifier
+		int fdProc = open("/proc/sys/net/ipv4/icmp_echo_ignore_all",O_WRONLY);
+		if(fdProc == -1){
+			perror("Error opening the file /proc/sys/net/ipv4/icmp_echo_ignore_all\n");
+		}
+		int nbByteWrite = write(fdProc,"1",1);
+		if(nbByteWrite == 0){
+			printf("No write\n");
+		}
+		else if(nbByteWrite == -1){
+			perror("Error writing to file\n");
+		}
+		else if(nbByteWrite > 0){
+			printf("Succes writing to file\n");
+			int closeSuccess = close(fdProc);
+			if(closeSuccess == 0){
+				printf("File closed successfully\n");
+			}else if(closeSuccess == -1){
+				printf("Error closing the file\n");
+			}
+		}
 	}
 }

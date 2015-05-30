@@ -1,6 +1,7 @@
 #include "Server.h"
 #include "tcp.h"
 #include "ip.h"
+#include "icmp.h"
 
 #define DEST_MAC0	0x00
 #define DEST_MAC1	0x00
@@ -103,6 +104,8 @@ void listenOn(struct Server server,int sock){
 	struct ethhdr *etherHeader;
 	struct iphdr *ip_hdr;
 	struct tcphdr *tcp_hdr;
+	struct icmphdr *icmp_hdr;
+
 	while(1){
 		
 		numbytes = recvfrom(sock, buf, BUF_SIZ, 0, NULL, NULL);
@@ -122,7 +125,6 @@ void listenOn(struct Server server,int sock){
 		
 				//On check si on la bonne address mac
 				if(MacIsForMe(etherHeader)){
-					printf("is for me\n");
 					//Recuperation du header ip
 					ip_hdr = (struct iphdr *)(buf + sizeof(struct ethhdr));
 					//On ne traite que l'ip V4
@@ -134,7 +136,8 @@ void listenOn(struct Server server,int sock){
 								//#ICMP
 								case ICMP_PROTO:
 								
-								printf("je suis du ICMP\n");
+								icmp_hdr = (struct icmphdr *)(buf +sizeof(struct ethhdr) + sizeof(struct iphdr));
+								icmpHandler(icmp_hdr);
 								break;
 
 								//#TCP
