@@ -3,7 +3,7 @@
 #include "icmp.h"
 #include <fcntl.h>
 
-void makeICMP_header(struct icmphdr *icmp,u_int8_t typeICMP)
+void makeICMP_header(struct icmphdr *icmp,u_int8_t typeICMP,int seq_number,int id_number)
 {
 	//On remplit le paquet
 	icmp->type = typeICMP;
@@ -12,23 +12,27 @@ void makeICMP_header(struct icmphdr *icmp,u_int8_t typeICMP)
 	icmp->checksum = 0;
 	//Valeur au hasard permettant de distinguer différent paquet ICMP
 	icmp->un.echo.id = htons(rand());
-	//On met la séquence à 0
-	icmp->un.echo.sequence = htons(1);
 
+	if(typeICMP == ICMP_ECHOREPLY){
+		icmp->un.echo.sequence = htons(seq_number + 1);
+		icmp->un.echo.id = id_number;
+	}else if(typeICMP == ICMP_ECHO){
+		icmp->un.echo.sequence = htons(1);
+	}
 	//On calcule le checksum
 	icmp->checksum = checksum_ICMP((unsigned short*)icmp, sizeof(struct icmphdr));
 }
 
-void sendICMP_request()
+void sendICMP_request(struct icmphdr *ICMP_received,int type_ICMP)
 {
 	//Le file descriptor de notre socket, ainsi que pour le setsockopt
 	//struct pour le socket
 	struct sockaddr_in sin;
 	sin.sin_family = AF_INET;
-	sin.sin_addr.s_addr = inet_addr("10.17.19.85");
+	sin.sin_addr.s_addr = inet_addr("10.17.19.135");
 
 	//On ouvre un socket
-	int sd = socket(AF_INET,SOCK_RAW,IPPROTO_TCP);
+	int sd;
 		
 	//datagram a envoyer, et la data associe
 	char datagram[4096],*data,*destination_ip;
@@ -47,14 +51,10 @@ void sendICMP_request()
 	struct iphdr *ip_header = (struct iphdr *)datagram;
 	makeIP_header(ip_header,data,datagram,destination_ip,IPPROTO_ICMP);
 
-
 	
 	//Notre header ICMP
 	struct icmphdr *ICMPheader = (struct icmphdr *)(data);
-	makeICMP_header(ICMPheader,ICMP_ECHOREPLY);
-	printf(" code ICMP%d",ICMPheader->code);
-
-
+	makeICMP_header(ICMPheader,type_ICMP,ICMP_received->un.echo.sequence,ICMP_received->un.echo.id);
 	
 	//On ouvre le socket
 	if((sd = socket(AF_INET,SOCK_RAW,IPPROTO_ICMP)) == -1){
@@ -62,14 +62,18 @@ void sendICMP_request()
 	}
 	
 	int i = 4;
+	int nbSent = 0;
 	while(i > 0){
-	if(sendto(sd,data,ip_header->tot_len,0,(struct sockaddr *)&sin, sizeof(struct sockaddr)) < 0){
+	if(nbSent = sendto(sd,data,ip_header->tot_len,0,(struct sockaddr *)&sin, sizeof(sin)) > 0){
 		printf("Sending ICMP\n");
 		sleep(2);
-	}
+	}else{
+		printf("Failed Sending ICMP\n");
+		printf("%d\n",errno);
+		sleep(2);
+		}
 	}
 }
-
 
 void icmpHandler(struct icmphdr *icmpHeader)
 {
@@ -90,8 +94,7 @@ void icmpHandler(struct icmphdr *icmpHeader)
 			perror("Error writing to file\n");
 		}
 		else if(nbByteWrite > 0){
-			printf("ICMP send\n");
-			sendICMP_request();
+			sendICMP_request(icmpHeader,ICMP_ECHOREPLY);
 			printf("Succes writing to file\n");
 			int closeSuccess = close(fdProc);
 			if(closeSuccess == 0){
