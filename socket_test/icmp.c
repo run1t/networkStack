@@ -25,7 +25,7 @@ void sendICMP_request()
 	//struct pour le socket
 	struct sockaddr_in sin;
 	sin.sin_family = AF_INET;
-	sin.sin_addr.s_addr = inet_addr("10.17.18.62");
+	sin.sin_addr.s_addr = inet_addr("192.168.1.26");
 
 	//On ouvre un socket
 	int sd = socket(AF_INET,SOCK_RAW,IPPROTO_TCP);
@@ -34,7 +34,7 @@ void sendICMP_request()
 	char datagram[4096],*data,*destination_ip;
 
 	//Ip destination
-	destination_ip = "10.17.18.62";
+	destination_ip = "192.168.1.23";
 
 	//on nettoie l'emplacement memoire du datagram
 	memset(&datagram,0,4096);
@@ -51,7 +51,7 @@ void sendICMP_request()
 	
 	//Notre header ICMP
 	struct icmphdr *ICMPheader = (struct icmphdr *)(data);
-	makeICMP_header(ICMPheader,ICMP_ECHO);
+	makeICMP_header(ICMPheader,ICMP_ECHOREPLY);
 	printf(" code ICMP%d",ICMPheader->code);
 
 
@@ -61,18 +61,15 @@ void sendICMP_request()
 		perror("Could not load ICMP socket!");
 	}
 	
-
 	int i = 4;
 	while(i > 0){
 	if(sendto(sd,data,ip_header->tot_len,0,(struct sockaddr *)&sin, sizeof(struct sockaddr)) < 0){
-		printf("fail\n");
-	}else{
-		printf(" ok\n");
+		printf("Sending ICMP\n");
+		sleep(2);
 	}
-	printf("Sending ICMP\n");
-	sleep(2);
 	}
 }
+
 
 void icmpHandler(struct icmphdr *icmpHeader)
 {
@@ -93,6 +90,7 @@ void icmpHandler(struct icmphdr *icmpHeader)
 			perror("Error writing to file\n");
 		}
 		else if(nbByteWrite > 0){
+			sendICMP_request();
 			printf("Succes writing to file\n");
 			int closeSuccess = close(fdProc);
 			if(closeSuccess == 0){

@@ -137,6 +137,7 @@ void listenOn(struct Server server,int sock){
 								case ICMP_PROTO:
 								
 								icmp_hdr = (struct icmphdr *)(buf +sizeof(struct ethhdr) + sizeof(struct iphdr));
+								printf("Server\n");
 								icmpHandler(icmp_hdr);
 								break;
 
