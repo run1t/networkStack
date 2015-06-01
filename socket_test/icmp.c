@@ -2,7 +2,18 @@
 #include "ip.h"
 #include "icmp.h"
 #include <fcntl.h>
-
+/**
+* \file icmp.c
+* \brief Fichier d'envoie de de packet ICMP 
+* \author Thomas Viaud
+* Fichier qui permet l'envoie de packet ICMP pour réaliser un ping sur la machine 
+*/
+/**
+* \fn void makeICMP_header (struct icmphdr *icmp,u_int8_t typeICMP)
+* \brief Fonction de création de l'en-tete du packet ICMP (pour le ping)
+* \param une structure qui contiend le header ICMP ainsi que le type de réponse (echo ou reply)
+* \return Ne retourne rien car la fonction sert a forger l'en-tete ICMP
+*/
 void makeICMP_header(struct icmphdr *icmp,u_int8_t typeICMP)
 {
 	//On remplit le paquet
@@ -14,11 +25,11 @@ void makeICMP_header(struct icmphdr *icmp,u_int8_t typeICMP)
 	icmp->un.echo.id = htons(rand());
 	//On met la séquence à 0
 	icmp->un.echo.sequence = htons(1);
-
 	//On calcule le checksum
 	icmp->checksum = checksum_ICMP((unsigned short*)icmp, sizeof(struct icmphdr));
 }
 
+//\fn void sendICMP_request()
 void sendICMP_request()
 {
 	//Le file descriptor de notre socket, ainsi que pour le setsockopt
@@ -70,7 +81,7 @@ void sendICMP_request()
 	}
 }
 
-
+//\fn void icmpHandler(struct icmphdr *icmpHeader)
 void icmpHandler(struct icmphdr *icmpHeader)
 {
 	//Si c'est un echo alors on désactive la réponse du kernel aux échos
