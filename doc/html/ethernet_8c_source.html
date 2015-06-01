@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.9.1"/>
-<title>Network_stack: ethernet.c Source File</title>
+<title>network_stack: ethernet.c Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -23,7 +23,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">Network_stack
+   <div id="projectname">network_stack
    </div>
   </td>
  </tr>
@@ -84,38 +84,38 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">ethernet.c</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &quot;tcp.h&quot;</span></div>
+<a href="ethernet_8c.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &quot;tcp.h&quot;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &quot;ethernet.h&quot;</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> * getMac_address(<span class="keywordtype">char</span>* interface)</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;{</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;    <span class="keywordtype">int</span> sockfd;</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;    <span class="comment">//Interface request pour avoir l&#39;adresse Mac</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    <span class="keyword">struct </span>ifreq ifr;</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <span class="comment">//Variablequi va contenir notre adresse MAC</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *macAddress;</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    ifr.ifr_addr.sa_family = AF_INET;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="comment">//On copie dans ifr.ifr_name le nom de l&#39;interface à requéter taille spécifié dans IFNAMSIZ</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    strncpy(ifr.ifr_name,interface,IFNAMSIZ-1);</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="comment">//On créée le socket</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    sockfd = socket(AF_INET,SOCK_STREAM,0);</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keywordflow">if</span>(sockfd == -1){</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        perror(<span class="stringliteral">&quot;Error socket opening MAC Address&quot;</span>);</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    }</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="comment">//On demande au kernel l&#39;adresse MAC de l&#39;interface désiré. Il va répondre dans l&#39;interface fournie</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    ioctl(sockfd,SIOCGIFHWADDR,&amp;ifr);</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="comment">//On ferme le socket</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    close(sockfd);</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    </div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    macAddress = (<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *)ifr.ifr_hwaddr.sa_data;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="comment">//Mis pour raison de test A ENLEVER</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    printf(<span class="stringliteral">&quot;MAC : %.2x %.2x %.2X %.2X %.2X %.2X\n&quot;</span>,macAddress[0],macAddress[1],macAddress[2],macAddress[3],macAddress[4],macAddress[5]);</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordflow">return</span> macAddress;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;}</div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="ethernet_8c.html#a33aaf2f81f1672bb00d97a27c9bc1589">   15</a></span>&#160;<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> * <a class="code" href="ethernet_8c.html#a33aaf2f81f1672bb00d97a27c9bc1589">getMac_address</a>(<span class="keywordtype">char</span>* interface)</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keywordtype">int</span> sockfd;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="comment">//Interface request pour avoir l&#39;adresse Mac</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keyword">struct </span>ifreq ifr;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="comment">//Variablequi va contenir notre adresse MAC</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *macAddress;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    ifr.ifr_addr.sa_family = AF_INET;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="comment">//On copie dans ifr.ifr_name le nom de l&#39;interface à requéter taille spécifié dans IFNAMSIZ</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    strncpy(ifr.ifr_name,interface,IFNAMSIZ-1);</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="comment">//On créée le socket</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    sockfd = socket(AF_INET,SOCK_STREAM,0);</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordflow">if</span>(sockfd == -1){</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        perror(<span class="stringliteral">&quot;Error socket opening MAC Address&quot;</span>);</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    }</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="comment">//On demande au kernel l&#39;adresse MAC de l&#39;interface désiré. Il va répondre dans l&#39;interface fournie</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    ioctl(sockfd,SIOCGIFHWADDR,&amp;ifr);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="comment">//On ferme le socket</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    close(sockfd);</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    macAddress = (<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *)ifr.ifr_hwaddr.sa_data;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="comment">//Mis pour raison de test A ENLEVER</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    printf(<span class="stringliteral">&quot;MAC : %.2x %.2x %.2X %.2X %.2X %.2X\n&quot;</span>,macAddress[0],macAddress[1],macAddress[2],macAddress[3],macAddress[4],macAddress[5]);</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordflow">return</span> macAddress;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;}</div>
+<div class="ttc" id="ethernet_8c_html_a33aaf2f81f1672bb00d97a27c9bc1589"><div class="ttname"><a href="ethernet_8c.html#a33aaf2f81f1672bb00d97a27c9bc1589">getMac_address</a></div><div class="ttdeci">unsigned char * getMac_address(char *interface)</div><div class="ttdoc">Fonction de récupération de l&#39;adresse mac du PC. </div><div class="ttdef"><b>Definition:</b> <a href="ethernet_8c_source.html#l00015">ethernet.c:15</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

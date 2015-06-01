@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.9.1"/>
-<title>Network_stack: icmp.c Source File</title>
+<title>network_stack: icmp.c Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -23,7 +23,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">Network_stack
+   <div id="projectname">network_stack
    </div>
   </td>
  </tr>
@@ -88,18 +88,17 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &quot;ip.h&quot;</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;icmp.h&quot;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;fcntl.h&gt;</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="icmp_8c.html#a0031022558ab6642e1199620cd79a57b">   16</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="icmp_8c.html#a0031022558ab6642e1199620cd79a57b">makeICMP_header</a>(<span class="keyword">struct</span> icmphdr *icmp,u_int8_t typeICMP)</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="comment">//On remplit le paquet</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    icmp-&gt;type = typeICMP;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    icmp-&gt;code = 0;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="comment">//On met le checksum à 0 avant de le calculer</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    icmp-&gt;checksum = 0;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="comment">//Valeur au hasard permettant de distinguer différent paquet ICMP</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    icmp-&gt;un.echo.id = htons(rand());</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="comment">//On met la séquence à 0</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    icmp-&gt;un.echo.sequence = htons(1);</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="icmp_8c.html#a0031022558ab6642e1199620cd79a57b">   17</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="icmp_8c.html#a0031022558ab6642e1199620cd79a57b">makeICMP_header</a>(<span class="keyword">struct</span> icmphdr *icmp,u_int8_t typeICMP)</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;{</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="comment">//On remplit le paquet</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    icmp-&gt;type = typeICMP;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    icmp-&gt;code = 0;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="comment">//On met le checksum à 0 avant de le calculer</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    icmp-&gt;checksum = 0;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="comment">//Valeur au hasard permettant de distinguer différent paquet ICMP</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    icmp-&gt;un.echo.id = htons(rand());</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="comment">//On met la séquence à 0</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    icmp-&gt;un.echo.sequence = htons(1);</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="comment">//On calcule le checksum</span></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    icmp-&gt;checksum = checksum_ICMP((<span class="keywordtype">unsigned</span> <span class="keywordtype">short</span>*)icmp, <span class="keyword">sizeof</span>(<span class="keyword">struct</span> icmphdr));</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;}</div>
@@ -111,7 +110,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="comment">//struct pour le socket</span></div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keyword">struct </span>sockaddr_in sin;</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    sin.sin_family = AF_INET;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    sin.sin_addr.s_addr = inet_addr(<span class="stringliteral">&quot;192.168.1.26&quot;</span>);</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    sin.sin_addr.s_addr = inet_addr(<span class="stringliteral">&quot;10.17.19.85&quot;</span>);</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="comment">//On ouvre un socket</span></div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordtype">int</span> sd = socket(AF_INET,SOCK_RAW,IPPROTO_TCP);</div>
@@ -120,7 +119,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordtype">char</span> datagram[4096],*data,*destination_ip;</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="comment">//Ip destination</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    destination_ip = <span class="stringliteral">&quot;192.168.1.23&quot;</span>;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    destination_ip = <span class="stringliteral">&quot;10.17.19.135&quot;</span>;</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="comment">//on nettoie l&#39;emplacement memoire du datagram</span></div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    memset(&amp;datagram,0,4096);</div>
@@ -176,18 +175,19 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;            perror(<span class="stringliteral">&quot;Error writing to file\n&quot;</span>);</div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        }</div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span>(nbByteWrite &gt; 0){</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;            sendICMP_request();</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;            printf(<span class="stringliteral">&quot;Succes writing to file\n&quot;</span>);</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;            <span class="keywordtype">int</span> closeSuccess = close(fdProc);</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;            <span class="keywordflow">if</span>(closeSuccess == 0){</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;                printf(<span class="stringliteral">&quot;File closed successfully\n&quot;</span>);</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;            }<span class="keywordflow">else</span> <span class="keywordflow">if</span>(closeSuccess == -1){</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;                printf(<span class="stringliteral">&quot;Error closing the file\n&quot;</span>);</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;            }</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        }</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    }</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;}</div>
-<div class="ttc" id="icmp_8c_html_a0031022558ab6642e1199620cd79a57b"><div class="ttname"><a href="icmp_8c.html#a0031022558ab6642e1199620cd79a57b">makeICMP_header</a></div><div class="ttdeci">void makeICMP_header(struct icmphdr *icmp, u_int8_t typeICMP)</div><div class="ttdoc">Fonction de création de l&#39;en-tete du packet ICMP (pour le ping) </div><div class="ttdef"><b>Definition:</b> <a href="icmp_8c_source.html#l00016">icmp.c:16</a></div></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;            printf(<span class="stringliteral">&quot;ICMP send\n&quot;</span>);</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;            sendICMP_request();</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;            printf(<span class="stringliteral">&quot;Succes writing to file\n&quot;</span>);</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;            <span class="keywordtype">int</span> closeSuccess = close(fdProc);</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;            <span class="keywordflow">if</span>(closeSuccess == 0){</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;                printf(<span class="stringliteral">&quot;File closed successfully\n&quot;</span>);</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;            }<span class="keywordflow">else</span> <span class="keywordflow">if</span>(closeSuccess == -1){</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;                printf(<span class="stringliteral">&quot;Error closing the file\n&quot;</span>);</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;            }</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        }</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    }</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;}</div>
+<div class="ttc" id="icmp_8c_html_a0031022558ab6642e1199620cd79a57b"><div class="ttname"><a href="icmp_8c.html#a0031022558ab6642e1199620cd79a57b">makeICMP_header</a></div><div class="ttdeci">void makeICMP_header(struct icmphdr *icmp, u_int8_t typeICMP)</div><div class="ttdoc">Fonction de création de l&#39;en-tete du packet ICMP (pour le ping) </div><div class="ttdef"><b>Definition:</b> <a href="icmp_8c_source.html#l00017">icmp.c:17</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

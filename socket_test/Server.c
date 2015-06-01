@@ -2,6 +2,12 @@
 #include "tcp.h"
 #include "ip.h"
 #include "icmp.h"
+/**
+* \file server.c
+* \brief Fichier server
+* \author Thomas Viaud
+* Fichier qui permet d'initialiser le server, de le faire écouter le trafic, récuperer les packet qui lui sont destiné et gerer ceux-ci 
+*/
 
 #define DEST_MAC0	0x00
 #define DEST_MAC1	0x00
@@ -41,6 +47,13 @@ u32 swap32(u32 in)
 	return out;
 }
 //Initialisation de la connection
+/**
+* \fn int initServer()
+* \brief Fonction d'initialisation du server
+* \param La fonction ne recoit pas de parametres 
+* \return La fonction retoure le socket 
+*/
+
 int initServer(){
 
 	/* on mets en place le socket */
@@ -97,6 +110,12 @@ int initServer(){
 }
 
 // Lancement de l'ecoute du serveur
+/**
+* \fn void listenOn(struct Server server,int sock)
+* \brief Fonction d'écoute du server 
+* \param La fonction recoit la structure de server(ip, port), et le socket
+* \return La fonction ne retourne rien 
+*/
 void listenOn(struct Server server,int sock){
 	//Permet d'avoir une taille optimale pour le buffer
 	uint8_t buf[BUF_SIZ];

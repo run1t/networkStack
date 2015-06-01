@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.9.1"/>
-<title>Network_stack: main.c Source File</title>
+<title>network_stack: main.c Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -23,7 +23,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">Network_stack
+   <div id="projectname">network_stack
    </div>
   </td>
  </tr>
@@ -115,9 +115,32 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keywordtype">void</span> handle_SIGINT(<span class="keywordtype">int</span> signal){</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordflow">if</span>(signal == SIGINT){</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        printf(<span class="stringliteral">&quot;Terminating the TCP/IP Stack\n&quot;</span>);</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        exit(0);</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    }</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;}</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <span class="comment">//On remet le icmp_echo_ignore_all à 0 pour le désactiver</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="comment">//Cela permet de réactiver la réponse au ping</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <span class="keywordtype">int</span> fdProc = open(<span class="stringliteral">&quot;/proc/sys/net/ipv4/icmp_echo_ignore_all&quot;</span>,O_WRONLY);</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="keywordflow">if</span>(fdProc == -1){</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;            perror(<span class="stringliteral">&quot;Error opening the file /proc/sys/net/ipv4/icmp_echo_ignore_all\n&quot;</span>);</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        }</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <span class="keywordtype">int</span> nbByteWrite = write(fdProc,<span class="stringliteral">&quot;0&quot;</span>,1);</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keywordflow">if</span>(nbByteWrite == 0){</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;            printf(<span class="stringliteral">&quot;No write\n&quot;</span>);</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        }</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span>(nbByteWrite == -1){</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            perror(<span class="stringliteral">&quot;Error writing to file\n&quot;</span>);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        }</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span>(nbByteWrite &gt; 0){</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;            printf(<span class="stringliteral">&quot;Succes writing to file\n&quot;</span>);</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            <span class="keywordtype">int</span> closeSuccess = close(fdProc);</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            <span class="keywordflow">if</span>(closeSuccess == 0){</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;                printf(<span class="stringliteral">&quot;File closed successfully\n&quot;</span>);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            }<span class="keywordflow">else</span> <span class="keywordflow">if</span>(closeSuccess == -1){</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;                printf(<span class="stringliteral">&quot;Error closing the file\n&quot;</span>);</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            }</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        }</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        exit(0);</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    }</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;}</div>
 <div class="ttc" id="struct_server_html"><div class="ttname"><a href="struct_server.html">Server</a></div><div class="ttdef"><b>Definition:</b> <a href="_server_8h_source.html#l00020">Server.h:20</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
