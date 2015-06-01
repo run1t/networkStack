@@ -38,6 +38,29 @@ int main(int argc, char *argv[])
 void handle_SIGINT(int signal){
 	if(signal == SIGINT){
 		printf("Terminating the TCP/IP Stack\n");
+
+		//On remet le icmp_echo_ignore_all à 0 pour le désactiver
+		//Cela permet de réactiver la réponse au ping
+		int fdProc = open("/proc/sys/net/ipv4/icmp_echo_ignore_all",O_WRONLY);
+		if(fdProc == -1){
+			perror("Error opening the file /proc/sys/net/ipv4/icmp_echo_ignore_all\n");
+		}
+		int nbByteWrite = write(fdProc,"0",1);
+		if(nbByteWrite == 0){
+			printf("No write\n");
+		}
+		else if(nbByteWrite == -1){
+			perror("Error writing to file\n");
+		}
+		else if(nbByteWrite > 0){
+			printf("Succes writing to file\n");
+			int closeSuccess = close(fdProc);
+			if(closeSuccess == 0){
+				printf("File closed successfully\n");
+			}else if(closeSuccess == -1){
+				printf("Error closing the file\n");
+			}
+		}
 		exit(0);
 	}
 }
