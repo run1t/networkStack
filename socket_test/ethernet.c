@@ -1,6 +1,17 @@
 #include "tcp.h"
 #include "ethernet.h"
-
+/**
+* \file ethernet.c
+* \brief Fichier de géstion de la couche éthernet
+* \author Thomas VIAUD, Reunan LE NOC, Kevin HIPEAU, Guillaume TRICHARD
+* Fichier qui permet de récuperer l'adresse MAC du PC 
+*/
+/**
+* \fn unsigned char * getMac_address(char* interface)
+* \brief Fonction de récupération de l'adresse mac du de l'interface
+* \param La fonction recoit en parametre l'interface sur laquelle nous souhaitons connaitre l'adresse MAC 
+* \return La fonction retourne l'adresse MAC de l'interface 
+*/
 unsigned char * getMac_address(char* interface)
 {
 	int sockfd;

@@ -3,6 +3,14 @@
 #include "icmp.h"
 #include <fcntl.h>
 
+/**
+* \file icmp.c
+* \brief Fichier d'envoie de de packet ICMP 
+* \author Thomas Viaud
+* Fichier qui permet l'envoie de packet ICMP pour réaliser un ping sur la machine 
+*/
+
+
 void makeICMP_header(struct icmphdr *icmp,u_int8_t typeICMP,int seq_number,int id_number)
 {
 	//On remplit le paquet
