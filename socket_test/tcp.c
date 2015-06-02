@@ -130,7 +130,7 @@ unsigned short checksum_ICMP(unsigned short *ptr,int nbBytes){
 * \return La fonction ne retourne rien 
 */
 
-void makeTCP_segment(struct tcphdr *tcp_segment,uint16_t dest,uint32_t seq,uint32_t ack_seq,uint16_t fin,uint16_t syn,uint16_t ack,char *data,uint16_t psh){
+void makeTCP_segment(struct tcphdr *tcp_segment,uint16_t dest,uint32_t seq,uint32_t ack_seq,uint16_t fin,uint16_t syn,uint16_t ack,char *data,uint16_t psh,struct iphdr *IP_header){
 	//Header du segment TCP, TRAITEMENT à FAIRE le faire égale à un struct tcphdr avec la taille du datagram désiré et avec la taille de IP
 	//On alloue l'emplacement memoire necessaire
 
@@ -163,7 +163,7 @@ void makeTCP_segment(struct tcphdr *tcp_segment,uint16_t dest,uint32_t seq,uint3
 	//BUG a régler ne prend pas normalement les adresses de broadcast 
 	tcp_cs.address_source = inet_addr(inet_ntoa(getIp("eth0")));
 	//adresse rentrée en brut ici PENSER à changer en passant l'adresse IP de destination enparamètre
-	tcp_cs.address_destination = inet_addr("10.17.19.94");
+	tcp_cs.address_destination = IP_header->saddr;
 	//On calcule la taille du header plus la taille de la Data toujours de host-byte vers network-byte		
 	tcp_cs.tcp_length = htons(sizeof(struct tcphdr) + strlen(data));
 	tcp_cs.placeholder = 0;

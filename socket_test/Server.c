@@ -152,13 +152,13 @@ char* listenOn(struct Servers server,int sock){
 						//#ICMP
 						case ICMP_PROTO:
 							icmp_hdr = (struct icmphdr *)(buf +sizeof(struct ethhdr) + sizeof(struct iphdr));
-							icmpHandler(icmp_hdr,buf,numbytes);
+							icmpHandler(icmp_hdr,buf,numbytes,ip_hdr);
 						break;
 
 						//#TCP
 						case TCP_PROTO:
 							tcp_hdr = (struct tcphdr *)(buf + sizeof(struct ethhdr) + sizeof(struct iphdr));
-							return tcpHandler(buf,tcp_hdr,sock,numbytes);
+							return tcpHandler(buf,tcp_hdr,sock,numbytes,ip_hdr);
 				
 						break;
 
@@ -226,7 +226,7 @@ int IpIsForMe(struct iphdr *ih){
 	* Recuperation de l'ip destination
 	*/ 
 	
-	char src_ip[20], dest_ip[20];
+	char src_ip[20];
 	strcpy(src_ip, inet_ntoa( *(struct in_addr *) &ih->daddr) );
 
 	/**
@@ -240,7 +240,7 @@ int IpIsForMe(struct iphdr *ih){
 	
 }
 
-char* tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int numbytes){
+char* tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int numbytes,struct iphdr *IP_headerReceived){
 	
 	/**
 	* Dans cette partit nous allons gerer les syn ack etc..
@@ -289,10 +289,7 @@ char* tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int numbytes){
 		int sd = socket(AF_INET,SOCK_RAW,IPPROTO_TCP);
 		
 		//datagram a envoyer, et la data associe
-		char datagram[4096],*data,*destination_ip;
-
-		//Ip destination
-		destination_ip = "10.17.19.94";
+		char datagram[4096],*data;
 
 		//on nettoie l'emplacement memoire du datagram
 		memset(&datagram,0,4096);
@@ -304,7 +301,7 @@ char* tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int numbytes){
 		//On crée notre structure ip Header
 		struct iphdr *ip_header = (struct iphdr *)datagram;
 		ip_header->id = ip_hdr->id;
-		makeIP_header(ip_header,data,datagram,destination_ip,IPPROTO_TCP);
+		makeIP_header(ip_header,data,datagram,IP_headerReceived->saddr,IPPROTO_TCP);
 		
 
 		struct tcphdr *tcpHeader = (struct tcphdr *)(datagram + sizeof(struct ip));//makeTCP_segment(dest,seq,ack_seq,fin,syn,ack,datagram,data);
@@ -319,7 +316,8 @@ char* tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int numbytes){
 		   /* Syn	    */   1,
 		   /* Ack       */   1,
 		   /* Data      */   data,
-		   /* Psh       */   0);
+		   /* Psh       */   0,
+		   /* destination IP */ ip_header);
 		
 		//On met une option sur le socket pour signaler que l'on fournit les header IP et TCP
 		//Premierement on passe le fileDescriptor,puis le niveau de l'option, et l'option a effectue
@@ -360,9 +358,8 @@ char* tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int numbytes){
 		}
 
 		//datagram a envoyer, et la data associe
-		char datagram[4096],*data,*destination_ip;
+		char datagram[4096],*data;
 
-		destination_ip = "10.17.19.94";
 		//on nettoie l'emplacement memoire du datagram
 		memset(&datagram,0,4096);
 
@@ -385,12 +382,12 @@ char* tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int numbytes){
 		//On remplie notre structure 
 		ip_header->id = ip_hdr->id;
 		ip_header->ttl = ip_hdr->ttl;
-		makeIP_header(ip_header,data,datagram,destination_ip,IPPROTO_TCP);
+		makeIP_header(ip_header,data,datagram,ip_header->saddr,IPPROTO_TCP);
 		
-		struct tcphdr *tcpHeader = (struct tcphdr *)(datagram + sizeof(struct ip));//makeTCP_segment(dest,seq,ack_seq,fin,syn,ack,datagram,data);
+		struct tcphdr *tcpHeader = (struct tcphdr *)(datagram + sizeof(struct ip));
 
 		tcpHeader->window = htons(tcp_hdr->window);
-		makeTCP_segment(tcpHeader,dest,seq,ack_seq,fin,syn,ack,data,psh);
+		makeTCP_segment(tcpHeader,dest,seq,ack_seq,fin,syn,ack,data,psh,ip_header);
 		int one = 1;
 		const int *val = &one;
 		
@@ -402,9 +399,7 @@ char* tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int numbytes){
 			perror("error in setting options to the socket");
 			exit(0);
 		}
-
 		
-			
 		//On envoie le datagram en passant le buffer datagram, ainsi que l'adresse de destination contenue dans la structure sockaddr
 		if(sendto(sd,datagram,ip_header->tot_len,0,(struct sockaddr *) &sin,sizeof(sin))<0)
 		{
@@ -414,27 +409,21 @@ char* tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int numbytes){
 		{
 			//printf("Packet sent succesfully ");
 		}
-		
+	/*	
 		char webpage[] =
 			"HTTP/1.1 404 Not Found\n";
 		strcpy(data,webpage);
 
 		struct iphdr *ip_header2 = (struct iphdr *)datagram;
-		//On remplie notre structure 
-		makeIP_header(ip_header2,data,datagram,destination_ip,IPPROTO_TCP);
-		struct tcphdr *tcpHeader2 = (struct tcphdr *)(datagram + sizeof(struct ip));//makeTCP_segment(dest,seq,ack_seq,fin,syn,ack,datagram,data);
+		//On remplit notre structure 
+		makeIP_header(ip_header2,data,datagram,ip_header2->saddr,IPPROTO_TCP);
+		struct tcphdr *tcpHeader2 = (struct tcphdr *)(datagram + sizeof(struct ip));
 
-		
-		
-		
 		psh = 0;
 		ack = 1;
 
-		makeTCP_segment(tcpHeader2,dest,seq,ack_seq,fin,syn,ack,data,psh);
+		makeTCP_segment(tcpHeader2,dest,seq,ack_seq,fin,syn,ack,data,psh,ip_header2);
 		
-		
-
-
 		//On envoie le datagram en passant le buffer datagram, ainsi que l'adresse de destination contenue dans la structure sockaddr
 		if(sendto(sd,datagram,ip_header->tot_len,0,(struct sockaddr *) &sin,sizeof(sin))<0)
 		{
@@ -444,12 +433,10 @@ char* tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int numbytes){
 		{
 			//printf("Packet sent succesfully ");
 		}
-		close(sd);
+		close(sd);*/
 	
 	}else if(tcp_hdr->ack == 1 && tcp_hdr->fin == 1){
-		
-
-		
+			
 		memcpy((void*)tosend, (void*)buf, BUF_SIZ); // make a copy of the original frame
 		
 		// On change le header ethernet pour intervertir les address mac
@@ -472,9 +459,8 @@ char* tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int numbytes){
 		}
 
 		//datagram a envoyer, et la data associe
-		char datagram[4096],*data,*destination_ip;
+		char datagram[4096],*data;
 
-		destination_ip = "10.17.19.94";
 		//on nettoie l'emplacement memoire du datagram
 		memset(&datagram,0,4096);
 
@@ -497,13 +483,13 @@ char* tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int numbytes){
 		//On remplie notre structure 
 		ip_header->id = ip_hdr->id;
 		ip_header->ttl = ip_hdr->ttl;
-		makeIP_header(ip_header,data,datagram,destination_ip,IPPROTO_TCP);
+		makeIP_header(ip_header,data,datagram,ip_header->saddr,IPPROTO_TCP);
 		
 		struct tcphdr *tcpHeader = (struct tcphdr *)(datagram + sizeof(struct ip));//makeTCP_segment(dest,seq,ack_seq,fin,syn,ack,datagram,data);
 
 		tcpHeader->window = htons(tcp_hdr->window);
 
-		makeTCP_segment(tcpHeader,dest,seq,ack_seq,fin,syn,ack,data,psh);
+		makeTCP_segment(tcpHeader,dest,seq,ack_seq,fin,syn,ack,data,psh,ip_header);
 		
 
 		int one = 1;

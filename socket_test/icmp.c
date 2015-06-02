@@ -24,7 +24,7 @@ void makeICMP_header(struct icmphdr *icmp,u_int8_t typeICMP,int seq_number,int i
 	icmp->checksum = checksum_ICMP((unsigned short*)icmp, sizeof(struct icmphdr));
 }
 
-void sendICMP_request(struct icmphdr *ICMP_received,int type_ICMP,suint8_t buf[],int numbytes,struct iphdr *IP_header)
+void sendICMP_request(struct icmphdr *ICMP_received,int type_ICMP,uint8_t buf[],int numbytes,struct iphdr *IP_header)
 {
 	//Le file descriptor de notre socket, ainsi que pour le setsockopt
 	//struct pour le socket
@@ -36,7 +36,7 @@ void sendICMP_request(struct icmphdr *ICMP_received,int type_ICMP,suint8_t buf[]
 	int sd;
 		
 	//datagram a envoyer, et la data associe
-	char datagram[4096],*data,*destination_ip;
+	char datagram[4096],*data;
 
 	//on nettoie l'emplacement memoire du datagram
 	memset(&datagram,0,4096);
@@ -92,7 +92,7 @@ void icmpHandler(struct icmphdr *icmpHeader,uint8_t buf[],int numbytes,struct ip
 			perror("Error writing to file\n");
 		}
 		else if(nbByteWrite > 0){
-			sendICMP_request(icmpHeader,ICMP_ECHOREPLY,IP_header);
+			sendICMP_request(icmpHeader,ICMP_ECHOREPLY,buf,numbytes,IP_header);
 			printf("Succes writing to file\n");
 			int closeSuccess = close(fdProc);
 			if(closeSuccess == 0){

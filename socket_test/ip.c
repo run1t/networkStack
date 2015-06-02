@@ -47,6 +47,5 @@ void makeIP_header(struct iphdr *ip,char *data,char datagram[4096],uint32_t dest
 
 
 	//Nous calculons le checksum IP
-	ip->check = checksum((unsigned short *) datagram, ip->tot_len);
-	 
+	ip->check = checksum((unsigned short *) datagram, ip->tot_len);	 
 }
