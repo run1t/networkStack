@@ -1,4 +1,16 @@
 #include "tcp.h"
+/**
+* \file tcp.c
+* \brief Fichier de création de de l'en tete TCP ainsi que le checksum 
+* \author Thomas VIAUD, Reunan LE NOC, Kevin HIPEAU, Guillaume TRICHARD
+* Fichier qui permet de créer l'en tete IP pour l'envoie de packet
+*/
+/**
+* \fn struct in_addr  getIp(char* interface)
+* \brief Fonction de récupération de l'adresse IP d'une interface 
+* \param La fonction recoit en parametre l'interface sur laquelle nous souhaitons connaitre l'adresse IP 
+* \return La fonction retourne une structure "in_addr" qui contiend l'ip de l'interface 
+*/
 struct in_addr  getIp(char* interface){
 	int sockfd;
 	//Interface request pour avoir l'adresse IP
@@ -37,7 +49,12 @@ struct in_addr  getIp(char* interface){
 	//inet_ntoa sert à transformer une addresse en byte en texte readable, on lui passe l'addresse de notre adresse ipV4, mais on cast par sockaddr_in pour avoir accès à sin_addr
 	return ((struct sockaddr_in * )&ifr.ifr_addr)->sin_addr;
 }
-
+/**
+* \fn unsigned short checksum(unsigned short *ptr,int nbBytes)
+* \brief Fonction de création du checksum 
+* \param La fonction recoit en parametre le packet sur lequel on souhaite réaliser le check sum et la taille de celui-ci 
+* \return La fonction retourne le checksum 
+*/
 unsigned short checksum(unsigned short *ptr,int nbBytes){
 	//register permet de dire au compilateur que l'on souhaite que la variable soit mise dans le registre processeur
 	register long sum;
@@ -69,7 +86,12 @@ unsigned short checksum(unsigned short *ptr,int nbBytes){
 	//On retourne le checksum
 	return(answer);
 }
-
+/**
+* \fn unsigned short checksum_ICMP(unsigned short *ptr,int nbBytes)
+* \brief Fonction de création du checksum ICMP
+* \param La fonction recoit en parametre le packet sur lequel on souhaite réaliser le check sum et la taille de celui-ci 
+* \return La fonction retourne le checksum ICMP
+*/
 unsigned short checksum_ICMP(unsigned short *ptr,int nbBytes){
 	//register permet de dire au compilateur que l'on souhaite que la variable soit mise dans le registre processeur
 	register long sum;
@@ -101,6 +123,12 @@ unsigned short checksum_ICMP(unsigned short *ptr,int nbBytes){
 	//On retourne le checksum
 	return(answer);
 }
+/**
+* \fn void makeTCP_segment(struct tcphdr *tcp_segment,uint16_t dest,uint32_t seq,uint32_t ack_seq,uint16_t fin,uint16_t syn,uint16_t ack,char *data,uint16_t psh)
+* \brief Fonction de création de l'en tete TCP 
+* \param La fonction recoit en parametre la structure du header, le port de destination, les flags TCP(sin, sin ack, ack), les données 
+* \return La fonction ne retourne rien 
+*/
 
 void makeTCP_segment(struct tcphdr *tcp_segment,uint16_t dest,uint32_t seq,uint32_t ack_seq,uint16_t fin,uint16_t syn,uint16_t ack,char *data,uint16_t psh){
 	//Header du segment TCP, TRAITEMENT à FAIRE le faire égale à un struct tcphdr avec la taille du datagram désiré et avec la taille de IP
