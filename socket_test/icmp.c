@@ -3,14 +3,6 @@
 #include "icmp.h"
 #include <fcntl.h>
 
-/**
-* \file icmp.c
-* \brief Fichier d'envoie de de packet ICMP 
-* \author Thomas Viaud,Reunan Le noc
-* Fichier qui permet l'envoie de packet ICMP pour réaliser un ping sur la machine 
-*/
-
-
 void makeICMP_header(struct icmphdr *icmp,u_int8_t typeICMP,int seq_number,int id_number)
 {
 	//On remplit le paquet
@@ -32,23 +24,19 @@ void makeICMP_header(struct icmphdr *icmp,u_int8_t typeICMP,int seq_number,int i
 	icmp->checksum = checksum_ICMP((unsigned short*)icmp, sizeof(struct icmphdr));
 }
 
-void sendICMP_request(struct icmphdr *ICMP_received,int type_ICMP,uint8_t buf[],int numbytes)
+void sendICMP_request(struct icmphdr *ICMP_received,int type_ICMP,suint8_t buf[],int numbytes,struct iphdr *IP_header)
 {
 	//Le file descriptor de notre socket, ainsi que pour le setsockopt
 	//struct pour le socket
 	struct sockaddr_in sin;
 	sin.sin_family = AF_INET;
-	sin.sin_addr.s_addr = inet_addr("10.17.19.94");
-
+	sin.sin_addr.s_addr = inet_addr("10.17.19.85");
 
 	//On ouvre un socket
 	int sd;
 		
 	//datagram a envoyer, et la data associe
 	char datagram[4096],*data,*destination_ip;
-
-	//Ip destination
-	destination_ip = "10.17.19.94";
 
 	//on nettoie l'emplacement memoire du datagram
 	memset(&datagram,0,4096);
@@ -59,7 +47,7 @@ void sendICMP_request(struct icmphdr *ICMP_received,int type_ICMP,uint8_t buf[],
 
 	//On crée notre structure ip Header
 	struct iphdr *ip_header = (struct iphdr *)datagram;
-	makeIP_header(ip_header,data,datagram,destination_ip,IPPROTO_ICMP);
+	makeIP_header(ip_header,data,datagram,IP_header->saddr,IPPROTO_ICMP);
 
 	
 	//Notre header ICMP
@@ -85,7 +73,7 @@ void sendICMP_request(struct icmphdr *ICMP_received,int type_ICMP,uint8_t buf[],
 	}
 }
 
-void icmpHandler(struct icmphdr *icmpHeader,uint8_t buf[],int numbytes)
+void icmpHandler(struct icmphdr *icmpHeader,uint8_t buf[],int numbytes,struct iphdr *IP_header)
 {
 	//Si c'est un echo alors on désactive la réponse du kernel aux échos
 	if(icmpHeader->type == ICMP_ECHO)
@@ -104,7 +92,7 @@ void icmpHandler(struct icmphdr *icmpHeader,uint8_t buf[],int numbytes)
 			perror("Error writing to file\n");
 		}
 		else if(nbByteWrite > 0){
-			sendICMP_request(icmpHeader,ICMP_ECHOREPLY,buf,numbytes);
+			sendICMP_request(icmpHeader,ICMP_ECHOREPLY,IP_header);
 			printf("Succes writing to file\n");
 			int closeSuccess = close(fdProc);
 			if(closeSuccess == 0){
