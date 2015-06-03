@@ -16,6 +16,8 @@
 #include <thread>
 #include <chrono>
 #include <iostream>
+#include <vector>
+#include <sstream>
 #include "Client.h"
 using namespace std;
 
@@ -33,23 +35,34 @@ class Server
 public:
     //Stockage des fonctions de callbacks
     //Gestion des evenements du client
-    function<void(Client)> onClient;
+    function<void(Client)>        onClient;
     function<void(string,Client)> onData;
-    function<void(Client) onLeave;
+    function<void(Client)>        onLeave;
 
     //Gestion des evenements automatique
     function<void(string)> onPing;
     function<void(string)> onARP;
 
-    list<Client> Clients = new list<Client>();
+    list<Client> Clients = *new list<Client>();
 
     // Constructeurs
     Server();
     
     void listen();
-    void addEventClient(function<void(Client)> func);
-    void addEventData(function<void(Client)> func);
-    void addEventLeave(function<void(Client)> func);
-    void addEventLeave(function<void(Client)> func);
-    void addEventLeave(function<void(Client)> func);
+    
+    //Declaration des evenements
+    void addEventClient (function<void(Client)> func);
+    void addEventData   (function<void(string,Client)> func);
+    void addEventLeave  (function<void(Client)> func);
+    void addEventPing   (function<void(string)> func);
+    void addEventARP    (function<void(string)> func);
+
+    //Envoi des données
+    void send (string message,Client client);
+
+    //Gestion de la pile utilisateur
+    void addClient(Client client);
+    void removeClient(Client client);
+    Client getClient(int id);
+
 };

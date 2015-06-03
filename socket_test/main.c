@@ -31,14 +31,20 @@ int main(int argc, char *argv[])
 	
 
 	while(1){
-		char* ok = listenOn(server,sock);
-		if(strcmp (ok,"NULL") != 0){
+		struct responseStack stack = listenOn(server,sock);
+		if(stack.Type == 1){
 
-			if(strcmp(ok,"Connection") == 0){
-				printf("New user connected\n");
-			}			
+			printf("Connection");
+			printf("New user connected\n");			
 		}
-		
+		else if(stack.Type == 2){
+			printf("Data received\n");	
+		}else if(stack.Type == 3){
+			printf("Deconnection\n");
+		}else if(stack.Type == 0){
+			printf("Error\n");
+		}
+			
 	}
 	return 0;
 }
