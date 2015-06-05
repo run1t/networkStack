@@ -12,7 +12,7 @@
 #define ICMP_PROTO 0x01
 #define TCP_PROTO 0x06
 extern "C" {    // another way
-	#include "c/Server.h"
+	#include "../c/Server.h"
 };
 
 class Stack
