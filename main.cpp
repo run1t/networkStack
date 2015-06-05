@@ -23,13 +23,22 @@ void onLeave(Client client){
 	cout << "Close" << endl;
 }
 
+void onConnection(){
+	cout << "I'm connected !" << endl;
+}
+
 int main()
 {
+/*
     Server server = *new Server();
     server.addEventClient(onClient);
     server.addEventData(onData);
     server.addEventLeave(onLeave);
     server.listen();
-    //trt
+*/
+
+	//Test Client
+	Client client = *new Client(1,5654,"10.17.40.3");
+	client.addEventConnection(onConnection);
 }
 
