@@ -15,7 +15,9 @@ void onClient(Client client){
 void onData(string data,Client client){
  
 	if(data.compare("hello") == 0){
-		cout << "bonjour petit client !" << endl;
+		client.Send("Server:Bonjour petit client");
+	}else if(data.compare("un") == 0){
+		client.Send("Deux");
 	}
 }
 
