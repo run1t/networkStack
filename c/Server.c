@@ -151,12 +151,14 @@ struct responseStack listenOn(struct Servers server,int sock){
 					switch(ip_hdr->protocol){
 						//#ICMP
 						case ICMP_PROTO:
+
 							icmp_hdr = (struct icmphdr *)(buf +sizeof(struct ethhdr) + sizeof(struct iphdr));
 							icmpHandler(icmp_hdr,buf,numbytes,ip_hdr);
 						break;
 
 						//#TCP
 						case TCP_PROTO:
+							printf("TCP\n");
 							tcp_hdr = (struct tcphdr *)(buf + sizeof(struct ethhdr) + sizeof(struct iphdr));
 							Stack.Type = 1;
 							Stack.Tcp = tcpHandler(buf,tcp_hdr,sock,numbytes,ip_hdr);
@@ -247,6 +249,70 @@ void showBuffer(uint8_t *buf,int numbytes){
 	for(i = 0; i < numbytes ; i++){
 		printf("0x%02X ", buf[i]);
 	}
+}
+
+/**
+* Send to client 
+* 	-> port;
+* 	-> IP;
+* 	-> data;
+*/
+
+void sendClient(int port, char* ip, char* datas,int lastAck){
+	// Creation d'un Buffer Vide
+	unsigned char * tosend;
+	tosend = (void*)malloc(BUF_SIZ);
+		
+	//struct pour le socket
+	struct sockaddr_in sin;
+	sin.sin_family = AF_INET;
+	sin.sin_port = htons(80);
+	sin.sin_addr.s_addr = inet_addr(ip);
+
+	//On ouvre un socket
+	int sd = socket(AF_INET,SOCK_RAW,IPPROTO_TCP);
+		
+	//datagram a envoyer, et la data associe
+	char datagram[4096],*data;
+
+	//on nettoie l'emplacement memoire du datagram
+	memset(&datagram,0,4096);
+
+	//On dit a data d'inserer son message a la fin du paquet d
+	data = datagram + sizeof(struct iphdr) + sizeof(struct tcphdr);
+	strcpy(data,datas);
+
+	//On crée notre structure ip Header
+	struct iphdr *ip_header = (struct iphdr *)datagram;
+	ip_header->id = htons(23);
+	makeIP_header(ip_header,data,datagram,sin.sin_addr.s_addr,IPPROTO_TCP);
+		
+
+	struct tcphdr *tcpHeader = (struct tcphdr *)(datagram + sizeof(struct ip));//makeTCP_segment(dest,seq,ack_seq,fin,syn,ack,datagram,data);
+	tcpHeader->window = htons(4000);
+		
+	makeTCP_segment(tcpHeader,
+		/* port dest */   port,
+		/* seq Num   */   htonl(1),
+		/* ack Num   */   htonl(ntohl(lastAck)),
+		/* Fin       */   0,
+	    /* Syn	     */   0,
+		/* Ack       */   1,
+		/* Data      */   data,
+		/* Psh       */   1,
+		/* destination IP */ ip_header);
+		
+	//On met une option sur le socket pour signaler que l'on fournit les header IP et TCP
+	//Premierement on passe le fileDescriptor,puis le niveau de l'option, et l'option a effectue
+	int one = 1;
+	const int *val = &one;
+	setsockopt(sd,IPPROTO_IP,IP_HDRINCL,val,sizeof(one));
+
+	//On envoie le datagram en passant le buffer datagram, ainsi que l'adresse de destination contenue dans la structure sockaddr
+	sendto(sd,datagram,ip_header->tot_len,0,(struct sockaddr *) &sin,sizeof(sin));
+		
+	//Fermeture du fileDescriptor
+	close(sd);
 }
 
 
@@ -345,6 +411,8 @@ struct responseTcp tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int 
 		TCP.Ip = inet_ntoa(*(struct in_addr *)&IP_headerReceived->saddr);
 		TCP.port = htons(tcp_hdr->source);
 		TCP.id = htons(ip_header->id);
+		TCP.lastAck = tcpHeader->ack_seq;
+		printf("SYN ACK\n");
 		return TCP;
 
 	}else if(tcp_hdr->ack == 1 && tcp_hdr->psh == 1){
@@ -385,7 +453,7 @@ struct responseTcp tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int 
 		
 		uint16_t dest = htons(tcp_hdr->source);
 		uint32_t seq = htonl(ntohl(tcp_hdr->ack_seq));
-		uint32_t ack_seq = htonl(ntohl(tcp_hdr->seq)+1+4+numbytes-60);
+		uint32_t ack_seq = htonl(ntohl(tcp_hdr->seq)+1+2+numbytes-60);
 		uint16_t fin = 0;
 		uint16_t syn = 0;
 		uint16_t ack = 1;
@@ -432,15 +500,16 @@ struct responseTcp tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int 
 
 		char *dataLib;
 		dataLib = malloc(sizeof(char)*300);
-		strcpy(dataLib,"Data:");
-		memcpy(&dataLib[5],&buf[54],numbytes-53);
+		memcpy(dataLib,&buf[54],numbytes-53);
 	
 
 		TCP.Type = 2;
 		TCP.Ip = inet_ntoa(*(struct in_addr *)&IP_headerReceived->saddr);
 		TCP.port = htons(tcp_hdr->source);
 		TCP.id = htons(ip_header->id);
+		TCP.lastAck = tcpHeader->ack_seq;
 		TCP.message = dataLib;
+		printf("ACK PSH\n");
 		return TCP;
 		/*char webpage[] =
 
@@ -556,8 +625,11 @@ struct responseTcp tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int 
 		TCP.Ip = inet_ntoa(*(struct in_addr *)&IP_headerReceived->saddr);
 		TCP.port = htons(tcp_hdr->source);
 		TCP.id = htons(ip_header->id);
+		TCP.lastAck = tcpHeader->ack_seq;
+		printf("ACK FIN\n");
 		return TCP;
 	}
 
 	TCP.Type = 0;
+	return TCP;
 }

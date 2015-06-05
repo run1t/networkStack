@@ -28,6 +28,7 @@ struct responseTcp{
 	int id;
 	char* message;
 	int Type;
+	int lastAck;
 };
 struct responseStack{
 	int Type;
@@ -36,7 +37,7 @@ struct responseStack{
 
 
 
-
+void sendClient(int port, char* ip, char* data,int lastAck);
 struct Servers createServer(char* ip,int port);
 struct responseStack listenOn(struct Servers,int socket);
 int initServer();

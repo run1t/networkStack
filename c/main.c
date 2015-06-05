@@ -33,16 +33,14 @@ int main(int argc, char *argv[])
 	while(1){
 		struct responseStack stack = listenOn(server,sock);
 		if(stack.Type == 1){
-
-			printf("Connection");
-			printf("New user connected\n");			
-		}
-		else if(stack.Type == 2){
-			printf("Data received\n");	
-		}else if(stack.Type == 3){
-			printf("Deconnection\n");
-		}else if(stack.Type == 0){
-			printf("Error\n");
+			if(stack.Tcp.Type == 1){
+				printf("Connection");
+				printf("New user connected\n");	
+			}else if(stack.Tcp.Type == 2){
+				printf("Data received\n");	
+			}else if(stack.Tcp.Type == 3){
+				printf("Deconnection\n");
+			}
 		}
 			
 	}

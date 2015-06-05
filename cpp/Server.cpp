@@ -6,7 +6,6 @@
 //  Created by Reunan Le noc on 02/06/15.
 //  Copyright (c) 2015 Reunan Le noc. All rights reserved.
 //
-
 #include "Server.h"
 vector<string> split(string str, char delimiter) {
   vector<string> internal;
@@ -19,11 +18,14 @@ vector<string> split(string str, char delimiter) {
   
   return internal;
 }
+
+
 /**
 * Gestion de la stack IP
 */
 
 void Stack(void* args){
+
  	Server *s = static_cast<Server*>(args);
  	int sock;
 	sock = initServer();
@@ -38,6 +40,7 @@ void Stack(void* args){
 				cout << "/********* Type Tcp **********/" << endl;
 			switch(stack.Tcp.Type){
 				case 1:
+			
 		   		cout << "/* Connection" << endl;
 		   		cout << "/* Id :" << stack.Tcp.id << endl;
 		   		cout << "/* Port :" << stack.Tcp.port << endl;
@@ -45,6 +48,8 @@ void Stack(void* args){
 		   		cout << "/***************************/\n\n" << endl;
 				break;
 				case 2:
+				
+				s->onData(stack.Tcp.message,*new Client(10,stack.Tcp.port,stack.Tcp.Ip,stack.Tcp.lastAck));
 				cout << "/* Message" << endl;
 		   		cout << "/* Id :" << stack.Tcp.id << endl;
 		   		cout << "/* Port :" << stack.Tcp.port << endl;

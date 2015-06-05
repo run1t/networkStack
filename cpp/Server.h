@@ -21,9 +21,7 @@
 #include "Client.h"
 using namespace std;
 
-extern "C" {    // another way
-	#include "socket_test/Server.h"
-   };
+
 
 #endif /* defined(__callback_Test__Server__) */
 

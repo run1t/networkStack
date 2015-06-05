@@ -1,44 +1,32 @@
 CXX = g++
 CC = gcc
-CFLAGS = -Wall -c
+CFLAGS = -Wall -c 
 CXXFLAGS = -Wall -D__STDC_LIMIT_MACROS
 
 OUTPUTDIR = ./bin/
 MKDIR = mkdir -p $(OUTPUTDIR)
-OBJECTC = socket_test/tcp.o socket_test/ip.o socket_test/ethernet.o socket_test/icmp.o socket_test/Server.o
+OBJECTC = c/tcp.o c/ip.o c/ethernet.o c/icmp.o c/Server.o
 
 
 
 CXXSOURCES = \
     main.cpp \
-	Server.cpp \
-	Client.cpp
+	cpp/Server.cpp \
+	cpp/Client.cpp \
+	cpp/Frames/TCPFrame.cpp
 
 all: server
 
 server: 
+	$(MAKE) -C c 
 	$(MKDIR)
-	$(CXX) $(CXXFLAGS) -o server $(OBJECTC) $(CXXSOURCES)  -pthread -std=c++11 
+	$(CXX) $(CXXFLAGS) -o server $(OBJECTC) $(CXXSOURCES)  -pthread -std=c++11  -fdiagnostics-color
 
 
-
-ip.o: socket_test/ip.c socket_test/ip.h
-	gcc -o socket_test/ip.o -c socket_test/ip.c -W -Wall
-
-tcp.o: socket_test/tcp.c socket_test/tcp.h
-	gcc -o socket_test/tcp.o -c socket_test/tcp.c -W -Wall
-
-ethernet.o: socket_test/ethernet.c socket_test/ethernet.h
-	gcc -o socket_test/ethernet.o -c socket_test/ethernet.c -W -Wall
-
-Server.o: socket_test/Server.c socket_test/Server.h 
-	gcc -o socket_test/Server.o -c socket_test/Server.c -W -Wall
-
-icmp.o: socket_test/icmp.c socket_test/icmp.h
-	gcc -o socket_test/icmp.o -c socket_test/icmp.c -W -Wall
 
 .PHONY: clean
 clean:
 	$(RM) -rf server
-	$(RM) ./*.gc??
+	$(RM) ./c/*.gc??
+	$(RM) ./c/*.o
 	$(RM) ./*.o
