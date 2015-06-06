@@ -44,5 +44,6 @@ public:
 	Stack(string ip,int port);
 	void receiver();
 	void Sender(TCPFrame tcp);
+	void Sender(ICMPFrame icmp);
 
 };

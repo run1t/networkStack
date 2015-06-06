@@ -258,6 +258,8 @@ TCPFrame::TCPFrame(){
 		frame.push_back(this->data[i]);
 	}
 
+	this->data[4] = this->data[4] + 20;
+
 	this->frameLength = frame.size();
 
 	unsigned char* ret = (unsigned char*) malloc(frame.size()*sizeof(unsigned char*));

@@ -12,6 +12,7 @@ extern "C" {
 #include <arpa/inet.h>
 #include <netinet/in_systm.h>
 #include <netinet/ip.h>
+#include <netinet/ip_icmp.h>
 #include <unistd.h>
 #include <linux/tcp.h>
 #include <netinet/in_systm.h>
@@ -49,11 +50,13 @@ public:
 	int Checksum;
 	int Id;
 	int sequence;
+	string data;
 
 	int frameLength;
 	vector<unsigned char> options;
 	unsigned short checksum(unsigned short *ptr, unsigned int nbBytes);
 	unsigned short get_ip_checksum(struct iphdr * myip);
+	unsigned short get_icmp_checksum(struct icmphdr * myicmp,int length);
 	ICMPFrame(unsigned char* buffer,int size);
 	ICMPFrame();
 	unsigned char* toFrame();
