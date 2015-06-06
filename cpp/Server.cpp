@@ -147,12 +147,11 @@ void Server::removeClient(Client client){
 }
 
 Client Server::getClient(int id){
-
+	return *new Client(10,23,"192.168.1.12",123);
 }
 
 
 void Server::listen(){
-	unsigned short *ok;
     thread t1(Stack,this);
     t1.join();
 }
