@@ -6,6 +6,7 @@
 */
 
 Stack::Stack(string ip,int port){
+	this->port = port;
 	/* on mets en place le socket */
 	int sockfd;
 	int sockopt;
@@ -67,28 +68,36 @@ void Stack::receiver(){
 			//On verifie que l'on a bien des données
 			if(numbytes > 0){
 				ETHFrame eth = *new ETHFrame(buf,numbytes);
-				if(eth.Type == ETHERTYPE_IPv4){
-					IPFrame ip = *new IPFrame(buf,numbytes);
-				
-					if(ip.Protocol == 6){
-						TCPFrame tcp = *new TCPFrame(buf,numbytes);
-						cout << "IP id :" << tcp.ip.Id << endl;
-						cout << "port source : " << tcp.src << endl;
-						cout << "port Destination : " << tcp.dst << endl;
-						cout << "seq number : " << tcp.seq_number << endl;
-						cout << "ack number : " << tcp.ack_number << endl;
-						cout << "Flags number : " << tcp.Flags << endl;
-						cout << "Windows Size :" <<tcp.Windows << endl;
-						cout << "Checksum : " << tcp.Checksum << endl;
-						cout << "Pointer : " << tcp.urgentPointer << endl;
-						cout << "HeaderLength :" << tcp.HeaderLength << endl;
-						cout << "Data : " << tcp.data << endl;
-					
+				//c'est pour nous ?
+				if(eth.dst.compare(PC::getMAC()) == 0){
+
+					if(eth.Type == ETHERTYPE_IPv4){
 						
+						IPFrame ip = *new IPFrame(buf,numbytes);
+						if(ip.dst.compare(PC::getIP()) == 0){
+							//on check lsi c'est pour
+							if(ip.Protocol == 6){
+								TCPFrame tcp = *new TCPFrame(buf,numbytes);
+								if(this->port == tcp.dst){
+									cout << "c'est le bon port" << endl;
+								}
+								/*cout << "IP id :" << tcp.ip.Id << endl;
+								cout << "port source : " << tcp.src << endl;
+								cout << "port Destination : " << tcp.dst << endl;
+								cout << "seq number : " << tcp.seq_number << endl;
+								cout << "ack number : " << tcp.ack_number << endl;
+								cout << "Flags number : " << tcp.Flags << endl;
+								cout << "Windows Size :" <<tcp.Windows << endl;
+								cout << "Checksum : " << tcp.Checksum << endl;
+								cout << "Pointer : " << tcp.urgentPointer << endl;
+								cout << "HeaderLength :" << tcp.HeaderLength << endl;
+								cout << "Data : " << tcp.data << endl;*/
+
+							}
+						}
 					}
 				}
-			}else{
-				cout << "on a pas des données" << endl;
 			}
+				//on check si c'est de l'ipv4
 		}
 }

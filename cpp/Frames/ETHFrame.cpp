@@ -13,7 +13,7 @@ ETHFrame::ETHFrame(unsigned char* buffer,int size){
 	*/
 
 	//Mac source
-	this->src = "";
+	this->dst = "";
 	for(int i = 0; i < 6 ; i++){
 		std::stringstream stream;
 		stream << std::hex << std::uppercase << int (buffer[i]);
@@ -23,15 +23,15 @@ ETHFrame::ETHFrame(unsigned char* buffer,int size){
 			result = "0" + result;
 		}
 		if(i < 5){
-			this->src += result + ":";
+			this->dst += result + ":";
 		}else{
-			this->src += result ;
+			this->dst += result ;
 		}
 
 	}
 
 	//Mac dest
-	this->dst = "";
+	this->src = "";
 	for(int i = 6; i < 12 ; i++){
 		std::stringstream stream;
 		stream << std::hex << std::uppercase << int (buffer[i]);
@@ -41,9 +41,9 @@ ETHFrame::ETHFrame(unsigned char* buffer,int size){
 			result = "0" + result;
 		}
 		if(i < 11){
-			this->dst += result + ":";
+			this->src += result + ":";
 		}else{
-			this->dst += result ;
+			this->src += result ;
 		}
 
 	}
