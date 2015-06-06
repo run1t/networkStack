@@ -1,75 +1,87 @@
 #include "Stack.h"
 
 /**
-* Gestiond de la reception 
-* des données
+* On va mettre dans se fichier toutes les mecanique de 
+* la stack
 */
 
-void stack(){
+Stack::Stack(string ip,int port){
+	/* on mets en place le socket */
+	int sockfd;
+	int sockopt;
 
-	uint8_t buf[BUF_SIZ];
-	int numbytes;
-	struct ethhdr *etherHeader;
-	struct iphdr *ip_hdr;
-	struct tcphdr *tcp_hdr;
-	struct icmphdr *icmp_hdr;
-	struct responseStack Stack;
+
+	/* */
+	struct ifreq ifopts;	
+	struct ifreq if_ip;
+	struct sockaddr_ll sa;
 	
-	while(1){
-
-		numbytes = recvfrom(sock, buf, BUF_SIZ, 0, NULL, NULL);
-			
-		//On verifie que l'on a bien des données
-		if(numbytes > 0){
-
-		//On recupère le header
-		etherHeader = (struct ethhdr *)buf;
-
-		//Quelle est le type de ethernet ?
-				
-		if(etherHeader->h_proto == ETH_P_ARP){
-			printf(" Arp\n");
-		}else if(etherHeader->h_proto == htons(0x0800)){
-			//On check si on la bonne address mac
-			if(MacIsForMe(etherHeader)){
-				//Recuperation du header ip
-				ip_hdr = (struct iphdr *)(buf + sizeof(struct ethhdr));
-				
-				//On ne traite que l'ip V4
-
-				if(ip_hdr->version == 4){
-					//On check si c'est la bonne address IP
-					if(IpIsForMe(ip_hdr)){
-						switch(ip_hdr->protocol){
-							//#ICMP
-							case ICMP_PROTO:
-
-								icmp_hdr = (struct icmphdr *)(buf +sizeof(struct ethhdr) + sizeof(struct iphdr));
-								icmpHandler(icmp_hdr,buf,numbytes,ip_hdr);
-							break;
-
-							//#TCP
-							case TCP_PROTO:
-								printf("TCP\n");
-								tcp_hdr = (struct tcphdr *)(buf + sizeof(struct ethhdr) + sizeof(struct iphdr));
-								Stack.Type = 1;
-								Stack.Tcp = tcpHandler(buf,tcp_hdr,sock,numbytes,ip_hdr);
-								return Stack;
-							break;
-
-							}
-						}
-					}
-			    }
-		    }
+	/* On configure le nom de notre interface */
+	char ifName[IFNAMSIZ];
+	strcpy(ifName, DEFAULT_IF);
+	memset(&if_ip, 0, sizeof(struct ifreq));
+ 
+	/* On ouver l'ecoute des packet Ethernet */
+	if ((sockfd = socket(PF_PACKET, SOCK_RAW, htons(ETHER_TYPE))) == -1) {
+		perror("listener: socket");	
 	}
-}
+ 
+	/* On met l'interface en promiscuis mode ce qui 
+	permet d"couter tout les connections escequue 
+	c'est vraiment necessaire ?*/
 
-Stack::Stack(){
-	
+	strncpy(ifopts.ifr_name, ifName, IFNAMSIZ-1);
+	ioctl(sockfd, SIOCGIFFLAGS, &ifopts);
+	ifopts.ifr_flags |= IFF_PROMISC;
+	ioctl(sockfd, SIOCSIFFLAGS, &ifopts);
+
+
+	/* Gere un cas de fermeture prematurer*/
+	if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &sockopt, sizeof sockopt) == -1) {
+		perror("setsockopt");
+		close(sockfd);
+		exit(EXIT_FAILURE);
+	}
+
+	/* On "Bind" notre socket avec notre device */
+	if (setsockopt(sockfd, SOL_SOCKET, SO_BINDTODEVICE, ifName, IFNAMSIZ-1) == -1)	{
+		perror("SO_BINDTODEVICE");
+		close(sockfd);
+		exit(EXIT_FAILURE);
+	}
+
+	memset(&sa, 0, sizeof (sa));
+	sa.sll_family = AF_PACKET;
+	sa.sll_ifindex = if_ip.ifr_ifindex;
+	sa.sll_protocol = htons(ETH_P_ALL);
+
+	this->sock = sockfd;
 };
 
 void Stack::receiver(){
-    thread t1(stack,this);
-    t1.join();
+	uint8_t buf[1024];
+	int	numbytes = recvfrom(sock, buf, 1024, 0, NULL, NULL);
+	
+	//On verifie que l'on a bien des données
+	if(numbytes > 0){
+		ETHFrame eth = *new ETHFrame(buf,numbytes);
+		if(eth.Type == ETHERTYPE_IPv4){
+			IPFrame ip = *new IPFrame(buf,numbytes);
+			cout << "ip Version : "  << ip.Version << endl;
+			cout << "Header length : "  << ip.HeaderLength << endl;
+			cout << "Total length : " << ip.TotalLength << endl;
+			cout << "Id :" << ip.Id << endl;
+			cout << "Reserved :" << ip.Flag_Reserved << endl;
+			cout << "DF :" << ip.Flag_DF << endl;
+			cout << "MF :" << ip.Flag_MF << endl;
+			cout << "TTL :" << ip.TTL << endl;
+			cout << "Protocol :" << ip.Protocol << endl;
+			cout << "Checksum :" << ip.Checksum << endl;
+			cout << "Ip source :" << ip.src << endl;
+			cout << "Ip Destination :" << ip.dst << endl;
+			//cout << "Position Fragment" << ip.PositionFragment << endl;
+		}
+	}else{
+		cout << "on a pas des données" << endl;
+	}
 }

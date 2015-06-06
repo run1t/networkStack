@@ -13,7 +13,10 @@ CXXSOURCES = \
     main.cpp \
 	cpp/Server.cpp \
 	cpp/Client.cpp \
-	cpp/Frames/TCPFrame.cpp
+	cpp/Frames/TCPFrame.cpp \
+	cpp/Stack.cpp \
+	cpp/Frames/ETHFrame.cpp \
+	cpp/Frames/IPFrame.cpp
 
 all: server
 
