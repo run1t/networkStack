@@ -6,6 +6,8 @@ IPFrame::IPFrame(){
 }
 
 IPFrame::IPFrame(unsigned char* buffer,int size){
+
+	this->eth = *new ETHFrame(buffer,size);
 	/**
 	* On commence le remplissage de la trame IP juste après 
 	* le header Ethernet au byte 14

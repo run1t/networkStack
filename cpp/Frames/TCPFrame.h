@@ -1,24 +1,29 @@
 #include <string>
-extern "C" {    // another way
-	#include "../../c/Server.h"
-   };
+#include <iostream>
+#include <sstream>
+#include "ETHFrame.h"
+#include "IPFrame.h"
+#if !defined( TCPFRAME_H )
+#define TCPFRAME_H
 using namespace std;
 class TCPFrame
 {
 public:
-	int s_port;
-	int d_port;
+	ETHFrame eth;
+	IPFrame ip;
+	int src;
+	int dst;
 	int seq_number;
 	int ack_number;
-	int data_offset;
-	int flags;
-	int windows;
-	int checksum;
+	int HeaderLength;
+	int Flags;
+	int Windows;
+	int Checksum;
 	int urgentPointer;
 	string data;
 
-	TCPFrame(char* frame);
-	TCPFrame();
-	~TCPFrame();	
+	TCPFrame(unsigned char* buffer,int size);
+	TCPFrame();	
 };
 
+#endif // !defined( TCPFRAME_H )

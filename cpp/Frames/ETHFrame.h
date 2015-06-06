@@ -1,7 +1,8 @@
 #include <string>
 #include <iostream>
 #include <sstream>
-
+#if !defined( ETHFRAME_H )
+#define ETHFRAME_H
 using namespace std;
 
 class ETHFrame
@@ -18,3 +19,4 @@ public:
 	// on construit un template de trame
 	ETHFrame();
 };
+#endif // !defined( ETHFRAME_H )
