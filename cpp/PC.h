@@ -1,5 +1,6 @@
 #include <string>
 #include <sstream>
+#include <iostream>
 using namespace std;
 extern "C" {    // another way
 	#include <net/if.h>
@@ -21,6 +22,7 @@ extern "C" {    // another way
 class PC
 {
 public:
+	PC();
 	static string getIP();
 	static string getMAC();
 	static string getDefaultInterface();
