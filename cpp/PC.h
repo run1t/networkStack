@@ -7,6 +7,10 @@ extern "C" {    // another way
 	#include <sys/ioctl.h>
 	#include <string.h>
 	#include <unistd.h>
+	#include <stdio.h>
+	#include <sys/types.h>
+	#include <sys/stat.h>
+	#include <fcntl.h>
 	#include <netinet/in.h>
 	#include <sys/socket.h>
 	#include <arpa/inet.h>
@@ -19,6 +23,7 @@ class PC
 public:
 	static string getIP();
 	static string getMAC();
+	static string getDefaultInterface();
 };
 
 #endif // !defined( PC_H )

@@ -16,6 +16,7 @@ ETHFrame::ETHFrame(unsigned char* buffer,int size){
 	this->dst = "";
 	for(int i = 0; i < 6 ; i++){
 		std::stringstream stream;
+		//On converti en hexadecimal
 		stream << std::hex << std::uppercase << int (buffer[i]);
 		std::string result( stream.str() );
 		//on rajoute un 0 si une seul lettre
@@ -34,6 +35,7 @@ ETHFrame::ETHFrame(unsigned char* buffer,int size){
 	this->src = "";
 	for(int i = 6; i < 12 ; i++){
 		std::stringstream stream;
+		//On converti en hexadecimal
 		stream << std::hex << std::uppercase << int (buffer[i]);
 		std::string result( stream.str() );
 		//on rajoute un 0 si une seul lettre
