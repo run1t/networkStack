@@ -15,6 +15,8 @@
 #define TCP_PROTO 0x06
 #include "Frames/ETHFrame.h"
 #include "Frames/IPFrame.h"
+#include "Frames/TCPFrame.h"
+#include "PC.h"
 #include <string>
 #include <iostream>
 using namespace std;

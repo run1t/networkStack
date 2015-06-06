@@ -60,28 +60,34 @@ Stack::Stack(string ip,int port){
 
 void Stack::receiver(){
 	uint8_t buf[1024];
-	int	numbytes = recvfrom(sock, buf, 1024, 0, NULL, NULL);
-	
-	//On verifie que l'on a bien des données
-	if(numbytes > 0){
-		ETHFrame eth = *new ETHFrame(buf,numbytes);
-		if(eth.Type == ETHERTYPE_IPv4){
-			IPFrame ip = *new IPFrame(buf,numbytes);
-			cout << "ip Version : "  << ip.Version << endl;
-			cout << "Header length : "  << ip.HeaderLength << endl;
-			cout << "Total length : " << ip.TotalLength << endl;
-			cout << "Id :" << ip.Id << endl;
-			cout << "Reserved :" << ip.Flag_Reserved << endl;
-			cout << "DF :" << ip.Flag_DF << endl;
-			cout << "MF :" << ip.Flag_MF << endl;
-			cout << "TTL :" << ip.TTL << endl;
-			cout << "Protocol :" << ip.Protocol << endl;
-			cout << "Checksum :" << ip.Checksum << endl;
-			cout << "Ip source :" << ip.src << endl;
-			cout << "Ip Destination :" << ip.dst << endl;
-			//cout << "Position Fragment" << ip.PositionFragment << endl;
+	cout << PC::getIP() << endl;
+	while(1){
+			int	numbytes = recvfrom(sock, buf, 1024, 0, NULL, NULL);
+			//On verifie que l'on a bien des données
+			if(numbytes > 0){
+				ETHFrame eth = *new ETHFrame(buf,numbytes);
+				if(eth.Type == ETHERTYPE_IPv4){
+					IPFrame ip = *new IPFrame(buf,numbytes);
+				
+					if(ip.Protocol == 6){
+						TCPFrame tcp = *new TCPFrame(buf,numbytes);
+						cout << "IP id :" << tcp.ip.Id << endl;
+						cout << "port source : " << tcp.src << endl;
+						cout << "port Destination : " << tcp.dst << endl;
+						cout << "seq number : " << tcp.seq_number << endl;
+						cout << "ack number : " << tcp.ack_number << endl;
+						cout << "Flags number : " << tcp.Flags << endl;
+						cout << "Windows Size :" <<tcp.Windows << endl;
+						cout << "Checksum : " << tcp.Checksum << endl;
+						cout << "Pointer : " << tcp.urgentPointer << endl;
+						cout << "HeaderLength :" << tcp.HeaderLength << endl;
+						cout << "Data : " << tcp.data << endl;
+					
+						
+					}
+				}
+			}else{
+				cout << "on a pas des données" << endl;
+			}
 		}
-	}else{
-		cout << "on a pas des données" << endl;
-	}
 }

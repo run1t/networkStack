@@ -1,6 +1,7 @@
 #include <string>
 #include <iostream>
 #include <sstream>
+#include "ETHFrame.h"
 #if !defined( IPFRAME_H )
 #define IPFRAME_H
 using namespace std;
@@ -26,7 +27,8 @@ class IPFrame
 	* 4 bytes dst
 	*/
 public:
-	//Attributs de ETHFrame
+	
+	ETHFrame eth;
 	unsigned int Version : 4;
 	int HeaderLength;
 	int DFS;
