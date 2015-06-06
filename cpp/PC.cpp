@@ -15,5 +15,38 @@ string PC::getIP(){
 }
 
 string PC::getMAC(){
+	/**
+	* On recupère l'adresse Mac de la machine
+	*/ 
 
+   	#define MAC_STRING_LENGTH 13
+  	char *ret ;
+  	struct ifreq s;
+  	string mac = "";
+  	int fd = socket(PF_INET, SOCK_DGRAM, IPPROTO_IP);
+
+  	strcpy(s.ifr_name, "eth0");
+  	if (fd >= 0 && ret && 0 == ioctl(fd, SIOCGIFHWADDR, &s))
+  	{
+    	int i;
+    	for (i = 0; i < 6; ++i){
+    		stringstream stream;
+			stream << hex << uppercase << (int ) s.ifr_addr.sa_data[i];
+			string result( stream.str() );
+			if(result.length() == 1){
+				result = "0" + result;
+			}
+			if( i < 5){
+				mac += result + ":";
+			}else{
+				mac += result;
+			}
+      		
+    	}
+  	}
+  	else
+  	{
+   		perror("malloc/socket/ioctl failed");
+  	}
+  	return string(mac);
 }

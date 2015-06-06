@@ -1,4 +1,5 @@
 #include <string>
+#include <sstream>
 using namespace std;
 extern "C" {    // another way
 	#include <net/if.h>
