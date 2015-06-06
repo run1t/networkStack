@@ -61,6 +61,7 @@ Stack::Stack(string ip,int port){
 void Stack::receiver(){
 	uint8_t buf[1024];
 	cout << PC::getIP() << endl;
+	cout << PC::getMAC() << endl;
 	while(1){
 			int	numbytes = recvfrom(sock, buf, 1024, 0, NULL, NULL);
 			//On verifie que l'on a bien des données

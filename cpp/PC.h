@@ -1,4 +1,5 @@
 #include <string>
+#include <sstream>
 using namespace std;
 extern "C" {    // another way
 	#include <net/if.h>
@@ -10,6 +11,9 @@ extern "C" {    // another way
 	#include <sys/types.h>
 	#include <sys/stat.h>
 	#include <fcntl.h>
+	#include <netinet/in.h>
+	#include <sys/socket.h>
+	#include <arpa/inet.h>
 };
 #if !defined( PC_H )
 #define PC_H
