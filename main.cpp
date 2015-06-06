@@ -4,7 +4,7 @@
 #include <unistd.h>
 #include <functional>
 #include "cpp/Stack.h"
-
+#include "cpp/Client.h"
 
 using namespace std;
 

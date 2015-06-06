@@ -1,14 +1,11 @@
 #include <string>
-<<<<<<< HEAD:Client.h
 #include <functional>
 #include <stdio.h>
 #include <iostream>
 
-=======
 extern "C" {    // another way
 	#include "../c/Server.h"
    };
->>>>>>> 77add4a11d5e1dfdbf8b815786d9be8de60211c0:cpp/Client.h
 using namespace std;
 class Client
 {
