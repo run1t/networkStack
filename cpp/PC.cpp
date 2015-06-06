@@ -1,21 +1,17 @@
 #include "PC.h"
 string PC::getIP(){
-	int sockfd;
-	struct ifreq ifr;
-	unsigned char *macDst;
-	ifr.ifr_addr.sa_family = AF_INET;
-	strncpy(ifr.ifr_name,"eth0",IFNAMSIZ-1);
-	sockfd = socket(AF_INET,SOCK_STREAM,0);
+	int fd;
+ 	struct ifreq ifr;
+ 	fd = socket(AF_INET, SOCK_DGRAM, 0);
+ 	ifr.ifr_addr.sa_family = AF_INET;
+	strncpy(ifr.ifr_name, "eth0", IFNAMSIZ-1);
+	ioctl(fd, SIOCGIFADDR, &ifr);
+	close(fd);
 
-	if(sockfd == -1){
-		perror("Error socket opening MAC Address");
-	}
-	ioctl(sockfd,SIOCGIFHWADDR,&ifr);
-	close(sockfd);
-	
-	/******/
-	return (char *)ifr.ifr_hwaddr.sa_data;	
-
+	/**
+	* Recuperation de l'ip destination
+	*/ 
+	return inet_ntoa( ( (struct sockaddr_in *) &ifr.ifr_addr) ->sin_addr) ;
 }
 
 string PC::getMAC(){
