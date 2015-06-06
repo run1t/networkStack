@@ -14,6 +14,7 @@
 #define ICMP_PROTO 0x01
 #define TCP_PROTO 0x06
 #include "Frames/ETHFrame.h"
+#include "Frames/IPFrame.h"
 #include <string>
 #include <iostream>
 using namespace std;
