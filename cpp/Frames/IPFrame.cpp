@@ -26,7 +26,8 @@ IPFrame::IPFrame(unsigned char* buffer,int size){
 	this->Flag_Reserved = buffer[20] >> 7 & 1;
 	this->Flag_DF = buffer[20] >> 6 & 1;
 	this->Flag_MF = buffer[20] >> 5 & 1;
-	//this->PositionFragment = (buffer[20] & 1F)*256 + (buffer[21]);
+	this->Flags = buffer[20];
+	this->PositionFragment = buffer[21];
 	this->TTL = buffer[22];
 	this->Protocol = buffer[23];
 	this->Checksum = (buffer[24]*256+buffer[25]);

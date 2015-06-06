@@ -6,6 +6,7 @@
 extern "C" {    // another way
 	#include "../c/Server.h"
    };
+   
 using namespace std;
 class Client
 {

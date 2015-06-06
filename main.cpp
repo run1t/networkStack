@@ -9,10 +9,6 @@
 using namespace std;
 
 
-void onConnection(){
-	cout << "I'm connected !" << endl;
-}
-
 int main()
 {
 /*

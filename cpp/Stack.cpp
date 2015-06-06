@@ -74,13 +74,24 @@ void Stack::receiver(){
 					if(eth.Type == ETHERTYPE_IPv4){
 						
 						IPFrame ip = *new IPFrame(buf,numbytes);
+
 						if(ip.dst.compare(PC::getIP()) == 0){
+							
 							//on check lsi c'est pour
 							if(ip.Protocol == 6){
 								TCPFrame tcp = *new TCPFrame(buf,numbytes);
+								TCPFrame tcpRes = tcp;
+
 								if(this->port == tcp.dst){
-									if(tcp.Flags == TCP_SYN){
-										cout << "on ma fait une demande de synchro !" << endl;
+									if(tcp.Flags == TCP_SYN ){
+										//On va repondre a notre SYN
+										tcpRes.eth.src = tcp.eth.dst;
+										tcpRes.eth.dst = tcp.eth.src;
+
+										tcpRes.ip.src =  tcp.ip.dst;
+										tcpRes.ip.dst =  tcp.ip.src;
+
+										this->Sender(tcpRes);
 									}
 								}
 								/*cout << "IP id :" << tcp.ip.Id << endl;
@@ -102,4 +113,90 @@ void Stack::receiver(){
 			}
 				//on check si c'est de l'ipv4
 		}
+}
+
+void Stack::Sender(TCPFrame tcp){
+	#define DEFAULT_IF	"eth0"
+	#define BUF_SIZ		1024
+	#define MY_DEST_MAC0	0x12
+	#define MY_DEST_MAC1	0x33
+	#define MY_DEST_MAC2	0x44
+	#define MY_DEST_MAC3	0x55
+	#define MY_DEST_MAC4	0x34
+	#define MY_DEST_MAC5	0x65
+	
+	int sockfd;
+	struct ifreq if_idx;
+	struct ifreq if_mac;
+	int tx_len = 0;
+	char sendbuf[BUF_SIZ];
+	struct ether_header *eh = (struct ether_header *) sendbuf;
+	struct iphdr *iph = (struct iphdr *) (sendbuf + sizeof(struct ether_header));
+	struct sockaddr_ll socket_address;
+	char ifName[IFNAMSIZ];
+	
+	
+	strcpy(ifName, DEFAULT_IF);
+ 
+	/* Open RAW socket to send on */
+	if ((sockfd = socket(AF_PACKET, SOCK_RAW, IPPROTO_RAW)) == -1) {
+	    perror("socket");
+	}
+ 
+	/* Get the index of the interface to send on */
+	memset(&if_idx, 0, sizeof(struct ifreq));
+	strncpy(if_idx.ifr_name, ifName, IFNAMSIZ-1);
+	if (ioctl(sockfd, SIOCGIFINDEX, &if_idx) < 0)
+	    perror("SIOCGIFINDEX");
+	/* Get the MAC address of the interface to send on */
+	memset(&if_mac, 0, sizeof(struct ifreq));
+	strncpy(if_mac.ifr_name, ifName, IFNAMSIZ-1);
+	if (ioctl(sockfd, SIOCGIFHWADDR, &if_mac) < 0)
+	    perror("SIOCGIFHWADDR");
+ 
+	/* Construct the Ethernet header */
+	memset(sendbuf, 0, BUF_SIZ);
+	unsigned char* datagram = tcp.toFrame();
+	/* Ethernet header */
+	eh->ether_shost[0] = ((uint8_t *)&if_mac.ifr_hwaddr.sa_data)[0];
+	eh->ether_shost[1] = ((uint8_t *)&if_mac.ifr_hwaddr.sa_data)[1];
+	eh->ether_shost[2] = ((uint8_t *)&if_mac.ifr_hwaddr.sa_data)[2];
+	eh->ether_shost[3] = ((uint8_t *)&if_mac.ifr_hwaddr.sa_data)[3];
+	eh->ether_shost[4] = ((uint8_t *)&if_mac.ifr_hwaddr.sa_data)[4];
+	eh->ether_shost[5] = ((uint8_t *)&if_mac.ifr_hwaddr.sa_data)[5];
+	eh->ether_dhost[0] = datagram[0];
+	eh->ether_dhost[1] = datagram[1];
+	eh->ether_dhost[2] = datagram[2];
+	eh->ether_dhost[3] = datagram[3];
+	eh->ether_dhost[4] = datagram[4];
+	eh->ether_dhost[5] = datagram[5];
+	/* Ethertype field */
+	eh->ether_type = htons(ETH_P_IP);
+	tx_len += sizeof(struct ether_header);
+ 
+	/* Packet data */
+	
+	memcpy(&sendbuf[tx_len],datagram,tcp.frameLength);
+ 	tx_len += tcp.frameLength;
+	/* Index of the network device */
+	socket_address.sll_ifindex = if_idx.ifr_ifindex;
+	/* Address length*/
+	socket_address.sll_halen = ETH_ALEN;
+	/* Destination MAC */
+	socket_address.sll_addr[0] = datagram[0];
+	socket_address.sll_addr[1] = datagram[1];
+	socket_address.sll_addr[2] = datagram[2];
+	socket_address.sll_addr[3] = datagram[3];
+	socket_address.sll_addr[4] = datagram[4];
+	socket_address.sll_addr[5] = datagram[5];
+ 	while(1){
+ 	usleep(20000);
+	/* Send packet */
+		if (sendto(sockfd, datagram, tcp.frameLength, 0, (struct sockaddr*)&socket_address, sizeof(struct sockaddr_ll)) < 0){
+	    	cout << "Error" << endl;
+		}else{
+			cout << "Success" << endl;
+		}
+	}
+	
 }

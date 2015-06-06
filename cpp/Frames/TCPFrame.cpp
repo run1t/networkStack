@@ -1,5 +1,15 @@
 #include "TCPFrame.h"
 
+void showFrame(vector<unsigned char> v){
+	cout << "On a une trame de " << v.size() << endl;
+	for(int i = 0; i < v.size() ; i++){
+		std::stringstream stream;
+		stream << std::hex << std::uppercase << int (v.at(i));
+		std::string result( stream.str() );
+		cout << result << " ";
+	}
+	cout << endl;
+}
 
 TCPFrame::TCPFrame(unsigned char* buffer,int size){
 	
@@ -34,4 +44,101 @@ TCPFrame::TCPFrame(unsigned char* buffer,int size){
 
 TCPFrame::TCPFrame(){
 
+}
+
+ unsigned char* TCPFrame::toFrame(){
+	vector<unsigned char> frame;
+
+
+	/**
+	* Remplissage du Header Ethernet
+	*/
+
+	// Addresse Destination
+	std::stringstream ss;
+	unsigned int buffer;
+	int offset = 0;
+	for(int i = 0 ; i < this->eth.dst.length() ; i += 3){
+		if(this->eth.dst[i] != ':'){
+			ss.clear();
+			ss << std::hex << this->eth.dst.substr(offset, 2);
+			ss >> buffer;
+			frame.push_back(static_cast<unsigned char>(buffer));
+			offset += 3;
+		}
+		
+	}
+
+	// Address Source
+	offset = 0;
+	for(int i = 0 ; i < this->eth.src.length() ; i += 3){
+		if(this->eth.src[i] != ':'){
+			ss.clear();
+			ss << std::hex << this->eth.src.substr(offset, 2);
+			ss >> buffer;
+			frame.push_back(static_cast<unsigned char>(buffer));
+			offset += 3;
+		}
+		
+	}
+
+	//Ether Type
+	frame.push_back((this->eth.Type >> 8) & 0xFF);
+	frame.push_back((this->eth.Type) & 0xFF);
+	
+	/**
+	* Remplissage du header Ip
+	*/
+
+	frame.push_back((this->ip.Version << 4) | (this->ip.HeaderLength/4));
+	
+	//DFS
+	frame.push_back(0x00);
+
+	frame.push_back((this->ip.TotalLength >> 8) & 0xFF);
+	frame.push_back((this->ip.TotalLength) & 0xFF);
+
+	frame.push_back((this->ip.Id >> 8) & 0xFF);
+	frame.push_back((this->ip.Id) & 0xFF);
+
+	
+	//fragment offset
+	frame.push_back(this->ip.Flags);
+	frame.push_back(this->ip.PositionFragment);
+
+	frame.push_back(this->ip.TTL);
+	frame.push_back(this->ip.Protocol);
+	frame.push_back((this->ip.Checksum >> 8) & 0xFF);
+	frame.push_back((this->ip.Checksum) & 0xFF);
+
+	//ip source 
+	int byte1, byte2, byte3, byte4;
+	char dot;
+	
+	istringstream s(this->ip.src);  // input stream that now contains the ip address string
+	s >> byte1 >> dot >> byte2 >> dot >> byte3 >> dot >> byte4 >> dot;
+
+	frame.push_back(byte1);
+	frame.push_back(byte2);
+	frame.push_back(byte3);
+	frame.push_back(byte4);
+
+	istringstream s1(this->ip.dst);  // input stream that now contains the ip address string
+	s1 >> byte1 >> dot >> byte2 >> dot >> byte3 >> dot >> byte4 >> dot;
+
+	frame.push_back(byte1);
+	frame.push_back(byte2);
+	frame.push_back(byte3);
+	frame.push_back(byte4);
+
+	while(frame.size() < this->ip.TotalLength){
+		frame.push_back(0x00);
+	}
+	this->frameLength = frame.size();
+	unsigned char* ret = (unsigned char*) malloc(frame.size()*sizeof(unsigned char*));
+	for(int i = 0; i < frame.size() ; i++){
+		ret[i] = frame.at(i);
+	}
+	showFrame(frame);
+	return ret;
 }

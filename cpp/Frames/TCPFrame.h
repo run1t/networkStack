@@ -3,6 +3,7 @@
 #include <sstream>
 #include "ETHFrame.h"
 #include "IPFrame.h"
+#include <vector>
 #if !defined( TCPFRAME_H )
 #define TCPFRAME_H
 using namespace std;
@@ -21,9 +22,11 @@ public:
 	int Checksum;
 	int urgentPointer;
 	string data;
+	int frameLength;
 
 	TCPFrame(unsigned char* buffer,int size);
-	TCPFrame();	
+	TCPFrame();
+	unsigned char* toFrame();
 };
 
 #endif // !defined( TCPFRAME_H )

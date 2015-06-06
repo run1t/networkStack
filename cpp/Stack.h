@@ -19,11 +19,16 @@
 #include "PC.h"
 #include <string>
 #include <iostream>
+#include <errno.h>
+#include <unistd.h>
+
 using namespace std;
 
 extern "C" {    // another way
+	#include <sys/socket.h>
     #include <netpacket/packet.h>
     #include <net/ethernet.h>
+
 };
 
 
@@ -37,4 +42,6 @@ public:
 	/*Methode de la stack*/ 
 	Stack(string ip,int port);
 	void receiver();
+	void Sender(TCPFrame tcp);
+
 };

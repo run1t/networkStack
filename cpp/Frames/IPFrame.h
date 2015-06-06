@@ -35,7 +35,7 @@ public:
 	int TotalLength;
 	
 	int Id;
-
+	int Flags;
 	bool Flag_Reserved;
 	bool Flag_DF;
 	bool Flag_MF;
