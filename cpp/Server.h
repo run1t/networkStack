@@ -20,9 +20,9 @@
 #include <sstream>
 #include "Client.h"
 using namespace std;
-
-
-
+extern "C" {    // another way
+    #include <netpacket/packet.h>
+};
 #endif /* defined(__callback_Test__Server__) */
 
 

@@ -97,6 +97,6 @@ string PC::getDefaultInterface(){
 	}else if(buffWlan0 == "up"){
 		return "wlan0";
 	}
-}
+	
 }
 

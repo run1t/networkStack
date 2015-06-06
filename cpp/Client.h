@@ -31,10 +31,10 @@ public:
     function<void()>	onError;
 
     //Declarations des evenements
-    void addEventConnection (function<void()> func);
-    void addEventDisconnect (function<void()> func);
-    void addEventError (function<void()> func);
+    //void addEventConnection (function<void()> func);
+    //void addEventDisconnect (function<void()> func);
+    //void addEventError (function<void()> func);
 
     //envoi de donnees
-    void send(string ip,int port,string message);
+    //void send(string ip,int port,string message);
 };

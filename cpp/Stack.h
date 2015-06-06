@@ -20,10 +20,11 @@
 #include <string>
 #include <iostream>
 using namespace std;
-extern "C" {    // another way
-	#include "../c/Server.h"
-};
 
+extern "C" {    // another way
+    #include <netpacket/packet.h>
+    #include <net/ethernet.h>
+};
 
 
 class Stack

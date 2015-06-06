@@ -1,3 +1,6 @@
+#if !defined( SERVER_C_H )
+#define SERVER_C_H
+
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
@@ -44,3 +47,4 @@ int initServer();
 struct responseTcp tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int numbytes,struct iphdr *IP_headerReceived);
 int MacIsForMe(struct ethhdr *eh);
 int IpIsForMe(struct iphdr *ih);
+#endif // !defined( IPFRAME_H )

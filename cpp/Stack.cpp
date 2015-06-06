@@ -79,7 +79,9 @@ void Stack::receiver(){
 							if(ip.Protocol == 6){
 								TCPFrame tcp = *new TCPFrame(buf,numbytes);
 								if(this->port == tcp.dst){
-									cout << "c'est le bon port" << endl;
+									if(tcp.Flags == TCP_SYN){
+										cout << "on ma fait une demande de synchro !" << endl;
+									}
 								}
 								/*cout << "IP id :" << tcp.ip.Id << endl;
 								cout << "port source : " << tcp.src << endl;
