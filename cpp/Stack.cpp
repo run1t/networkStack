@@ -83,36 +83,57 @@ void Stack::receiver(){
 								TCPFrame tcpRes = tcp;
 
 								if(this->port == tcp.dst){
+									//On va repondre a notre SYN
+									tcpRes.eth.src = tcp.eth.dst;
+									tcpRes.eth.dst = tcp.eth.src;
+
+									tcpRes.ip.src =  tcp.ip.dst;
+									tcpRes.ip.dst =  tcp.ip.src;	
+									
 									if(tcp.Flags == TCP_SYN ){
-										//On va repondre a notre SYN
-										tcpRes.eth.src = tcp.eth.dst;
-										tcpRes.eth.dst = tcp.eth.src;
-
-										tcpRes.ip.src =  tcp.ip.dst;
-										tcpRes.ip.dst =  tcp.ip.src;	
-
+										
 										tcpRes.Flags = TCP_SYN | TCP_ACK;
 										tcpRes.seq_number = tcp.ack_number;
 										tcpRes.ack_number = tcp.seq_number + 1;
-									
 										this->Sender(tcpRes);
+
 									}else if(tcp.Flags == (TCP_PSH | TCP_ACK)){
-										//On va repondre a notre SYN
-										tcpRes.eth.src = tcp.eth.dst;
-										tcpRes.eth.dst = tcp.eth.src;
-
-										tcpRes.ip.src =  tcp.ip.dst;
-										tcpRes.ip.dst =  tcp.ip.src;	
-
-										tcpRes.Flags = TCP_ACK;
+										
+										tcpRes.Flags = TCP_ACK | TCP_PSH;
 										tcpRes.seq_number = tcp.ack_number;
 										tcpRes.ack_number = tcp.seq_number + tcp.data.length();
-										tcpRes.data = "";
-										cout << "Data received :" << tcp.data << endl;
+										tcpRes.data =  "HTTP/1.x 200 OK\n"
+													    "Transfer-Encoding: chunked\n"
+													    "Date: Sat, 28 Nov 2009 04:36:25 GMT\n"
+														"Server: LiteSpeed\n"
+														"Connection: close\n"
+														"X-Powered-By: W3 Total Cache/0.8\n"
+														"Pragma: public\n"
+														"Expires: Sat, 28 Nov 2009 05:36:25 GMT\n"
+														"Etag: \"pub1259380237;gz\"\n"
+														"Cache-Control: max-age=3600, public\n"
+														"Content-Type: text/html; charset=UTF-8\n"
+														"Last-Modified: Sat, 28 Nov 2009 03:50:37 GMT\n"
+														"X-Pingback: http://net.tutsplus.com/xmlrpc.php\n"
+														"Content-Encoding: gzip\n"
+														"Vary: Accept-Encoding, Cookie, User-Agent\n"
+														 
+														"<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n"
+														"<html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+														"<head>\n"
+														"<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\n"
+														"<title>Top 20+ MySQL Best Practices - Nettuts+</title>;\n";
 										this->Sender(tcpRes);
-										cout << "on a un PSH ACK" << endl;
+										
+
 									}else if(tcp.Flags == TCP_ACK){
 										cout << "on a un ACK" << endl;
+									}else if(tcp.Flags == (TCP_ACK | TCP_FIN)){
+										tcpRes.Flags = TCP_ACK | TCP_FIN;
+										tcpRes.seq_number = tcp.ack_number;
+										tcpRes.ack_number = tcp.seq_number + 1;
+										tcpRes.data = "";
+										this->Sender(tcpRes);
 									}
 								}
 								/*cout << "IP id :" << tcp.ip.Id << endl;
