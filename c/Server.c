@@ -174,7 +174,12 @@ struct responseStack listenOn(struct Servers server,int sock){
     Stack.Type = 0;
 	return Stack;
 }
-
+/**
+* \fn int MacIsForMe(struct ethhdr *eh)
+* \brief Fonction qui détermine si l'adresse MAC recu correspond bien a la notre 
+* \param La fonction recoit en parametres la structure de l'en-tete Ethernet
+* \return La fonction retoure 0 ou 1 en fonction de si oui ou non l'adresse MAC nous est déstiné 
+*/
 int MacIsForMe(struct ethhdr *eh){
 
 	/**
@@ -210,7 +215,12 @@ int MacIsForMe(struct ethhdr *eh){
 
 }
 
-
+/**
+* \fn int IpIsForMe(struct iphdr *ih)
+* \brief Fonction qui détermine si l'adresse IP recu nous est bien déstiné
+* \param La fonction recoit en parametres la structure de l'en-tete IP
+* \return La fonction retoure 0 ou 1 en fonction de si oui ou non l'adresse IP nous est déstiné 
+*/
 int IpIsForMe(struct iphdr *ih){
 
 	/**
@@ -243,7 +253,12 @@ int IpIsForMe(struct iphdr *ih){
 	
 }
 
-
+/**
+* \fn void showBuffer(uint8_t *buf,int numbytes)
+* \brief Fonction qui nous permet d'afficher le contenu d'un buffer 
+* \param La fonction recoit en parametres le buffer et le nombre de Bytes que l'on souhaite lire 
+* \return La fonction ne retourne rien car elle affiche directement a l'écran le contenu du buffer 
+*/
 void showBuffer(uint8_t *buf,int numbytes){
 	int i;
 	for(i = 0; i < numbytes ; i++){
@@ -257,7 +272,12 @@ void showBuffer(uint8_t *buf,int numbytes){
 * 	-> IP;
 * 	-> data;
 */
-
+/**
+* \fn void sendClient(int port, char* ip, char* datas,int lastAck)
+* \brief Fonction qui nous permet d'envoyer un packet au client 
+* \param La fonction recoit en parametres le port, ip, les données, le dernier ACK 
+* \return La fonction ne retourne rien
+*/
 void sendClient(int port, char* ip, char* datas,int lastAck){
 	// Creation d'un Buffer Vide
 	unsigned char * tosend;
