@@ -2,7 +2,18 @@
 #include "ip.h"
 #include "icmp.h"
 #include <fcntl.h>
-
+/**
+* \file icmp.c
+* \brief Fichier de géstion de l'ICMP
+* \author Thomas VIAUD, Reunan LE NOC, Kevin HIPEAU, Guillaume TRICHARD
+* Fichier qui permet de créer l'en-tete et d'envoyer une requete ICMP
+*/
+/**
+* \fn void makeICMP_header(struct icmphdr *icmp,u_int8_t typeICMP,int seq_number,int id_number)
+* \brief Fonction de création de l'en-tete ICMP pour l'envoie de ping
+* \param La fonction recoit en parametres la structure de l'en-tete icmp, le type de d'icmp(echo ou ???), la séqunce et l'id 
+* \return La fonction ne retourne rien car elle a pour fonction de créer l'en-tete ICMP
+*/
 void makeICMP_header(struct icmphdr *icmp,u_int8_t typeICMP,int seq_number,int id_number)
 {
 	//On remplit le paquet
@@ -23,7 +34,12 @@ void makeICMP_header(struct icmphdr *icmp,u_int8_t typeICMP,int seq_number,int i
 	//On calcule le checksum
 	icmp->checksum = checksum_ICMP((unsigned short*)icmp, sizeof(struct icmphdr));
 }
-
+/**
+* \fn void sendICMP_request(struct icmphdr *ICMP_received,int type_ICMP,uint8_t buf[],int numbytes,struct iphdr *IP_header)
+* \brief Fonction d'envoie de la requete ICMP
+* \param La fonction recoit en parametres la structure de l'en-tete icmp, le type de d'icmp(echo ou ???), la taille, et la structure de l'en-tete IP 
+* \return La fonction ne retourne rien car elle a pour fonction d'envoyer un packet ICMP
+*/
 void sendICMP_request(struct icmphdr *ICMP_received,int type_ICMP,uint8_t buf[],int numbytes,struct iphdr *IP_header)
 {
 	//Le file descriptor de notre socket, ainsi que pour le setsockopt
@@ -72,7 +88,12 @@ void sendICMP_request(struct icmphdr *ICMP_received,int type_ICMP,uint8_t buf[],
 		}
 	}
 }
-
+/**
+* \fn void icmpHandler(struct icmphdr *icmpHeader,uint8_t buf[],int numbytes,struct iphdr *IP_header)
+* \brief Fonction de gestion des packets ICMP
+* \param La fonction recoit en parametres la structure de l'en-tete icmp, un tableau "buffer", et l'en-tete IP 
+* \return La fonction ne retourne rien
+*/
 void icmpHandler(struct icmphdr *icmpHeader,uint8_t buf[],int numbytes,struct iphdr *IP_header)
 {
 	//Si c'est un echo alors on désactive la réponse du kernel aux échos
