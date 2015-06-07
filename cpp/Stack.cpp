@@ -89,9 +89,30 @@ void Stack::receiver(){
 										tcpRes.eth.dst = tcp.eth.src;
 
 										tcpRes.ip.src =  tcp.ip.dst;
-										tcpRes.ip.dst =  tcp.ip.src;
+										tcpRes.ip.dst =  tcp.ip.src;	
 
+										tcpRes.Flags = TCP_SYN | TCP_ACK;
+										tcpRes.seq_number = tcp.ack_number;
+										tcpRes.ack_number = tcp.seq_number + 1;
+									
 										this->Sender(tcpRes);
+									}else if(tcp.Flags == (TCP_PSH | TCP_ACK)){
+										//On va repondre a notre SYN
+										tcpRes.eth.src = tcp.eth.dst;
+										tcpRes.eth.dst = tcp.eth.src;
+
+										tcpRes.ip.src =  tcp.ip.dst;
+										tcpRes.ip.dst =  tcp.ip.src;	
+
+										tcpRes.Flags = TCP_ACK;
+										tcpRes.seq_number = tcp.ack_number;
+										tcpRes.ack_number = tcp.seq_number + tcp.data.length();
+										tcpRes.data = "";
+										cout << "Data received :" << tcp.data << endl;
+										this->Sender(tcpRes);
+										cout << "on a un PSH ACK" << endl;
+									}else if(tcp.Flags == TCP_ACK){
+										cout << "on a un ACK" << endl;
 									}
 								}
 								/*cout << "IP id :" << tcp.ip.Id << endl;
@@ -157,19 +178,7 @@ void Stack::Sender(TCPFrame tcp){
 	/* Construct the Ethernet header */
 	memset(sendbuf, 0, BUF_SIZ);
 	unsigned char* datagram = tcp.toFrame();
-	/* Ethernet header */
-	eh->ether_shost[0] = ((uint8_t *)&if_mac.ifr_hwaddr.sa_data)[0];
-	eh->ether_shost[1] = ((uint8_t *)&if_mac.ifr_hwaddr.sa_data)[1];
-	eh->ether_shost[2] = ((uint8_t *)&if_mac.ifr_hwaddr.sa_data)[2];
-	eh->ether_shost[3] = ((uint8_t *)&if_mac.ifr_hwaddr.sa_data)[3];
-	eh->ether_shost[4] = ((uint8_t *)&if_mac.ifr_hwaddr.sa_data)[4];
-	eh->ether_shost[5] = ((uint8_t *)&if_mac.ifr_hwaddr.sa_data)[5];
-	eh->ether_dhost[0] = datagram[0];
-	eh->ether_dhost[1] = datagram[1];
-	eh->ether_dhost[2] = datagram[2];
-	eh->ether_dhost[3] = datagram[3];
-	eh->ether_dhost[4] = datagram[4];
-	eh->ether_dhost[5] = datagram[5];
+
 	/* Ethertype field */
 	eh->ether_type = htons(ETH_P_IP);
 	tx_len += sizeof(struct ether_header);
@@ -177,7 +186,7 @@ void Stack::Sender(TCPFrame tcp){
 	/* Packet data */
 	
 	memcpy(&sendbuf[tx_len],datagram,tcp.frameLength);
- 	tx_len += tcp.frameLength;
+ 
 	/* Index of the network device */
 	socket_address.sll_ifindex = if_idx.ifr_ifindex;
 	/* Address length*/
@@ -189,14 +198,15 @@ void Stack::Sender(TCPFrame tcp){
 	socket_address.sll_addr[3] = datagram[3];
 	socket_address.sll_addr[4] = datagram[4];
 	socket_address.sll_addr[5] = datagram[5];
- 	while(1){
- 	usleep(20000);
+ 
 	/* Send packet */
 		if (sendto(sockfd, datagram, tcp.frameLength, 0, (struct sockaddr*)&socket_address, sizeof(struct sockaddr_ll)) < 0){
 	    	cout << "Error" << endl;
 		}else{
 			cout << "Success" << endl;
 		}
-	}
+
+	close(sockfd);
+	
 	
 }

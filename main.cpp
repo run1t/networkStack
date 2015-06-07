@@ -4,7 +4,7 @@
 #include <unistd.h>
 #include <functional>
 #include "cpp/Stack.h"
-#include "cpp/Client.h"
+
 
 using namespace std;
 
@@ -20,7 +20,7 @@ int main()
 */
 
 	//Test Client
-	Client client = *new Client(1,5654,"10.17.40.3",3);
+	//Client client = *new Client(1,5654,"10.17.40.3",3);
 	//client.addEventConnection(onConnection);
     Stack stack = * new Stack("192.168.1.27",80);
     stack.receiver();

@@ -1,6 +1,7 @@
 #include <string>
 #include <iostream>
 #include <sstream>
+#include <vector>
 #include "ETHFrame.h"
 #if !defined( IPFRAME_H )
 #define IPFRAME_H
@@ -33,7 +34,7 @@ public:
 	int HeaderLength;
 	int DFS;
 	int TotalLength;
-	
+	vector<unsigned char> options;
 	int Id;
 	int Flags;
 	bool Flag_Reserved;

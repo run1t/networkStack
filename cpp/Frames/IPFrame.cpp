@@ -61,4 +61,8 @@ IPFrame::IPFrame(unsigned char* buffer,int size){
 
 	}
 
+	for(int i = 21 ; i < this->HeaderLength; i++){
+		this->options.push_back(buffer[i+14]);
+	}
+
 }

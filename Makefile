@@ -11,8 +11,6 @@ OBJECTC = c/tcp.o c/ip.o c/ethernet.o c/icmp.o c/Server.o
 
 CXXSOURCES = \
     main.cpp \
-	cpp/Server.cpp \
-	cpp/Client.cpp \
 	cpp/Frames/TCPFrame.cpp \
 	cpp/Stack.cpp \
 	cpp/Frames/ETHFrame.cpp \
