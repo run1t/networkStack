@@ -335,7 +335,12 @@ void sendClient(int port, char* ip, char* datas,int lastAck){
 	close(sd);
 }
 
-
+/**
+* \fn struct responseTcp tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int numbytes,struct iphdr *IP_headerReceived)
+* \brief Fonction qui nous permet de créer la connection persitante en TCP 
+* \param La fonction recoit en parametres un buffer, la structure de l'en-tete TPC, le numero du cocket, et la structure de l'en-tete IP
+* \return La fonction retourne la structure "responceTcp
+*/
 struct responseTcp tcpHandler(uint8_t buf[],struct tcphdr *tcp_hdr,int sock,int numbytes,struct iphdr *IP_headerReceived){
 
 	
