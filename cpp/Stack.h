@@ -16,6 +16,7 @@
 #include "Frames/ETHFrame.h"
 #include "Frames/IPFrame.h"
 #include "Frames/TCPFrame.h"
+#include "Frames/ICMPFrame.h"
 #include "PC.h"
 #include <string>
 #include <iostream>

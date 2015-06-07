@@ -135,6 +135,8 @@ void Stack::receiver(){
 										tcpRes.data = "";
 										this->Sender(tcpRes);
 									}
+
+								
 								}
 								/*cout << "IP id :" << tcp.ip.Id << endl;
 								cout << "port source : " << tcp.src << endl;
@@ -149,6 +151,15 @@ void Stack::receiver(){
 								cout << "Data : " << tcp.data << endl;*/
 
 							}
+							//On a de l'ICMP
+							else if(ip.Protocol == 1){
+									ICMPFrame icmp = *new ICMPFrame(buf,numbytes);
+									cout << "Type ICMP : " << icmp.Type << endl;
+									cout << "Type Code : " << icmp.Code << endl;
+									cout << "Type Checksum : " <<  icmp.Checksum << endl;
+									cout << "Type ID : " <<  icmp.Id << endl;
+									cout << "Type seq : " << icmp.sequence << endl;
+								}
 						}
 					}
 				}

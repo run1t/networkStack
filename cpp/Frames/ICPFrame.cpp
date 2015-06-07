@@ -9,7 +9,7 @@ struct tcp_pseudo /*the tcp pseudo header*/
 } pseudohead;
 
 
-unsigned short TCPFrame::checksum(unsigned short *ptr, unsigned int nbBytes) {
+unsigned short ICMPFrame::checksum(unsigned short *ptr, unsigned int nbBytes) {
           /* Compute Internet Checksum for "count" bytes
             *         beginning at location "addr".
             */
@@ -45,7 +45,7 @@ unsigned short TCPFrame::checksum(unsigned short *ptr, unsigned int nbBytes) {
 	return(answer);
 }
 
-unsigned short TCPFrame::get_tcp_checksum(struct iphdr * myip, struct tcphdr * mytcp) {
+unsigned short ICMPFrame::get_tcp_checksum(struct iphdr * myip, struct tcphdr * mytcp) {
 
         u16 total_len = ntohs(myip->tot_len);
         int tcpopt_len = mytcp->doff*4 - 20;
@@ -71,7 +71,7 @@ unsigned short TCPFrame::get_tcp_checksum(struct iphdr * myip, struct tcphdr * m
 
 }
 
-unsigned short TCPFrame::get_ip_checksum(struct iphdr * myip) {
+unsigned short ICMPFrame::get_ip_checksum(struct iphdr * myip) {
         return checksum((unsigned short *)myip,sizeof(iphdr));
 }
 
@@ -87,7 +87,7 @@ void showFrame(vector<unsigned char> v){
 	cout << endl;
 }
 
-TCPFrame::TCPFrame(unsigned char* buffer,int size){
+ICMPFrame::ICMPFrame(unsigned char* buffer,int size){
 	
 
 	/**
@@ -102,30 +102,18 @@ TCPFrame::TCPFrame(unsigned char* buffer,int size){
 	*/
 	int begin = this->ip.HeaderLength+13;
 
-	this->src = buffer[begin+1]*256 + buffer[begin+2];
-	this->dst = buffer[begin+3]*256 + buffer[begin+4];
-	this->seq_number = (buffer[begin+5] << 24) | (buffer[begin+6] << 16) | (buffer[begin+7] << 8) | buffer[begin+8];
-	this->ack_number = (buffer[begin+9] << 24) | (buffer[begin+10] << 16) | (buffer[begin+11] << 8) | buffer[begin+12];
-	this->HeaderLength = (buffer[begin+13] >> 4)*4;
-	this->Flags = buffer[begin+14];
-	this->Windows = buffer[begin+15]*256 + buffer[begin+16];
-	this->Checksum = buffer[begin+17]*256 + buffer[begin+18];
-	this->urgentPointer = buffer[begin+19]*256 + buffer[begin+20];
-	for(int i = 21+13+this->ip.HeaderLength; i < this->HeaderLength+14+this->ip.HeaderLength; i++){
-		this->options.push_back(buffer[i]);
-	}
-	//On recupere le message TCP
-	this->data = "";
-	for(int i = this->ip.HeaderLength+this->HeaderLength+14 ; i <= this->ip.TotalLength+13 ; i++){k:
-		this->data += buffer[i];
-	}
+	this->Type     = buffer[begin+1];
+	this->Code     = buffer[begin+2]
+	this->Checksum = buffer[begin+3]*256 + buffer[begin+4];
+	this->Id       = buffer[begin+5]*256 + buffer[begin+6];
+	this->sequence = buffer[begin+7]*256 + buffer[begin+8];
 }
 
-TCPFrame::TCPFrame(){
+ICMPFrame::ICMPFrame(){
 
 }
 
- unsigned char* TCPFrame::toFrame(){
+ unsigned char* ICMPFrame::toFrame(){
 	vector<unsigned char> frame;
 
 
@@ -269,12 +257,12 @@ TCPFrame::TCPFrame(){
 	* On va recupere la position du checksum dans la tram
 	*/
 	int position = this->ip.HeaderLength + 13 + 17; 
-	unsigned short check = this->get_tcp_checksum((struct iphdr*)(ret + sizeof(ethhdr)),(struct tcphdr*)(ret + sizeof(ethhdr) + sizeof(iphdr)));
+	unsigned short check = get_tcp_checksum((struct iphdr*)(ret + sizeof(ethhdr)),(struct tcphdr*)(ret + sizeof(ethhdr) + sizeof(iphdr)));
 	u16 checkTCP = htons(check);
 	frame[position] = (checkTCP >> 8) & 0xFF;
 	frame[position+1] = (checkTCP)  & 0xFF;
 
-	u16 checkIP = htons(this->get_ip_checksum((struct iphdr*)(ret + sizeof(ethhdr))));
+	u16 checkIP = htons(get_ip_checksum((struct iphdr*)(ret + sizeof(ethhdr))));
 	int pos = 13+11;
 	frame[pos] = (checkIP >> 8) & 0xFF;
 	frame[pos+1] = (checkIP)  & 0xFF;

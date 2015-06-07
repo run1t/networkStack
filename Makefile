@@ -15,6 +15,7 @@ CXXSOURCES = \
 	cpp/Stack.cpp \
 	cpp/Frames/ETHFrame.cpp \
 	cpp/Frames/IPFrame.cpp \
+	cpp/Frames/ICMPFrame.cpp \
 	cpp/PC.cpp
 
 all: server

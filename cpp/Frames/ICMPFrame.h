@@ -18,34 +18,45 @@ extern "C" {
 #include <net/ethernet.h>
 
 };
-#if !defined( TCPFRAME_H )
-#define TCPFRAME_H
-using namespace std;
-typedef uint16_t u16;
 
-class TCPFrame
+#if !defined( UINT16 )
+#define UINT16
+typedef uint16_t u16;
+#endif
+
+#if !defined( ICMPFRAME_H )
+#define ICMPFRAME_H
+using namespace std;
+
+struct header_tcp_checksum
+{
+	u_int32_t address_source;
+	u_int32_t address_destination;
+	u_int16_t tcp_length;
+	u_int8_t placeholder;
+	u_int8_t protocol;
+
+};
+
+class ICMPFrame
 {
 public:
 	ETHFrame eth;
 	IPFrame ip;
-	int src;
-	int dst;
-	int seq_number;
-	int ack_number;
-	int HeaderLength;
-	int Flags;
-	int Windows;
+	
+	int Type;
+	int Code;
 	int Checksum;
-	int urgentPointer;
-	string data;
+	int Id;
+	int sequence;
+
 	int frameLength;
 	vector<unsigned char> options;
 	unsigned short checksum(unsigned short *ptr, unsigned int nbBytes);
-	unsigned short get_tcp_checksum(struct iphdr * myip, struct tcphdr * mytcp);
 	unsigned short get_ip_checksum(struct iphdr * myip);
-	TCPFrame(unsigned char* buffer,int size);
-	TCPFrame();
+	ICMPFrame(unsigned char* buffer,int size);
+	ICMPFrame();
 	unsigned char* toFrame();
 };
 
-#endif // !defined( TCPFRAME_H )
+#endif // !defined( ICMPFRAME_H )
