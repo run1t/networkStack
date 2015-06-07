@@ -42,6 +42,9 @@ unsigned short ICMPFrame::get_ip_checksum(struct iphdr * myip) {
         return checksum((unsigned short *)myip,sizeof(iphdr));
 }
 
+unsigned short ICMPFrame::get_icmp_checksum(struct icmphdr * myicmp,int length) {
+        return checksum((unsigned short *)myicmp,length);
+}
 
 
 ICMPFrame::ICMPFrame(unsigned char* buffer,int size){
@@ -64,6 +67,11 @@ ICMPFrame::ICMPFrame(unsigned char* buffer,int size){
 	this->Checksum = buffer[begin+3]*256 + buffer[begin+4];
 	this->Id       = buffer[begin+5]*256 + buffer[begin+6];
 	this->sequence = buffer[begin+7]*256 + buffer[begin+8];
+	this->data = "";
+	for(int i = begin+9 ; i < this->ip.TotalLength+14; i++){
+		this->data += buffer[i];
+	}
+
 }
 
 ICMPFrame::ICMPFrame(){
@@ -120,7 +128,7 @@ unsigned char* ICMPFrame::toFrame(){
 	frame.push_back(0x00);
 
 	//on recalcule la taille total
-	int TOTAL = this->ip.HeaderLength;
+	int TOTAL = this->ip.HeaderLength  + 8 + this->data.length();
 	frame.push_back((TOTAL >> 8) & 0xFF);
 	frame.push_back((TOTAL) & 0xFF);
 
@@ -162,28 +170,64 @@ unsigned char* ICMPFrame::toFrame(){
 		frame.push_back(this->ip.options.at(i));
 	}
 
+	/**
+	* On rempli le packet ICMP
+	*/
+
+	//int Type;
+	//int Code;
+	//int Checksum;
+	//int Id;
+	//int sequence;
+	frame.push_back(this->Type);
+	frame.push_back(this->Code);
+	frame.push_back(0x00);
+	frame.push_back(0x00);
+
+	frame.push_back((this->Id >> 8) & 0xFF);
+	frame.push_back((this->Id) & 0xFF);
+
+	frame.push_back((this->sequence>> 8) & 0xFF);
+	frame.push_back((this->sequence) & 0xFF);
 	
+	for(int i = 0 ; i < this->data.length() ; i++){
+		frame.push_back(this->data[i]);
+	}
+
+	this->frameLength = frame.size();
+
+	
+
 	unsigned char* ret = (unsigned char*) malloc(frame.size()*sizeof(unsigned char*));
 	for(int i = 0; i < frame.size() ; i++){
 		ret[i] = frame.at(i);
 	}
 	
-	/**
-	* On va recupere la position du checksum dans la tram
-	*/
-
-
-	u16 checkIP = htons(get_ip_checksum((struct iphdr*)(ret + sizeof(ethhdr))));
+	u16 checkIP = htons(this->get_ip_checksum((struct iphdr*)(ret + sizeof(ethhdr))));
 	int pos = 13+11;
 	frame[pos] = (checkIP >> 8) & 0xFF;
 	frame[pos+1] = (checkIP)  & 0xFF;
-	cout << "checksum IP" << endl;
-	cout << hex << checkIP << endl;
-	cout << "checksum IP" << endl;
+	
+	/**
+	* On va recupere la position du checksum dans la tram
+	*/
+	int position = this->ip.HeaderLength + 13 + 3; 
+	unsigned short check = this->get_icmp_checksum((struct icmphdr*)(ret + sizeof(ethhdr) + sizeof(iphdr)),8 + this->data.length());
+	u16 checkTCP = htons(check);
+	frame[position] = (checkTCP >> 8) & 0xFF;
+	frame[position+1] = (checkTCP)  & 0xFF;
+
+
 	for(int i = 0; i < frame.size() ; i++){
 		ret[i] = frame.at(i);
 	}
-	
-	//showFrame(frame);
+
+	for(int i = 0; i < frame.size() ; i++){
+		std::stringstream stream;
+		stream << std::hex << std::uppercase << int (frame.at(i));
+		std::string result( stream.str() );
+		cout << result << " ";
+	}
+	cout << endl;
 	return ret;
 }

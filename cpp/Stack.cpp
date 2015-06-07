@@ -12,6 +12,27 @@ Stack::Stack(string ip,int port){
 	int sockopt;
 
 
+	int fdProc = open("/proc/sys/net/ipv4/icmp_echo_ignore_all",O_WRONLY);
+		if(fdProc == -1){
+			perror("Error opening the file /proc/sys/net/ipv4/icmp_echo_ignore_all\n");
+		}
+		int nbByteWrite = write(fdProc,"1",1);
+		if(nbByteWrite == 0){
+			printf("No write\n");
+		}
+		else if(nbByteWrite == -1){
+			perror("Error writing to file\n");
+		}
+		else if(nbByteWrite > 0){
+			printf("Succes writing to file\n");
+			int closeSuccess = close(fdProc);
+			if(closeSuccess == 0){
+				printf("File closed successfully\n");
+			}else if(closeSuccess == -1){
+				printf("Error closing the file\n");
+			}
+		}
+
 	/* */
 	struct ifreq ifopts;	
 	struct ifreq if_ip;
@@ -102,27 +123,7 @@ void Stack::receiver(){
 										tcpRes.Flags = TCP_ACK | TCP_PSH;
 										tcpRes.seq_number = tcp.ack_number;
 										tcpRes.ack_number = tcp.seq_number + tcp.data.length();
-										tcpRes.data =  "HTTP/1.x 200 OK\n"
-													    "Transfer-Encoding: chunked\n"
-													    "Date: Sat, 28 Nov 2009 04:36:25 GMT\n"
-														"Server: LiteSpeed\n"
-														"Connection: close\n"
-														"X-Powered-By: W3 Total Cache/0.8\n"
-														"Pragma: public\n"
-														"Expires: Sat, 28 Nov 2009 05:36:25 GMT\n"
-														"Etag: \"pub1259380237;gz\"\n"
-														"Cache-Control: max-age=3600, public\n"
-														"Content-Type: text/html; charset=UTF-8\n"
-														"Last-Modified: Sat, 28 Nov 2009 03:50:37 GMT\n"
-														"X-Pingback: http://net.tutsplus.com/xmlrpc.php\n"
-														"Content-Encoding: gzip\n"
-														"Vary: Accept-Encoding, Cookie, User-Agent\n"
-														 
-														"<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n"
-														"<html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
-														"<head>\n"
-														"<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\n"
-														"<title>Top 20+ MySQL Best Practices - Nettuts+</title>;\n";
+										tcpRes.data =  "HTTP/1.x 200 OK\n";
 										this->Sender(tcpRes);
 										
 
@@ -154,11 +155,25 @@ void Stack::receiver(){
 							//On a de l'ICMP
 							else if(ip.Protocol == 1){
 									ICMPFrame icmp = *new ICMPFrame(buf,numbytes);
+									ICMPFrame icmpRes = icmp;
+									icmpRes.eth.src = icmp.eth.dst;
+									icmpRes.eth.dst = icmp.eth.src;
+
+									icmpRes.ip.src =  icmp.ip.dst;
+									icmpRes.ip.dst =  icmp.ip.src;
+
 									cout << "Type ICMP : " << icmp.Type << endl;
 									cout << "Type Code : " << icmp.Code << endl;
 									cout << "Type Checksum : " <<  icmp.Checksum << endl;
 									cout << "Type ID : " <<  icmp.Id << endl;
 									cout << "Type seq : " << icmp.sequence << endl;
+									cout << "length : " << icmp.ip.TotalLength << endl;
+									cout << "ICMP data : " << icmp.data << endl;
+									if(icmp.Type == 8){
+										icmpRes.Type = 0;
+										this->Sender(icmpRes);
+									}
+									
 								}
 						}
 					}
@@ -242,3 +257,82 @@ void Stack::Sender(TCPFrame tcp){
 	
 	
 }
+
+void Stack::Sender(ICMPFrame icmp){
+	#define DEFAULT_IF	"eth0"
+	#define BUF_SIZ		1024
+	#define MY_DEST_MAC0	0x12
+	#define MY_DEST_MAC1	0x33
+	#define MY_DEST_MAC2	0x44
+	#define MY_DEST_MAC3	0x55
+	#define MY_DEST_MAC4	0x34
+	#define MY_DEST_MAC5	0x65
+	
+	int sockfd;
+	struct ifreq if_idx;
+	struct ifreq if_mac;
+	int tx_len = 0;
+	char sendbuf[BUF_SIZ];
+	struct ether_header *eh = (struct ether_header *) sendbuf;
+	struct iphdr *iph = (struct iphdr *) (sendbuf + sizeof(struct ether_header));
+	struct sockaddr_ll socket_address;
+	char ifName[IFNAMSIZ];
+	
+	
+	strcpy(ifName, DEFAULT_IF);
+ 
+	/* Open RAW socket to send on */
+	if ((sockfd = socket(AF_PACKET, SOCK_RAW, IPPROTO_RAW)) == -1) {
+	    perror("socket");
+	}
+ 
+	/* Get the index of the interface to send on */
+	memset(&if_idx, 0, sizeof(struct ifreq));
+	strncpy(if_idx.ifr_name, ifName, IFNAMSIZ-1);
+	if (ioctl(sockfd, SIOCGIFINDEX, &if_idx) < 0)
+	    perror("SIOCGIFINDEX");
+	/* Get the MAC address of the interface to send on */
+	memset(&if_mac, 0, sizeof(struct ifreq));
+	strncpy(if_mac.ifr_name, ifName, IFNAMSIZ-1);
+	if (ioctl(sockfd, SIOCGIFHWADDR, &if_mac) < 0)
+	    perror("SIOCGIFHWADDR");
+ 
+	/* Construct the Ethernet header */
+	memset(sendbuf, 0, BUF_SIZ);
+	unsigned char* datagram = icmp.toFrame();
+
+	/* Ethertype field */
+	eh->ether_type = htons(ETH_P_IP);
+	tx_len += sizeof(struct ether_header);
+ 
+	/* Packet data */
+	
+	memcpy(&sendbuf[tx_len],datagram,icmp.frameLength);
+ 
+	/* Index of the network device */
+	socket_address.sll_ifindex = if_idx.ifr_ifindex;
+	/* Address length*/
+	socket_address.sll_halen = ETH_ALEN;
+	/* Destination MAC */
+	socket_address.sll_addr[0] = datagram[0];
+	socket_address.sll_addr[1] = datagram[1];
+	socket_address.sll_addr[2] = datagram[2];
+	socket_address.sll_addr[3] = datagram[3];
+	socket_address.sll_addr[4] = datagram[4];
+	socket_address.sll_addr[5] = datagram[5];
+ 
+	/* Send packet */
+		if (sendto(sockfd, datagram, icmp.frameLength, 0, (struct sockaddr*)&socket_address, sizeof(struct sockaddr_ll)) < 0){
+	    	cout << "Error" << endl;
+		}else{
+			cout << "Success" << endl;
+		}
+
+	close(sockfd);
+	
+	
+
+	
+	
+}
+
