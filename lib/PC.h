@@ -1,3 +1,9 @@
+/*!
+ * \file PC.h
+ * \brief Fichier de récupération des informations du pc 
+ * \author LE NOC Reunan, HIPEAU Kevin, VIAUD Thommas, TRICHARD Guillaume
+ * \version 1.0
+ */
 #include <string>
 #include <sstream>
 #include <iostream>
