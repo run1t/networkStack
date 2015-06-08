@@ -1,10 +1,22 @@
-
+/**
+ * \file IPPFrame.cpp
+ * \brief fichier qui permet de lire les trames ICMP bruts
+ * \author LE NOC Reunan, VIAUD Thomas, HIPEAU Kevin, TRICHARD Guillaume
+ * \version 0.1
+ *
+ */
 #include "IPFrame.h"
 
 IPFrame::IPFrame(){
 
 }
-
+/**
+ * \fn IPFrame::IPFrame(unsigned char* buffer)
+ * \brief Fonction de lecture d'une trame brut sous forme de buffer
+ *
+ * \param la fonction prend en parametres le buffer contenant la trame
+ * \return la fonction retourne la trame une fois analysé 
+ */
 IPFrame::IPFrame(unsigned char* buffer){
 
 	this->eth = *new ETHFrame(buffer);
