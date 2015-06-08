@@ -17,6 +17,8 @@
 #include "Frames/IPFrame.h"
 #include "Frames/TCPFrame.h"
 #include "Frames/ICMPFrame.h"
+#include "Frames/ARPFrame.h"
+
 #include "PC.h"
 #include <string>
 #include <iostream>
@@ -45,5 +47,6 @@ public:
 	void receiver();
 	void Sender(TCPFrame tcp);
 	void Sender(ICMPFrame icmp);
+	void Sender(ARPFrame arp);
 
 };

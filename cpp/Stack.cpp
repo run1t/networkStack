@@ -44,7 +44,7 @@ Stack::Stack(string ip,int port){
 	memset(&if_ip, 0, sizeof(struct ifreq));
  
 	/* On ouver l'ecoute des packet Ethernet */
-	if ((sockfd = socket(PF_PACKET, SOCK_RAW, htons(ETHER_TYPE))) == -1) {
+	if ((sockfd = socket(AF_PACKET, SOCK_RAW, htons (ETH_P_ALL))) == -1) {
 		perror("listener: socket");	
 	}
  
@@ -87,9 +87,12 @@ void Stack::receiver(){
 	while(1){
 			int	numbytes = recvfrom(sock, buf, 1024, 0, NULL, NULL);
 			//On verifie que l'on a bien des données
+
+
 			if(numbytes > 0){
 				ETHFrame eth = *new ETHFrame(buf,numbytes);
 				//c'est pour nous ?
+
 				if(eth.dst.compare(PC::getMAC()) == 0){
 
 					if(eth.Type == ETHERTYPE_IPv4){
@@ -161,14 +164,6 @@ void Stack::receiver(){
 
 									icmpRes.ip.src =  icmp.ip.dst;
 									icmpRes.ip.dst =  icmp.ip.src;
-
-									cout << "Type ICMP : " << icmp.Type << endl;
-									cout << "Type Code : " << icmp.Code << endl;
-									cout << "Type Checksum : " <<  icmp.Checksum << endl;
-									cout << "Type ID : " <<  icmp.Id << endl;
-									cout << "Type seq : " << icmp.sequence << endl;
-									cout << "length : " << icmp.ip.TotalLength << endl;
-									cout << "ICMP data : " << icmp.data << endl;
 									if(icmp.Type == 8){
 										icmpRes.Type = 0;
 										this->Sender(icmpRes);
@@ -176,6 +171,36 @@ void Stack::receiver(){
 									
 								}
 						}
+					}
+				}else{
+					if(eth.Type == 0x0806){
+						ARPFrame arp = *new ARPFrame(buf,numbytes);
+						//On prend que ethernet et ipv4
+						if(arp.HardwareSize == 6 && arp.ProtocolSize == 4 && arp.opCode == 1){
+							cout << arp.targetIp << "  :  " << PC::getIP() << endl;
+							if(arp.targetIp.compare(PC::getIP()) == 0){
+								ARPFrame arpRes = arp;
+								arpRes.eth.dst = arp.eth.src;
+								arpRes.eth.src = PC::getMAC();
+								arpRes.opCode = 2;
+								arpRes.senderMac = PC::getMAC();
+								arpRes.senderIp = arp.targetIp;
+								arpRes.targetMac = arp.senderMac;
+								arpRes.targetIp = arp.senderIp;
+
+								cout << "Hardware Type :" << arp.HardwareType << endl;	
+								cout << "Protocol :" << arp.ProtocolIp << endl;	
+								cout << "Hardware Size" << arp.HardwareSize << endl;	
+								cout << "Protocol Size :" << arp.ProtocolSize << endl;	
+								cout << "opCode :" << arp.opCode << endl;	
+								cout << "Mac sender :" << arp.senderMac << endl;	
+								cout << "Ip sender :" << arp.senderIp << endl;	
+								cout << "Mac target :" << arp.targetMac << endl;	
+								cout << "Ip targer :" << arp.targetIp << endl;
+								this->Sender(arpRes);
+							}	
+						}
+						
 					}
 				}
 			}
@@ -328,11 +353,80 @@ void Stack::Sender(ICMPFrame icmp){
 			cout << "Success" << endl;
 		}
 
-	close(sockfd);
-	
-	
-
-	
+	close(sockfd);	
 	
 }
 
+void Stack::Sender(ARPFrame arp){
+	#define DEFAULT_IF	"eth0"
+	#define BUF_SIZ		1024
+	#define MY_DEST_MAC0	0x12
+	#define MY_DEST_MAC1	0x33
+	#define MY_DEST_MAC2	0x44
+	#define MY_DEST_MAC3	0x55
+	#define MY_DEST_MAC4	0x34
+	#define MY_DEST_MAC5	0x65
+	
+	int sockfd;
+	struct ifreq if_idx;
+	struct ifreq if_mac;
+	int tx_len = 0;
+	char sendbuf[BUF_SIZ];
+	struct ether_header *eh = (struct ether_header *) sendbuf;
+	struct iphdr *iph = (struct iphdr *) (sendbuf + sizeof(struct ether_header));
+	struct sockaddr_ll socket_address;
+	char ifName[IFNAMSIZ];
+	
+	
+	strcpy(ifName, DEFAULT_IF);
+ 
+	/* Open RAW socket to send on */
+	if ((sockfd = socket(AF_PACKET, SOCK_RAW, IPPROTO_RAW)) == -1) {
+	    perror("socket");
+	}
+ 
+	/* Get the index of the interface to send on */
+	memset(&if_idx, 0, sizeof(struct ifreq));
+	strncpy(if_idx.ifr_name, ifName, IFNAMSIZ-1);
+	if (ioctl(sockfd, SIOCGIFINDEX, &if_idx) < 0)
+	    perror("SIOCGIFINDEX");
+	/* Get the MAC address of the interface to send on */
+	memset(&if_mac, 0, sizeof(struct ifreq));
+	strncpy(if_mac.ifr_name, ifName, IFNAMSIZ-1);
+	if (ioctl(sockfd, SIOCGIFHWADDR, &if_mac) < 0)
+	    perror("SIOCGIFHWADDR");
+ 
+	/* Construct the Ethernet header */
+	memset(sendbuf, 0, BUF_SIZ);
+	unsigned char* datagram = arp.toFrame();
+
+	/* Ethertype field */
+	eh->ether_type = htons(ETH_P_IP);
+	tx_len += sizeof(struct ether_header);
+ 
+	/* Packet data */
+	
+	memcpy(&sendbuf[tx_len],datagram,arp.frameLength);
+ 
+	/* Index of the network device */
+	socket_address.sll_ifindex = if_idx.ifr_ifindex;
+	/* Address length*/
+	socket_address.sll_halen = ETH_ALEN;
+	/* Destination MAC */
+	socket_address.sll_addr[0] = datagram[0];
+	socket_address.sll_addr[1] = datagram[1];
+	socket_address.sll_addr[2] = datagram[2];
+	socket_address.sll_addr[3] = datagram[3];
+	socket_address.sll_addr[4] = datagram[4];
+	socket_address.sll_addr[5] = datagram[5];
+ 
+	/* Send packet */
+		if (sendto(sockfd, datagram, arp.frameLength, 0, (struct sockaddr*)&socket_address, sizeof(struct sockaddr_ll)) < 0){
+	    	cout << "Error" << endl;
+		}else{
+			cout << "Success" << endl;
+		}
+
+	close(sockfd);	
+	
+}
