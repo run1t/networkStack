@@ -100,8 +100,8 @@ Stack::Stack(string ip,int port){
  * \fn void Stack::receiver()
  * \brief Fonction de gestion de réception de packet IP et ICMP, elle permet d'écouter, trier et répondre correctement
  *
- * \param la fonction ne prend aucun parametres
- * \return La fonction ne retouren rien
+ * \param la fonction ne prend aucun parametre
+ * \return La fonction ne retoure rien
  */
 void Stack::receiver(){
 	uint8_t buf[1024];
@@ -226,7 +226,7 @@ void Stack::receiver(){
  * \brief Fonction d'envoie de trame TCP
  *
  * \param la fonction prend en parametre le treame TCP
- * \return La fonction ne retouren rien
+ * \return La fonction ne retoure rien
  */
 void Stack::Send(TCPFrame tcp){
 	#define DEFAULT_IF	"eth0"
@@ -275,8 +275,8 @@ void Stack::Send(TCPFrame tcp){
  * \fn void Stack::Send(ICMPFrame icmp)
  * \brief Fonction d'envoie de trame ICMP
  *
- * \param la fonction prend en parametre le treame ICMP
- * \return La fonction ne retouren rien
+ * \param la fonction prend en parametre le trame ICMP
+ * \return La fonction ne retoure rien
  */
 void Stack::Send(ICMPFrame icmp){
 	#define DEFAULT_IF	"eth0"
@@ -322,8 +322,8 @@ void Stack::Send(ICMPFrame icmp){
  * \fn void Stack::Send(ARPFrame arp)
  * \brief Fonction d'envoie de trame ARP
  *
- * \param la fonction prend en parametre le treame ARP
- * \return La fonction ne retouren rien
+ * \param la fonction prend en parametre le trame ARP
+ * \return La fonction ne retoure rien
  */
 void Stack::Send(ARPFrame arp){
 	#define DEFAULT_IF	"eth0"
