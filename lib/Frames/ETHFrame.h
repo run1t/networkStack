@@ -1,3 +1,10 @@
+/**
+ * \file ETHFrame.h
+ * \brief fichier qui permet de lire les trames ethernets bruts
+ * \author LE NOC Reunan, VIAUD Thomas, HIPEAU Kevin, TRICHARD Guillaume
+ * \version 0.1
+ *
+ */
 #include <string>
 #include <iostream>
 #include <sstream>
