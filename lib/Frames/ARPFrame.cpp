@@ -1,10 +1,22 @@
-
+/**
+ * \file ARPFrame.cpp
+ * \brief fichier qui permet de lire les trames ARP bruts ainsi que de les créer  
+ * \author LE NOC Reunan, VIAUD Thomas, HIPEAU Kevin
+ * \version 0.1
+ *
+ */
 #include "ARPFrame.h"
 
 ARPFrame::ARPFrame(){
 
 }
-
+/**
+ * \fn ARPFrame::ARPFrame(unsigned char* buffer)
+ * \brief Fonction de lecture de la trame ARP
+ *
+ * \param la fonction prend en parametres le buffer brut de la trame
+ * \return la fonction retourne la trame une fois analysé et parsé
+ */
 ARPFrame::ARPFrame(unsigned char* buffer){
 
 	this->eth = *new ETHFrame(buffer);
@@ -84,7 +96,13 @@ ARPFrame::ARPFrame(unsigned char* buffer){
 
 	}
 }
-
+/**
+ * \fn unsigned char* ARPFrame::toFrame()
+ * \brief Fonction création de la trame ARP pour l'envoie 
+ *
+ * \param la fonction ne prend pas de parametres 
+ * \return la fonction retourne la trame sous forme de buffer
+ */
 unsigned char* ARPFrame::toFrame(){
 	vector<unsigned char> frame;
 	/**
