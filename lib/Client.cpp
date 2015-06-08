@@ -1,3 +1,9 @@
+/*!
+ * \file Client.cpp
+ * \brief Fichier de gestion de la couche client
+ * \author LE NOC Reunan, HIPEAU Kevin, VIAUD Thommas
+ * \version 1.0
+ */
 #include "Client.h"
 Client::Client(int port, string ip){
 	this->port = port;
