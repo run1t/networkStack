@@ -41,7 +41,7 @@ public:
 	string targetIp;
 	int frameLength;
 	// on analyse la trame et on construit un objet ETHFrame
-	ARPFrame(unsigned char* bufferr,int size);
+	ARPFrame(unsigned char* bufferr);
 	unsigned char* toFrame();
 	// on construit un template de trame
 	ARPFrame();

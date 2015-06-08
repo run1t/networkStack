@@ -5,9 +5,9 @@ ARPFrame::ARPFrame(){
 
 }
 
-ARPFrame::ARPFrame(unsigned char* buffer,int size){
+ARPFrame::ARPFrame(unsigned char* buffer){
 
-	this->eth = *new ETHFrame(buffer,size);
+	this->eth = *new ETHFrame(buffer);
 	/**
 	* On commence le remplissage de la trame IP juste après 
 	* le header Ethernet au byte 14

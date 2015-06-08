@@ -24,6 +24,7 @@
 #include <iostream>
 #include <errno.h>
 #include <unistd.h>
+#include <functional>
 
 using namespace std;
 
@@ -42,11 +43,16 @@ public:
 	string IP;
 	int  port;
 	int sock;
+
+	function<void()>	onSyn;
+    function<void()>    onData;
+    function<void()>	onFin;
+   
 	/*Methode de la stack*/ 
 	Stack(string ip,int port);
 	void receiver();
-	void Sender(TCPFrame tcp);
-	void Sender(ICMPFrame icmp);
-	void Sender(ARPFrame arp);
+	void Send(TCPFrame tcp);
+	void Send(ICMPFrame icmp);
+	void Send(ARPFrame arp);
 
 };

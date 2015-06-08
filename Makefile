@@ -5,7 +5,7 @@ CXXFLAGS = -Wall -D__STDC_LIMIT_MACROS
 
 OUTPUTDIR = ./bin/
 MKDIR = mkdir -p $(OUTPUTDIR)
-OBJECTC = c/tcp.o c/ip.o c/ethernet.o c/icmp.o c/Server.o
+
 
 
 
@@ -17,14 +17,14 @@ CXXSOURCES = \
 	cpp/Frames/ARPFrame.cpp \
 	cpp/Frames/IPFrame.cpp \
 	cpp/Frames/ICMPFrame.cpp \
+	cpp/Client.cpp \
 	cpp/PC.cpp
 
 all: server
 
 server: 
-	$(MAKE) -C c 
 	$(MKDIR)
-	$(CXX) $(CXXFLAGS) -o server $(OBJECTC) $(CXXSOURCES)  -pthread -std=c++11  -fdiagnostics-color
+	$(CXX) $(CXXFLAGS) -o server  $(CXXSOURCES)  -pthread -std=c++11  -fdiagnostics-color
 
 
 

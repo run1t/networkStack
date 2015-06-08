@@ -14,7 +14,7 @@ public:
 	int Type;
 
 	// on analyse la trame et on construit un objet ETHFrame
-	ETHFrame(unsigned char* bufferr,int size);
+	ETHFrame(unsigned char* bufferr);
 
 	// on construit un template de trame
 	ETHFrame();

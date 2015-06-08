@@ -57,7 +57,7 @@ public:
 	unsigned short checksum(unsigned short *ptr, unsigned int nbBytes);
 	unsigned short get_ip_checksum(struct iphdr * myip);
 	unsigned short get_icmp_checksum(struct icmphdr * myicmp,int length);
-	ICMPFrame(unsigned char* buffer,int size);
+	ICMPFrame(unsigned char* buffer);
 	ICMPFrame();
 	unsigned char* toFrame();
 };

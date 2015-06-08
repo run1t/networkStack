@@ -87,15 +87,15 @@ void showFrame(vector<unsigned char> v){
 	cout << endl;
 }
 
-TCPFrame::TCPFrame(unsigned char* buffer,int size){
+TCPFrame::TCPFrame(unsigned char* buffer){
 	
 
 	/**
 	* On recupere les autres couches 
 	*/
 
-	this->eth = *new ETHFrame(buffer,size);
-	this->ip = *new IPFrame(buffer,size);
+	this->eth = *new ETHFrame(buffer);
+	this->ip = *new IPFrame(buffer);
 
 	/**
 	* On recupere TCP

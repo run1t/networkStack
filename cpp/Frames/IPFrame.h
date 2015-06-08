@@ -49,7 +49,7 @@ public:
 
 
 	// on analyse la trame et on construit un objet ETHFrame
-	IPFrame(unsigned char* bufferr,int size);
+	IPFrame(unsigned char* bufferr);
 
 	// on construit un template de trame
 	IPFrame();

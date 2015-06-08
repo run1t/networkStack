@@ -3,10 +3,6 @@
 #include <stdio.h>
 #include <iostream>
 
-extern "C" {    // another way
-	#include "../c/Server.h"
-   };
-   
 using namespace std;
 class Client
 {
@@ -14,27 +10,26 @@ public:
     /***
     * Attributs du clients
     */
-
-    int id;
     int port;
     string ip;
-    int lastAck;
 
     /*
     * Construction du client
     **/
-    Client(int id,int port, string ip,int lastAck);
+    Client(int port, string ip);
     void Send(string message);
 
-    //foncctions de callback
-    function<void()>	onConnection;
-    function<void()>	onDisconnect;
-    function<void()>	onError;
+    //fonctions de callback
+    function<void(Client)>	         onConnection;
+    function<void(Client,string)>    onData;
+    function<void()>	             onClose;
+    function<void(string)>	         onError;
 
     //Declarations des evenements
-    //void addEventConnection (function<void()> func);
-    //void addEventDisconnect (function<void()> func);
-    //void addEventError (function<void()> func);
+    void addEventConnection (function<void(Client)> func);
+    void addEventClose (function<void()> func);
+    void addEventError (function<void(string)> func);
+    void addEventData (function<void(Client,string)> func);
 
     //envoi de donnees
     //void send(string ip,int port,string message);

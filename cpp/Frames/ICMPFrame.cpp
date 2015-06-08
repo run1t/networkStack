@@ -47,15 +47,15 @@ unsigned short ICMPFrame::get_icmp_checksum(struct icmphdr * myicmp,int length) 
 }
 
 
-ICMPFrame::ICMPFrame(unsigned char* buffer,int size){
+ICMPFrame::ICMPFrame(unsigned char* buffer){
 	
 
 	/**
 	* On recupere les autres couches 
 	*/
 
-	this->eth = *new ETHFrame(buffer,size);
-	this->ip = *new IPFrame(buffer,size);
+	this->eth = *new ETHFrame(buffer);
+	this->ip = *new IPFrame(buffer);
 
 	/**
 	* On recupere TCP

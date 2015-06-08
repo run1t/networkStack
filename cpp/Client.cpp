@@ -1,11 +1,26 @@
 #include "Client.h"
-Client::Client(int id,int port, string ip,int lastAck){
-	this->id = id;
+Client::Client(int port, string ip){
 	this->port = port;
 	this->ip = ip;
-	this->lastAck = lastAck;
 }
 
 void Client::Send(string Message){
-	sendClient(this->port, (char*)this->ip.c_str() , (char*)Message.c_str(),this->lastAck);
+	
+}
+
+//Declarations des evenements
+void Client::addEventConnection (function<void(Client)> func){
+	this->onConnection = func;
+}
+
+void Client::addEventClose (function<void()> func){
+	this->onClose = func;
+}
+
+void Client::addEventError (function<void(string)> func){
+	this->onError = func;
+}
+
+void Client::addEventData (function<void(Client,string)> func){
+	this->onData = func;
 }

@@ -18,6 +18,11 @@ extern "C" {
 #include <net/ethernet.h>
 
 };
+#if !defined( UINT16 )
+#define UINT16
+typedef uint16_t u16;
+#endif
+
 #if !defined( TCPFRAME_H )
 #define TCPFRAME_H
 using namespace std;
@@ -43,7 +48,7 @@ public:
 	unsigned short checksum(unsigned short *ptr, unsigned int nbBytes);
 	unsigned short get_tcp_checksum(struct iphdr * myip, struct tcphdr * mytcp);
 	unsigned short get_ip_checksum(struct iphdr * myip);
-	TCPFrame(unsigned char* buffer,int size);
+	TCPFrame(unsigned char* buffer);
 	TCPFrame();
 	unsigned char* toFrame();
 };

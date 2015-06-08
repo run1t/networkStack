@@ -4,7 +4,7 @@ ETHFrame::ETHFrame(){
 
 }
 
-ETHFrame::ETHFrame(unsigned char* buffer,int size){
+ETHFrame::ETHFrame(unsigned char* buffer){
 	/**
 	* Trame ethernet
 	* 6 bytes mac source
