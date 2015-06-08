@@ -1,0 +1,6 @@
+<map id="lib/Frames/TCPFrame.h" name="lib/Frames/TCPFrame.h">
+<area shape="rect" id="node2" href="$_t_c_p_frame_8cpp.html" title="fichier qui permet de gerer la lecture et l&#39;ecriture de trame pour la couche TCP " alt="" coords="5,80,181,107"/>
+<area shape="rect" id="node3" href="$_stack_8h_source.html" title="lib/Stack.h" alt="" coords="206,80,290,107"/>
+<area shape="rect" id="node4" href="$_stack_8cpp_source.html" title="lib/Stack.cpp" alt="" coords="143,155,241,181"/>
+<area shape="rect" id="node5" href="$main_8cpp_source.html" title="main.cpp" alt="" coords="265,155,340,181"/>
+</map>
