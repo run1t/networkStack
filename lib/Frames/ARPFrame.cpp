@@ -1,7 +1,7 @@
 /**
  * \file ARPFrame.cpp
  * \brief fichier qui permet de lire les trames ARP bruts ainsi que de les créer  
- * \author LE NOC Reunan, VIAUD Thomas, HIPEAU Kevin
+ * \author LE NOC Reunan, VIAUD Thomas, HIPEAU Kevin, TRICHARD Guillaume
  * \version 0.1
  *
  */
