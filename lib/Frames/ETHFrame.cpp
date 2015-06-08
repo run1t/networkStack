@@ -1,9 +1,21 @@
 #include "ETHFrame.h"
-
+/**
+ * \file ETHFrame.cpp
+ * \brief fichier qui permet de lire les trames ethernets bruts
+ * \author LE NOC Reunan, VIAUD Thomas, HIPEAU Kevin, TRICHARD Guillaume
+ * \version 0.1
+ *
+ */
 ETHFrame::ETHFrame(){
 
 }
-
+/**
+ * \fn ETHFrame::ETHFrame(unsigned char* buffer)
+ * \brief Fonction de lecture de la trame ethernet
+ *
+ * \param la fonction prend en parametres le buffer brut de la trame
+ * \return la fonction retourne la trame une fois analysé et parsé
+ */
 ETHFrame::ETHFrame(unsigned char* buffer){
 	/**
 	* Trame ethernet
