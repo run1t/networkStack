@@ -90,7 +90,7 @@ unsigned char* ICMPFrame::toFrame(){
 	std::stringstream ss;
 	unsigned int buffer;
 	int offset = 0;
-	for(int i = 0 ; i < this->eth.dst.length() ; i += 3){
+	for(size_t i = 0 ; i < this->eth.dst.length() ; i += 3){
 		if(this->eth.dst[i] != ':'){
 			ss.clear();
 			ss << std::hex << this->eth.dst.substr(offset, 2);
@@ -103,7 +103,7 @@ unsigned char* ICMPFrame::toFrame(){
 
 	// Address Source
 	offset = 0;
-	for(int i = 0 ; i < this->eth.src.length() ; i += 3){
+	for(size_t i = 0 ; i < this->eth.src.length() ; i += 3){
 		if(this->eth.src[i] != ':'){
 			ss.clear();
 			ss << std::hex << this->eth.src.substr(offset, 2);
@@ -166,7 +166,7 @@ unsigned char* ICMPFrame::toFrame(){
 	frame.push_back(byte3);
 	frame.push_back(byte4);
 
-	for(int i = 0 ; i < this->ip.options.size() ; i++){
+	for(size_t i = 0 ; i < this->ip.options.size() ; i++){
 		frame.push_back(this->ip.options.at(i));
 	}
 
@@ -190,7 +190,7 @@ unsigned char* ICMPFrame::toFrame(){
 	frame.push_back((this->sequence>> 8) & 0xFF);
 	frame.push_back((this->sequence) & 0xFF);
 	
-	for(int i = 0 ; i < this->data.length() ; i++){
+	for(size_t i = 0 ; i < this->data.length() ; i++){
 		frame.push_back(this->data[i]);
 	}
 
@@ -199,7 +199,7 @@ unsigned char* ICMPFrame::toFrame(){
 	
 
 	unsigned char* ret = (unsigned char*) malloc(frame.size()*sizeof(unsigned char*));
-	for(int i = 0; i < frame.size() ; i++){
+	for(size_t i = 0; i < frame.size() ; i++){
 		ret[i] = frame.at(i);
 	}
 	
@@ -218,11 +218,11 @@ unsigned char* ICMPFrame::toFrame(){
 	frame[position+1] = (checkTCP)  & 0xFF;
 
 
-	for(int i = 0; i < frame.size() ; i++){
+	for(size_t i = 0; i < frame.size() ; i++){
 		ret[i] = frame.at(i);
 	}
 
-	for(int i = 0; i < frame.size() ; i++){
+	for(size_t i = 0; i < frame.size() ; i++){
 		std::stringstream stream;
 		stream << std::hex << std::uppercase << int (frame.at(i));
 		std::string result( stream.str() );

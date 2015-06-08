@@ -76,17 +76,6 @@ unsigned short TCPFrame::get_ip_checksum(struct iphdr * myip) {
 }
 
 
-void showFrame(vector<unsigned char> v){
-	cout << "On a une trame de " << v.size() << endl;
-	for(int i = 0; i < v.size() ; i++){
-		std::stringstream stream;
-		stream << std::hex << std::uppercase << int (v.at(i));
-		std::string result( stream.str() );
-		cout << result << " ";
-	}
-	cout << endl;
-}
-
 TCPFrame::TCPFrame(unsigned char* buffer){
 	
 
@@ -116,7 +105,7 @@ TCPFrame::TCPFrame(unsigned char* buffer){
 	}
 	//On recupere le message TCP
 	this->data = "";
-	for(int i = this->ip.HeaderLength+this->HeaderLength+14 ; i <= this->ip.TotalLength+13 ; i++){k:
+	for(int i = this->ip.HeaderLength+this->HeaderLength+14 ; i <= this->ip.TotalLength+13 ; i++){
 		this->data += buffer[i];
 	}
 }
@@ -137,7 +126,7 @@ TCPFrame::TCPFrame(){
 	std::stringstream ss;
 	unsigned int buffer;
 	int offset = 0;
-	for(int i = 0 ; i < this->eth.dst.length() ; i += 3){
+	for(size_t i = 0 ; i < this->eth.dst.length() ; i += 3){
 		if(this->eth.dst[i] != ':'){
 			ss.clear();
 			ss << std::hex << this->eth.dst.substr(offset, 2);
@@ -150,7 +139,7 @@ TCPFrame::TCPFrame(){
 
 	// Address Source
 	offset = 0;
-	for(int i = 0 ; i < this->eth.src.length() ; i += 3){
+	for(size_t i = 0 ; i < this->eth.src.length() ; i += 3){
 		if(this->eth.src[i] != ':'){
 			ss.clear();
 			ss << std::hex << this->eth.src.substr(offset, 2);
@@ -213,7 +202,7 @@ TCPFrame::TCPFrame(){
 	frame.push_back(byte3);
 	frame.push_back(byte4);
 
-	for(int i = 0 ; i < this->ip.options.size() ; i++){
+	for(size_t i = 0 ; i < this->ip.options.size() ; i++){
 		frame.push_back(this->ip.options.at(i));
 	}
 
@@ -250,11 +239,11 @@ TCPFrame::TCPFrame(){
 	frame.push_back((this->urgentPointer >> 8) & 0xFF);
 	frame.push_back((this->urgentPointer) & 0xFF);
 
-	for(int i = 0 ; i < this->options.size() ; i++){
+	for(size_t i = 0 ; i < this->options.size() ; i++){
 		frame.push_back(this->options.at(i));
 	}
 
-	for(int i = 0 ; i < this->data.length() ; i++){
+	for(size_t i = 0 ; i < this->data.length() ; i++){
 		frame.push_back(this->data[i]);
 	}
 
@@ -263,7 +252,7 @@ TCPFrame::TCPFrame(){
 	this->frameLength = frame.size();
 
 	unsigned char* ret = (unsigned char*) malloc(frame.size()*sizeof(unsigned char*));
-	for(int i = 0; i < frame.size() ; i++){
+	for(size_t i = 0; i < frame.size() ; i++){
 		ret[i] = frame.at(i);
 	}
 	
@@ -283,10 +272,9 @@ TCPFrame::TCPFrame(){
 	cout << "checksum IP" << endl;
 	cout << hex << checkIP << endl;
 	cout << "checksum IP" << endl;
-	for(int i = 0; i < frame.size() ; i++){
+	for(size_t i = 0; i < frame.size() ; i++){
 		ret[i] = frame.at(i);
 	}
 	
-	//showFrame(frame);
 	return ret;
 }

@@ -95,7 +95,7 @@ unsigned char* ARPFrame::toFrame(){
 	std::stringstream ss;
 	unsigned int buffer;
 	int offset = 0;
-	for(int i = 0 ; i < this->eth.dst.length() ; i += 3){
+	for(size_t i = 0 ; i < this->eth.dst.length() ; i += 3){
 		if(this->eth.dst[i] != ':'){
 			ss.clear();
 			ss << std::hex << this->eth.dst.substr(offset, 2);
@@ -108,7 +108,7 @@ unsigned char* ARPFrame::toFrame(){
 
 	// Address Source
 	offset = 0;
-	for(int i = 0 ; i < this->eth.src.length() ; i += 3){
+	for(size_t i = 0 ; i < this->eth.src.length() ; i += 3){
 		if(this->eth.src[i] != ':'){
 			ss.clear();
 			ss << std::hex << this->eth.src.substr(offset, 2);
@@ -141,7 +141,7 @@ unsigned char* ARPFrame::toFrame(){
 	frame.push_back((this->opCode) & 0xFF);
 
 	offset = 0;
-	for(int i = 0 ; i < this->senderMac.length() ; i += 3){
+	for(size_t i = 0 ; i < this->senderMac.length() ; i += 3){
 		if(this->eth.src[i] != ':'){
 			ss.clear();
 			ss << std::hex << this->senderMac.substr(offset, 2);
@@ -163,7 +163,7 @@ unsigned char* ARPFrame::toFrame(){
 	frame.push_back(byte4);
 
 	offset = 0;
-	for(int i = 0 ; i < this->targetMac.length() ; i += 3){
+	for(size_t i = 0 ; i < this->targetMac.length() ; i += 3){
 		if(this->eth.src[i] != ':'){
 			ss.clear();
 			ss << std::hex << this->targetMac.substr(offset, 2);
@@ -185,7 +185,7 @@ unsigned char* ARPFrame::toFrame(){
 	this->frameLength = frame.size();
 
 	unsigned char* ret = (unsigned char*) malloc(frame.size()*sizeof(unsigned char*));
-	for(int i = 0; i < frame.size() ; i++){
+	for(size_t i = 0; i < frame.size() ; i++){
 		ret[i] = frame.at(i);
 	}
 	

@@ -143,7 +143,7 @@ void Stack::receiver(){
 										
 
 									}else if(tcp.Flags == TCP_ACK){
-										cout << "on a un ACK" << endl;
+										
 									}else if(tcp.Flags == (TCP_ACK | TCP_FIN)){
 										tcpRes.Flags = TCP_ACK | TCP_FIN;
 										tcpRes.seq_number = tcp.ack_number;
@@ -236,15 +236,9 @@ void Stack::Send(TCPFrame tcp){
 	socket_address.sll_addr[5] = datagram[5];
  
 	/* Send packet */
-	if (sendto(sockfd, datagram, tcp.frameLength, 0, (struct sockaddr*)&socket_address, sizeof(struct sockaddr_ll)) < 0){
-	   	cout << "Error" << endl;
-	}else{
-		cout << "Success" << endl;
-	}
-
+	sendto(sockfd, datagram, tcp.frameLength, 0, (struct sockaddr*)&socket_address, sizeof(struct sockaddr_ll));
+	  
 	close(sockfd);
-	
-	
 }
 
 void Stack::Send(ICMPFrame icmp){
@@ -282,11 +276,8 @@ void Stack::Send(ICMPFrame icmp){
 	socket_address.sll_addr[5] = datagram[5];
  
 	/* Send packet */
-	if (sendto(sockfd, datagram, icmp.frameLength, 0, (struct sockaddr*)&socket_address, sizeof(struct sockaddr_ll)) < 0){
-	  	cout << "Error" << endl;
-	}else{
-		cout << "Success" << endl;
-	}
+	sendto(sockfd, datagram, icmp.frameLength, 0, (struct sockaddr*)&socket_address, sizeof(struct sockaddr_ll));
+	  
 
 	close(sockfd);
 }
@@ -327,11 +318,7 @@ void Stack::Send(ARPFrame arp){
 	socket_address.sll_addr[5] = datagram[5];
  
 	/* Send packet */
-	if (sendto(sockfd, datagram, arp.frameLength, 0, (struct sockaddr*)&socket_address, sizeof(struct sockaddr_ll)) < 0){
-	   	cout << "Error" << endl;
-	}else{
-		cout << "Success" << endl;
-	}
+	sendto(sockfd, datagram, arp.frameLength, 0, (struct sockaddr*)&socket_address, sizeof(struct sockaddr_ll));
 
 	close(sockfd);	
 	

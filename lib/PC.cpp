@@ -1,22 +1,4 @@
-/**
-* \file PC.cpp
-* \brief Fichier de récupération de l'adresse MAC de l'interface 
-* \author Thomas VIAUD, Reunan LE NOC, Kevin HIPEAU, Guillaume TRICHARD
-* Fichier qui permet de récuperer l'adresse MAC du PC 
-*/
-using namespace std;
-
 #include "PC.h"
-PC::PC(){
-
-}
-
-/**
-* \fn string PC::getIP()
-* \brief Fonction de récupération de l'adresse ip de destination
-* \param La fonction ne prend aucun parametres 
-* \return La fonction retourne l'adresse ip de destination 
-*/
 string PC::getIP(){
 	int fd;
  	struct ifreq ifr;
@@ -31,24 +13,18 @@ string PC::getIP(){
 	*/ 
 	return inet_ntoa( ( (struct sockaddr_in *) &ifr.ifr_addr) ->sin_addr) ;
 }
-/**
-* \fn string PC::getMAC()
-* \brief Fonction de récupération de l'adresse mac de le machine
-* \param La fonction ne prend aucun parametres 
-* \return La fonction retourne l'adresse mac de destination 
-*/
+
 string PC::getMAC(){
 	/**
 	* On recupère l'adresse Mac de la machine
 	*/ 
 
    	#define MAC_STRING_LENGTH 13
-  	char *ret ;
   	struct ifreq s;
   	string mac = "";
   	int fd = socket(PF_INET, SOCK_DGRAM, IPPROTO_IP);
 	strcpy(s.ifr_name, "eth0");
-  	if (fd >= 0 && ret && 0 == ioctl(fd, SIOCGIFHWADDR, &s))
+  	if (fd >= 0  && 0 == ioctl(fd, SIOCGIFHWADDR, &s))
   	{
     	int i;
     	for (i = 0; i < 6; ++i){
@@ -73,18 +49,12 @@ string PC::getMAC(){
   	return string(mac);
 }
 
-/**
-* \fn string PC::getDefaultInterface()
-* \brief Fonction de récupération de l'interface par defaut 
-* \param La fonction ne prend aucun parametres 
-* \return La fonction retourne l'interface par defaut  
-*/
+
 string PC::getDefaultInterface(){
 	//Buffer contenant le texte de sortie
 	char buffEth0[20];
 	char buffWlan0[20];
 
-	//On lit dans /sys/ etc... pour voir l'etat de l'interface
 	int fdProc = open("/sys/class/net/eth0/operstate",O_RDONLY);
 	if(fdProc == -1){
 		perror("Failed opening file operstate eth0");
@@ -93,11 +63,8 @@ string PC::getDefaultInterface(){
 	if(nbBytesRead == -1){
 		perror("failed Reading");	
 	}else{
-		//A Enlever
 		int i = 0;
-		printf("ETh0\n");
 		while(buffEth0[i] != '\n'){
-			cout << buffEth0[i] << endl;
 			i++;
 		}
 		int closeSuccess = close(fdProc);
@@ -105,22 +72,16 @@ string PC::getDefaultInterface(){
 			printf("error closing the file");
 		}
 	}
-	//On teste l'interface wlan0
-	int fdProc1 = open("/sys/class/net/wlan0/operstate",O_RDONLY);
+	int fdProc1 = open("/sys/class/net/eth0/operstate",O_RDONLY);
 	if(fdProc1 == -1){
-		perror("Failed opening file operstate wlan0");
+		perror("Failed opening file operstate eth0");
 	}
 	int nbBytesRead1 = read(fdProc1,buffWlan0,20);
 	if(nbBytesRead1 == -1){
 		perror("failed Reading");	
 	}else{
-		//A ENLEVER
 		int i = 0;
-		printf("WLAN0\n");
 		while(buffWlan0[i] != '\n'){
-			cout << buffWlan0[i] << endl;
-
-			//printf("%s",buffWlan0[i]);
 			i++;
 		}
 		int closeSuccess = close(fdProc1);
@@ -128,10 +89,13 @@ string PC::getDefaultInterface(){
 			printf("error closing the file");
 		}
 	}
-	//On regarde qu'elle interface renvoye
-	if(buffEth0[0] == 'u'){
+	if(!string(buffEth0).compare("up")){
 		return "eth0";
-	}else if(buffWlan0[0] == 'u'){
+	}else if(!string(buffWlan0).compare("up")){
 		return "wlan0";
+	}else{
+		return "none";
 	}
+	
 }
+
