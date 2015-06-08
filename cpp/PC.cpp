@@ -4,8 +4,13 @@
 * \author Thomas VIAUD, Reunan LE NOC, Kevin HIPEAU, Guillaume TRICHARD
 * Fichier qui permet de récuperer l'adresse MAC du PC 
 */
+using namespace std;
 
 #include "PC.h"
+PC::PC(){
+
+}
+
 /**
 * \fn string PC::getIP()
 * \brief Fonction de récupération de l'adresse ip de destination
@@ -79,6 +84,7 @@ string PC::getDefaultInterface(){
 	char buffEth0[20];
 	char buffWlan0[20];
 
+	//On lit dans /sys/ etc... pour voir l'etat de l'interface
 	int fdProc = open("/sys/class/net/eth0/operstate",O_RDONLY);
 	if(fdProc == -1){
 		perror("Failed opening file operstate eth0");
@@ -87,9 +93,11 @@ string PC::getDefaultInterface(){
 	if(nbBytesRead == -1){
 		perror("failed Reading");	
 	}else{
+		//A Enlever
 		int i = 0;
+		printf("ETh0\n");
 		while(buffEth0[i] != '\n'){
-			printf("%s",buffEth0[i]);
+			cout << buffEth0[i] << endl;
 			i++;
 		}
 		int closeSuccess = close(fdProc);
@@ -97,17 +105,22 @@ string PC::getDefaultInterface(){
 			printf("error closing the file");
 		}
 	}
-	int fdProc1 = open("/sys/class/net/eth0/operstate",O_RDONLY);
+	//On teste l'interface wlan0
+	int fdProc1 = open("/sys/class/net/wlan0/operstate",O_RDONLY);
 	if(fdProc1 == -1){
-		perror("Failed opening file operstate eth0");
+		perror("Failed opening file operstate wlan0");
 	}
 	int nbBytesRead1 = read(fdProc1,buffWlan0,20);
 	if(nbBytesRead1 == -1){
 		perror("failed Reading");	
 	}else{
+		//A ENLEVER
 		int i = 0;
+		printf("WLAN0\n");
 		while(buffWlan0[i] != '\n'){
-			printf("%s",buffWlan0[i]);
+			cout << buffWlan0[i] << endl;
+
+			//printf("%s",buffWlan0[i]);
 			i++;
 		}
 		int closeSuccess = close(fdProc1);
@@ -115,11 +128,10 @@ string PC::getDefaultInterface(){
 			printf("error closing the file");
 		}
 	}
-	if(buffEth0 == "up"){
+	//On regarde qu'elle interface renvoye
+	if(buffEth0[0] == 'u'){
 		return "eth0";
-	}else if(buffWlan0 == "up"){
+	}else if(buffWlan0[0] == 'u'){
 		return "wlan0";
 	}
-	
 }
-
