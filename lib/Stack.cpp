@@ -1,10 +1,25 @@
+/*!
+ * \file stack.cpp
+ * \brief Fichier de gestion de l'envoie et reception de packet
+ * \author LE NOC Reunan, HIPEAU Kevin, VIAUD Thommas, TRICHARD Guillaume
+ * \version 1.0
+ */
+
 #include "Stack.h"
 
 /**
-* On va mettre dans se fichier toutes les mecanique de 
+* On va mettre dans ce fichier toutes les mecanique de 
 * la stack
 */
 
+
+/**
+ * \fn Stack::Stack(string ip,int port)
+ * \brief Fonction de gestion du socket
+ *
+ * \param la fonction prend en parametre l'ip et le port 
+ * \return La fonction retourne la stack
+ */
 Stack::Stack(string ip,int port){
 	this->port = port;
 	/* on mets en place le socket */
@@ -58,7 +73,7 @@ Stack::Stack(string ip,int port){
 	ioctl(sockfd, SIOCSIFFLAGS, &ifopts);
 
 
-	/* Gere un cas de fermeture prematurer*/
+	/* Gere un cas de fermeture prematuré*/
 	if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &sockopt, sizeof sockopt) == -1) {
 		perror("setsockopt");
 		close(sockfd);
@@ -80,6 +95,14 @@ Stack::Stack(string ip,int port){
 	this->sock = sockfd;
 };
 
+
+/**
+ * \fn void Stack::receiver()
+ * \brief Fonction de gestion de réception de packet IP et ICMP, elle permet d'écouter, trier et répondre correctement
+ *
+ * \param la fonction ne prend aucun parametres
+ * \return La fonction ne retouren rien
+ */
 void Stack::receiver(){
 	uint8_t buf[1024];
 	cout << PC::getIP() << endl;
@@ -197,6 +220,14 @@ void Stack::receiver(){
 		}
 }
 
+
+/**
+ * \fn void Stack::Send(TCPFrame tcp)
+ * \brief Fonction d'envoie de trame TCP
+ *
+ * \param la fonction prend en parametre le treame TCP
+ * \return La fonction ne retouren rien
+ */
 void Stack::Send(TCPFrame tcp){
 	#define DEFAULT_IF	"eth0"
 	
@@ -240,7 +271,13 @@ void Stack::Send(TCPFrame tcp){
 	  
 	close(sockfd);
 }
-
+/**
+ * \fn void Stack::Send(ICMPFrame icmp)
+ * \brief Fonction d'envoie de trame ICMP
+ *
+ * \param la fonction prend en parametre le treame ICMP
+ * \return La fonction ne retouren rien
+ */
 void Stack::Send(ICMPFrame icmp){
 	#define DEFAULT_IF	"eth0"
 	int sockfd;
@@ -281,7 +318,13 @@ void Stack::Send(ICMPFrame icmp){
 
 	close(sockfd);
 }
-
+/**
+ * \fn void Stack::Send(ARPFrame arp)
+ * \brief Fonction d'envoie de trame ARP
+ *
+ * \param la fonction prend en parametre le treame ARP
+ * \return La fonction ne retouren rien
+ */
 void Stack::Send(ARPFrame arp){
 	#define DEFAULT_IF	"eth0"
 	
