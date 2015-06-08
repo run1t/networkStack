@@ -1,7 +1,7 @@
 /*!
  * \file Client.cpp
  * \brief Fichier de gestion de la couche client
- * \author LE NOC Reunan, HIPEAU Kevin, VIAUD Thommas
+ * \author LE NOC Reunan, HIPEAU Kevin, VIAUD Thommas, TRICHARD Guillaume
  * \version 1.0
  */
 #include "Client.h"
