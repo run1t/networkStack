@@ -1,3 +1,10 @@
+/**
+ * \file ARPFrame.h
+ * \brief fichier qui permet de lire les trames ARP bruts ainsi que de les créer  
+ * \author LE NOC Reunan, VIAUD Thomas, HIPEAU Kevin
+ * \version 0.1
+ *
+ */
 #include <string>
 #include <iostream>
 #include <sstream>
