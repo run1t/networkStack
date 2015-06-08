@@ -1,3 +1,10 @@
+/**
+ * \file TCPFrame.h
+ * \brief fichier qui permet de gerer la lecture et l'ecriture de trame pour la couche TCP
+ * \author LE NOC Reunan, VIAUD Thomas, HIPEAU Kevin, TRICHARD Guillaume
+ * \version 0.1
+ *
+ */
 #include <string>
 #include <iostream>
 #include <sstream>
