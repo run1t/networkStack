@@ -1,4 +1,22 @@
+/*!
+ * \file PC.cpp
+ * \brief Fichier de récupération des informations du pc 
+ * \author LE NOC Reunan, HIPEAU Kevin, VIAUD Thommas, TRICHARD Guillaume
+ * \version 1.0
+ */
+
 #include "PC.h"
+
+
+
+
+/**
+ * \fn string PC::getIP()
+ * \brief Fonction de récupération de l'adresse ip de destination 
+ *
+ * \param la fonction ne nécessite aucun paramètres
+ * \return La fonction retourne l'adresse IP 
+ */
 string PC::getIP(){
 	int fd;
  	struct ifreq ifr;
@@ -14,6 +32,13 @@ string PC::getIP(){
 	return inet_ntoa( ( (struct sockaddr_in *) &ifr.ifr_addr) ->sin_addr) ;
 }
 
+/**
+ * \fn string PC::getMAC()
+ * \brief Fonction de récupération de l'adresse MAC de la machine  
+ *
+ * \param la fonction ne nécessite aucun paramètres
+ * \return La fonction retourne l'adresse mac de la machine 
+ */
 string PC::getMAC(){
 	/**
 	* On recupère l'adresse Mac de la machine
@@ -49,7 +74,13 @@ string PC::getMAC(){
   	return string(mac);
 }
 
-
+/**
+ * \fn string PC::getMAC()
+ * \brief Fonction de récupération de l'interface réseau 
+ *
+ * \param la fonction ne nécessite aucun paramètres
+ * \return La fonction retourne l'interface réseau de la machine
+ */
 string PC::getDefaultInterface(){
 	//Buffer contenant le texte de sortie
 	char buffEth0[20];
