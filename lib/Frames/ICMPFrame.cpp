@@ -11,7 +11,8 @@
  * \fn unsigned short ICMPFrame::checksum(unsigned short *ptr, unsigned int nbBytes)
  * \brief Fonction de réalisation d'un checksum pour l'intégrité des données 
  *
- * \param la fonction prend en parametres la structure sur laquelle réaliser le checksum ainsi que sa taille
+ * \param unsigned short *ptr la fonction prend en parametres la structure sur laquelle réaliser le checksum
+ * \param unsigned int nbBytes la fonction prend en parametres la taille 
  * \return la fonction retourne le checksum
  */
 unsigned short ICMPFrame::checksum(unsigned short *ptr, unsigned int nbBytes) {
@@ -54,7 +55,7 @@ unsigned short ICMPFrame::checksum(unsigned short *ptr, unsigned int nbBytes) {
  * \fn unsigned short ICMPFrame::get_ip_checksum(struct iphdr * myip)
  * \brief Fonction de réalisation d'un checksum pour l'IP
  *
- * \param la fonction prend en parametres la structure sur laquelle réaliser le checksum
+ * \param struct iphdr * myip la fonction prend en parametres la structure sur laquelle réaliser le checksum
  * \return la fonction retourne le checksum
  */
 unsigned short ICMPFrame::get_ip_checksum(struct iphdr * myip) {
@@ -64,7 +65,8 @@ unsigned short ICMPFrame::get_ip_checksum(struct iphdr * myip) {
  * \fn unsigned short ICMPFrame::get_icmp_checksum(struct icmphdr * myicmp,int length)
  * \brief Fonction de réalisation d'un checksum ICMP
  *
- * \param la fonction prend en parametres la structure sur laquelle réaliser le checksum ainsi que sa taille
+ * \param struct icmphdr * myicmp la fonction prend en parametres la structure sur laquelle réaliser le checksum 
+  * \param int length la fonction prend en parametres la taille de la structure
  * \return la fonction retourne le checksum
  */
 unsigned short ICMPFrame::get_icmp_checksum(struct icmphdr * myicmp,int length) {
@@ -75,7 +77,7 @@ unsigned short ICMPFrame::get_icmp_checksum(struct icmphdr * myicmp,int length) 
  * \fn ICMPFrame::ICMPFrame(unsigned char* buffer)
  * \brief Fonction de lecture d'un buffer brut
  *
- * \param la fonction prend en parametres le buffer afin de l'analyser
+ * \param unsigned char* buffer la fonction prend en parametres le buffer afin de l'analyser
  * \return la fonction retourne la trame analysé 
  */
 ICMPFrame::ICMPFrame(unsigned char* buffer){
@@ -112,7 +114,6 @@ ICMPFrame::ICMPFrame(){
  * \fn unsigned char* ICMPFrame::toFrame()
  * \brief Fonction de création de la trame brut a partir des parametres 
  *
- * \param la fonction ne prend aucun parametres
  * \return la fonction retourne la trame brut
  */
 unsigned char* ICMPFrame::toFrame(){

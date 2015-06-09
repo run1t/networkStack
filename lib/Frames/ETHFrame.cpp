@@ -13,7 +13,7 @@ ETHFrame::ETHFrame(){
  * \fn ETHFrame::ETHFrame(unsigned char* buffer)
  * \brief Fonction de lecture de la trame ethernet
  *
- * \param la fonction prend en parametres le buffer brut de la trame
+ * \param unsigned char* buffer la fonction prend en parametres le buffer brut de la trame
  * \return la fonction retourne la trame une fois analysé et parsé
  */
 ETHFrame::ETHFrame(unsigned char* buffer){
