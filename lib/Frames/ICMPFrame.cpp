@@ -108,7 +108,23 @@ ICMPFrame::ICMPFrame(unsigned char* buffer){
 }
 
 ICMPFrame::ICMPFrame(){
+	/**
+	* On recupere les autres couches 
+	*/
 
+	this->eth = *new ETHFrame();
+	this->ip = *new IPFrame();
+
+	/**
+	* On recupere TCP
+	*/
+	this->Type     = 8;
+	this->Code     = 0;
+	this->Checksum = 0;
+	this->Id       = rand();
+	this->sequence = 8448;
+	this->data = "123456789AZERTYUIOP";
+	
 }
 /**
  * \fn unsigned char* ICMPFrame::toFrame()

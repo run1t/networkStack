@@ -7,7 +7,9 @@
  *
  */
 ETHFrame::ETHFrame(){
-
+	this->src = PC::getMAC();
+	this->dst = "FF:FF:FF:FF:FF:FF";
+	this->Type = 0x0800;
 }
 /**
  * \fn ETHFrame::ETHFrame(unsigned char* buffer)

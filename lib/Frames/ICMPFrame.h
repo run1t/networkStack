@@ -12,6 +12,7 @@
 #include "IPFrame.h"
 #include <vector>
 #include <cstring>
+#include <cstdlib>
 extern "C" { 
 	#include <sys/types.h>
 #include <sys/socket.h>
@@ -24,6 +25,7 @@ extern "C" {
 #include <linux/tcp.h>
 #include <netinet/in_systm.h>
 #include <net/ethernet.h>
+
 
 };
 

@@ -18,11 +18,11 @@
 #include <iostream>
 #include <vector>
 #include <sstream>
+#include "Stack.h"
 #include "Client.h"
+#include "Connection.h"
 using namespace std;
-extern "C" {    // another way
-    #include <netpacket/packet.h>
-};
+
 #endif /* defined(__callback_Test__Server__) */
 
 
@@ -31,33 +31,26 @@ extern "C" {    // another way
 class Server
 {
 public:
+    static Server* server;
+
     //Stockage des fonctions de callbacks
     //Gestion des evenements du client
-    function<void(Client)>        onClient;
-    function<void(string,Client)> onData;
-    function<void(Client)>        onLeave;
-
-    //Gestion des evenements automatique
-    function<void(string)> onPing;
-    function<void(string)> onARP;
-
+    function<void(Connection*)> onData;
+    Stack* stacker;
     list<Client> Clients = *new list<Client>();
 
     // Constructeurs
-    Server();
+    Server(string ip,int port);
     
-    void listen();
+
     
     //Declaration des evenements
-    void addEventClient (function<void(Client)> func);
-    void addEventData   (function<void(string,Client)> func);
-    void addEventLeave  (function<void(Client)> func);
-    void addEventPing   (function<void(string)> func);
-    void addEventARP    (function<void(string)> func);
+    void addEventData   (function<void(Connection*)> func);
+
 
     //Envoi des données
     void send (string message,Client client);
-
+    void join();
     //Gestion de la pile utilisateur
     void addClient(Client client);
     void removeClient(Client client);

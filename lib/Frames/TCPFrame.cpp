@@ -54,7 +54,6 @@ unsigned short TCPFrame::checksum(unsigned short *ptr, unsigned int nbBytes) {
 	//On fait le complément de la somme avec l'opérateur ~(bitwise NOT), autrement dit on donne l'inverse au niveau des bits 1=0 et 0=1;
 	answer=(short)~sum;
 
-	cout << hex << answer << endl;
 	//On retourne le checksum
 	return(answer);
 }
@@ -144,7 +143,43 @@ TCPFrame::TCPFrame(unsigned char* buffer){
 }
 
 TCPFrame::TCPFrame(){
+	this->eth = *new ETHFrame();
+	this->ip = *new IPFrame();
 
+	/**
+	* On recupere TCP
+	*/
+
+	this->src = 20;
+	this->dst = 80;
+	this->seq_number = 0;
+	this->ack_number = 0;
+	this->HeaderLength = 20;
+	this->Flags = 0;
+	this->Windows = 65535;
+	this->Checksum = 0;
+	this->urgentPointer = 0;
+
+	//Maximu Segment Size
+	this->options.push_back(0x02);
+	this->options.push_back(0x04);
+	this->options.push_back(0x05);
+	this->options.push_back(0xB4);
+
+	//
+	this->options.push_back(0x04);
+	this->options.push_back(0x02);
+	this->options.push_back(0x08);
+	this->options.push_back(0x0A);
+
+
+
+	this->HeaderLength = 20+this->options.size();
+
+
+	//On recupere le message TCP
+	this->data = "";
+	
 }
 /**
  * \fn  unsigned char* TCPFrame::toFrame()
@@ -307,9 +342,6 @@ TCPFrame::TCPFrame(){
 	int pos = 13+11;
 	frame[pos] = (checkIP >> 8) & 0xFF;
 	frame[pos+1] = (checkIP)  & 0xFF;
-	cout << "checksum IP" << endl;
-	cout << hex << checkIP << endl;
-	cout << "checksum IP" << endl;
 	for(size_t i = 0; i < frame.size() ; i++){
 		ret[i] = frame.at(i);
 	}

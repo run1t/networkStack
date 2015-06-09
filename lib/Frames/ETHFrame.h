@@ -8,6 +8,7 @@
 #include <string>
 #include <iostream>
 #include <sstream>
+#include "../PC.h"
 #if !defined( ETHFRAME_H )
 #define ETHFRAME_H
 using namespace std;

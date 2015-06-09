@@ -10,6 +10,7 @@
 #include <sstream>
 #include <vector>
 #include "ETHFrame.h"
+#include "../PC.h"
 #if !defined( ARPFrame_H )
 #define ARPFrame_H
 using namespace std;

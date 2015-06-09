@@ -17,8 +17,11 @@ CXXSOURCES = \
 	lib/Frames/ARPFrame.cpp \
 	lib/Frames/IPFrame.cpp \
 	lib/Frames/ICMPFrame.cpp \
+	lib/Frames/SendFrame.cpp \
 	lib/Client.cpp \
-	lib/PC.cpp
+	lib/PC.cpp \
+	lib/Connection.cpp \
+	lib/Server.cpp 
 
 all: server
 

@@ -1,13 +1,12 @@
+
 #include <string>
 #include <functional>
 #include <stdio.h>
 #include <iostream>
-/*!
- * \file Client.h
- * \brief Fichier de gestion de la couche client
- * \author LE NOC Reunan, HIPEAU Kevin, VIAUD Thommas, TRICHARD Guillaume
- * \version 1.0
- */
+#include "Stack.h"
+#include "Connection.h"
+#include "Frames/TCPFrame.h"
+
 using namespace std;
 class Client
 {
@@ -18,24 +17,22 @@ public:
     int port;
     string ip;
 
+    static Client* client;
+    Stack* stacker;
+    
     /*
     * Construction du client
     **/
-    Client(int port, string ip);
+    Client(string ip,int port);
     void Send(string message);
-
+    int ipLocal;
     //fonctions de callback
-    function<void(Client)>	         onConnection;
-    function<void(Client,string)>    onData;
-    function<void()>	             onClose;
-    function<void(string)>	         onError;
+    function<void(Connection*)> onConnection;
+    function<void(Connection*)> onData;
 
     //Declarations des evenements
-    void addEventConnection (function<void(Client)> func);
-    void addEventClose (function<void()> func);
-    void addEventError (function<void(string)> func);
-    void addEventData (function<void(Client,string)> func);
+    void addEventConnection (function<void(Connection*)> func);
+    void addEventData (function<void(Connection*)> func);
+    void join();
 
-    //envoi de donnees
-    //void send(string ip,int port,string message);
 };

@@ -21,6 +21,7 @@ extern "C" {    // another way
 	#include <netinet/in.h>
 	#include <sys/socket.h>
 	#include <arpa/inet.h>
+	#include <stdlib.h>
 };
 #if !defined( PC_H )
 #define PC_H
@@ -32,6 +33,10 @@ public:
 	static string getIP();
 	static string getMAC();
 	static string getDefaultInterface();
+	static int desactivateRST();
+	static int activateRST();
+	static int desactivateICMP();
+	static int activateICMP();
 };
 
 #endif // !defined( PC_H )
