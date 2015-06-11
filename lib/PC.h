@@ -35,6 +35,8 @@ public:
 	static string getDefaultInterface();
 	static int desactivateRST();
 	static int activateRST();
+	static int desactivateICMP();
+	static int activateICMP();
 };
 
 #endif // !defined( PC_H )

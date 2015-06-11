@@ -142,3 +142,61 @@ int PC::activateRST(){
 	//retourne -1 si erreur
 	return result;
 }
+
+int PC::desactivateICMP(){
+	int fdProc = open("/proc/sys/net/ipv4/icmp_echo_ignore_all",O_WRONLY);
+		if(fdProc == -1){
+			perror("Error opening the file /proc/sys/net/ipv4/icmp_echo_ignore_all\n");
+			return -1;
+		}
+		int nbByteWrite = write(fdProc,"1",1);
+		if(nbByteWrite == 0){
+			printf("No write\n");
+			return -1;
+		}
+		else if(nbByteWrite == -1){
+			perror("Error writing to file\n");
+			return -1;
+		}
+		else if(nbByteWrite > 0){
+			printf("Succes writing to file\n");
+			int closeSuccess = close(fdProc);
+			if(closeSuccess == 0){
+				printf("File closed successfully\n");
+				return 0;
+			}else if(closeSuccess == -1){
+				printf("Error closing the file\n");
+				return -1;
+			}
+		}
+		return 0;
+}
+
+int PC::activateICMP(){
+	int fdProc = open("/proc/sys/net/ipv4/icmp_echo_ignore_all",O_WRONLY);
+		if(fdProc == -1){
+			perror("Error opening the file /proc/sys/net/ipv4/icmp_echo_ignore_all\n");
+			return -1;
+		}
+		int nbByteWrite = write(fdProc,"0",1);
+		if(nbByteWrite == 0){
+			printf("No write\n");
+			return -1;
+		}
+		else if(nbByteWrite == -1){
+			perror("Error writing to file\n");
+			return -1;
+		}
+		else if(nbByteWrite > 0){
+			printf("Succes writing to file\n");
+			int closeSuccess = close(fdProc);
+			if(closeSuccess == 0){
+				printf("File closed successfully\n");
+				return 0;
+			}else if(closeSuccess == -1){
+				printf("Error closing the file\n");
+				return -1;
+			}
+		}
+		return 0;
+}

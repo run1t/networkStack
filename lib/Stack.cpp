@@ -26,27 +26,9 @@ Stack::Stack(string ip,int port){
 	int sockfd;
 	int sockopt;
 
-
-	int fdProc = open("/proc/sys/net/ipv4/icmp_echo_ignore_all",O_WRONLY);
-		if(fdProc == -1){
-			perror("Error opening the file /proc/sys/net/ipv4/icmp_echo_ignore_all\n");
-		}
-		int nbByteWrite = write(fdProc,"1",1);
-		if(nbByteWrite == 0){
-			printf("No write\n");
-		}
-		else if(nbByteWrite == -1){
-			perror("Error writing to file\n");
-		}
-		else if(nbByteWrite > 0){
-			printf("Succes writing to file\n");
-			int closeSuccess = close(fdProc);
-			if(closeSuccess == 0){
-				printf("File closed successfully\n");
-			}else if(closeSuccess == -1){
-				printf("Error closing the file\n");
-			}
-		}
+	//Desactivation 
+	PC::desactivateICMP();
+	PC::desactivateRST();
 
 	/* */
 	struct ifreq ifopts;	
