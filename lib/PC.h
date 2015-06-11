@@ -37,6 +37,8 @@ public:
 	static int activateRST();
 	static int desactivateICMP();
 	static int activateICMP();
+	static int activateARP();
+	static int desactivateARP();
 };
 
 #endif // !defined( PC_H )

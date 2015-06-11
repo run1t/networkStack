@@ -28,10 +28,10 @@ void handle_SIGINT(int signal);
  	int sockfd;
  	int sockopt;
 
-	//Desactivation 
+	//Desactivation des parties réseaux du kernel
  	PC::desactivateICMP();
  	PC::desactivateRST();
-
+	PC::desactivateARP();
 
  	struct sigaction siga;
 
@@ -350,6 +350,7 @@ void handle_SIGINT(int signal);
  	if(signal == SIGINT){
  		PC::activateRST();
  		PC::activateICMP();
+		PC::activateARP();
  		printf("Terminating the TCP/IP Stack\n");
  		exit(0);
  	}

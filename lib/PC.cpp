@@ -200,3 +200,19 @@ int PC::activateICMP(){
 		}
 		return 0;
 }
+
+int PC::desactivateARP(){
+	int result;
+	string command = "ip link set dev " + PC::getDefaultInterface() + " arp off";
+	result = system(command.c_str());
+	//retourne -1 si erreur
+	return result;
+}
+
+int PC::activateARP(){
+	int result;
+	string command = "ip link set dev " + PC::getDefaultInterface() + " arp on";
+	result = system(command.c_str());
+	//retourne -1 si erreur
+	return result;
+}
