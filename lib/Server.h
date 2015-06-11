@@ -18,6 +18,7 @@
 #include <iostream>
 #include <vector>
 #include <sstream>
+#include "Stack.h"
 #include "Client.h"
 using namespace std;
 extern "C" {    // another way

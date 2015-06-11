@@ -5,6 +5,7 @@
 #include "IPFrame.h"
 #include <vector>
 #include <cstring>
+#include "../PC.h"
 extern "C" { 
 	#include <sys/types.h>
 #include <sys/socket.h>

@@ -8,22 +8,29 @@
 
 using namespace std;
 
+void onSyn(){
+    cout << "on a eu un Syn" << endl;
+}
+
+void onData(string data){
+    cout << "on a de la data " << endl;
+    cout << "Data : " << data << endl;
+}
+
+void onFin(){
+    cout << "on a eu un Fin" << endl;
+}
 
 int main()
 {
-/*
-    Server server = *new Server();
-    server.addEventClient(onClient);
-    server.addEventData(onData);
-    server.addEventLeave(onLeave);
-    server.listen();
-*/
 
-	//Test Client
-	//Client client = *new Client(1,5654,"10.17.40.3",3);
-	//client.addEventConnection(onConnection);
     Stack stack = * new Stack("192.168.1.27",80);
+    stack.addSynEvent (onSyn);
+    stack.addDataEvent(onData);
+    stack.addFinEvent (onFin);
     stack.receiver();
-    //trt
+
+    cout << " ok ok " << endl;
+    
 }
 

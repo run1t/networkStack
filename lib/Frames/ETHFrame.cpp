@@ -1,7 +1,9 @@
 #include "ETHFrame.h"
 
 ETHFrame::ETHFrame(){
-
+	this->src = PC::getMAC();
+	this->dst = "FF:FF:FF:FF:FF:FF";
+	this->Type = 0x0800;
 }
 
 ETHFrame::ETHFrame(unsigned char* buffer){

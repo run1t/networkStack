@@ -107,52 +107,13 @@ void Stack::receiver(){
 								TCPFrame tcpRes = tcp;
 
 								if(this->port == tcp.dst){
-									//On va repondre a notre SYN
-									tcpRes.eth.src = tcp.eth.dst;
-									tcpRes.eth.dst = tcp.eth.src;
-
-									tcpRes.ip.src =  tcp.ip.dst;
-									tcpRes.ip.dst =  tcp.ip.src;	
-									
-									if(tcp.Flags == TCP_SYN ){
-										
-										tcpRes.Flags = TCP_SYN | TCP_ACK;
-										tcpRes.seq_number = tcp.ack_number;
-										tcpRes.ack_number = tcp.seq_number + 1;
-										this->Send(tcpRes);
-
-									}else if(tcp.Flags == (TCP_PSH | TCP_ACK)){
-										
-										tcpRes.Flags = TCP_ACK | TCP_PSH;
-										tcpRes.seq_number = tcp.ack_number;
-										tcpRes.ack_number = tcp.seq_number + tcp.data.length();
-										tcpRes.data =   "HTTP/1.1 200 OK\n"
-														"Content-Type: text/html;charset=utf-8\n"
-														"\n"
-														"<html></html>\n"
-														"<body><div style=\"color:red;\">Un div stylé</div>\n";
-											
-										this->Send(tcpRes);
-
-									
-
-										tcpRes.Flags = TCP_ACK | TCP_FIN;
-										tcpRes.seq_number = tcp.ack_number;
-										tcpRes.ack_number = tcp.seq_number + tcp.data.length();
-										this->Send(tcpRes);
-										
-
-									}else if(tcp.Flags == TCP_ACK){
-										
-									}else if(tcp.Flags == (TCP_ACK | TCP_FIN)){
-										tcpRes.Flags = TCP_ACK | TCP_FIN;
-										tcpRes.seq_number = tcp.ack_number;
-										tcpRes.ack_number = tcp.seq_number + 1;
-										tcpRes.data = "";
-										this->Send(tcpRes);
+									/** on recupere la connection associer a notre propre **/
+									if(this->getConnection(tcp.src)->port < 0){
+										this->addConnection(new Connection(tcp.src));
+									}else{
+										this->getConnection(tcp.src)->HandleConnection(tcp);
 									}
 
-								
 								}
 							}
 							//On a de l'ICMP
@@ -177,7 +138,7 @@ void Stack::receiver(){
 						ARPFrame arp = *new ARPFrame(buf);
 						//On prend que ethernet et ipv4
 						if(arp.HardwareSize == 6 && arp.ProtocolSize == 4 && arp.opCode == 1){
-							cout << arp.targetIp << "  :  " << PC::getIP() << endl;
+							
 							if(arp.targetIp.compare(PC::getIP()) == 0){
 								ARPFrame arpRes = arp;
 								arpRes.eth.dst = arp.eth.src;
@@ -322,4 +283,32 @@ void Stack::Send(ARPFrame arp){
 
 	close(sockfd);	
 	
+}
+
+
+void Stack::addSynEvent (function<void()> func){
+	this->onSyn = func;
+}
+
+void Stack::addDataEvent(function<void(string)> func){
+	this->onData = func;
+}
+
+void Stack::addFinEvent (function<void()> func){
+	this->onFin = func;
+}
+
+
+Connection* Stack::getConnection(int port){
+	for(size_t i = 0; i < this->Connections.size() ; i++){
+		if(this->Connections.at(i)->port == port)
+			return this->Connections.at(i);
+	}
+	return new Connection(-200);
+}
+
+void Stack::addConnection(Connection *connection){
+	Connection::ConnectionNumber++;
+	cout << "Nombre de connection : " << Connection::ConnectionNumber << endl;
+	this->Connections.push_back(connection);
 }

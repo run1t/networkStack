@@ -2,6 +2,17 @@
 #include "ARPFrame.h"
 
 ARPFrame::ARPFrame(){
+	this->eth = *new ETHFrame();
+	this->HardwareType = 1;
+	this->ProtocolIp = 0x0800;
+	this->HardwareSize = 6;
+	this->ProtocolSize = 4;
+	this->opCode = 1;
+	this->senderMac = PC::getMAC();
+	this->targetMac = "FF:FF:FF:FF:FF:FF";
+	this->senderIp = PC::getIP();
+	this->targetIp = "0.0.0.0";  
+
 
 }
 

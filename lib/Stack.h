@@ -19,12 +19,15 @@
 #include "Frames/ICMPFrame.h"
 #include "Frames/ARPFrame.h"
 
+
 #include "PC.h"
 #include <string>
 #include <iostream>
 #include <errno.h>
 #include <unistd.h>
 #include <functional>
+#include <vector>
+#include <thread>
 
 using namespace std;
 
@@ -35,7 +38,9 @@ extern "C" {    // another way
 
 };
 
-
+#if !defined( STACK_H )
+#define STACK_H
+#include "Connection.h"
 class Stack
 {	
 public:
@@ -44,10 +49,12 @@ public:
 	int  port;
 	int sock;
 
-	function<void()>	onSyn;
-    function<void()>    onData;
-    function<void()>	onFin;
-   
+	function<void()>	      onSyn;
+    function<void(string)>    onData;
+    function<void()>	      onFin;
+   	vector<Connection*> Connections;
+
+
 	/*Methode de la stack*/ 
 	Stack(string ip,int port);
 	void receiver();
@@ -55,4 +62,13 @@ public:
 	void Send(ICMPFrame icmp);
 	void Send(ARPFrame arp);
 
+	void addSynEvent (function<void()> func);
+   	void addDataEvent(function<void(string)> func);
+    void addFinEvent (function<void()> func);
+
+    /** Gestion des Connections **/
+   	Connection* getConnection(int port);
+   	void addConnection(Connection *connection);
+    //void removeConnection(Connection connection);*/
 };
+#endif

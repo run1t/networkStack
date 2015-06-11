@@ -2,7 +2,36 @@
 #include "IPFrame.h"
 
 IPFrame::IPFrame(){
+	this->eth = *new ETHFrame();
+	/**
+	* On commence le remplissage de la trame IP juste après 
+	* le header Ethernet au byte 14
+	*/
 
+	// Recuperation de la version IP
+	this->Version = 4;
+	this->HeaderLength = 20;
+
+
+	this->DFS = 0;
+	this->TotalLength = 0;
+	this->Id = rand();
+
+	// Informations sur la fragmentation
+	this->Flag_Reserved = 0;
+	this->Flag_DF = 0;
+	this->Flag_MF = 0;
+	this->Flags = 0 ;
+	this->PositionFragment = 0;
+	this->TTL = 64;
+	this->Protocol = 6;
+	this->Checksum = 0;
+	//IP src
+	this->src = PC::getIP();
+	
+	//IP dst
+	this->dst = "0.0.0.0";
+	
 }
 
 IPFrame::IPFrame(unsigned char* buffer){

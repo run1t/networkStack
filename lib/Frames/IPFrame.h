@@ -3,10 +3,16 @@
 #include <sstream>
 #include <vector>
 #include "ETHFrame.h"
+#include "../PC.h"
 #if !defined( IPFRAME_H )
 #define IPFRAME_H
 using namespace std;
 
+#define TCP_ACK 16
+#define TCP_PSH 8
+#define TCP_RST 4
+#define TCP_SYN 2
+#define TCP_FIN 1
 class IPFrame
 {
 	/**
