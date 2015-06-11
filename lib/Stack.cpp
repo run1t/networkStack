@@ -12,6 +12,8 @@
 * la stack
 */
 
+//Permet de gérer les signaux
+void handle_SIGINT(int signal);
 
 /**
  * \fn Stack::Stack(string ip,int port)
@@ -30,6 +32,16 @@ Stack::Stack(string ip,int port){
 	PC::desactivateICMP();
 	PC::desactivateRST();
 
+
+	struct sigaction siga;
+
+	siga.sa_handler = &handle_SIGINT;
+	siga.sa_flags = SA_RESTART;
+	//On prend en  compte tout les signaux
+	sigfillset(&siga.sa_mask);
+	if(sigaction(SIGINT,&siga,NULL) == -1){
+		printf("Error handling SIGINT\n");
+	}
 	/* */
 	struct ifreq ifopts;	
 	struct ifreq if_ip;
@@ -347,4 +359,14 @@ void Stack::Send(ARPFrame arp){
 
 	close(sockfd);	
 	
+}
+
+//Gestion de la fermeture du programme
+void handle_SIGINT(int signal){
+	if(signal == SIGINT){
+		PC::activateRST();
+		PC::activateICMP();
+		printf("Terminating the TCP/IP Stack\n");
+		exit(0);
+	}
 }

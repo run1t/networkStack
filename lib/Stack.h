@@ -30,8 +30,8 @@
 #include <iostream>
 #include <errno.h>
 #include <unistd.h>
+#include <signal.h>
 #include <functional>
-
 using namespace std;
 
 extern "C" {    // another way
@@ -60,5 +60,4 @@ public:
 	void Send(TCPFrame tcp);
 	void Send(ICMPFrame icmp);
 	void Send(ARPFrame arp);
-
 };
