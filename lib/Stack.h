@@ -1,3 +1,9 @@
+/*!
+ * \file stack.h
+ * \brief Fichier de gestion de l'envoie et reception de packet TCP, ICMP et ARP
+ * \author LE NOC Reunan, HIPEAU Kevin, VIAUD Thommas, TRICHARD Guillaume
+ * \version 1.0
+ */
 #define TCP_ACK 16
 #define TCP_PSH 8
 #define TCP_RST 4
@@ -25,6 +31,7 @@
 #include <iostream>
 #include <errno.h>
 #include <unistd.h>
+#include <signal.h>
 #include <functional>
 #include <vector>
 #include <thread>
@@ -61,7 +68,6 @@ public:
 	void Send(TCPFrame tcp);
 	void Send(ICMPFrame icmp);
 	void Send(ARPFrame arp);
-
 	void addSynEvent (function<void()> func);
    	void addDataEvent(function<void(string)> func);
     void addFinEvent (function<void()> func);
@@ -72,3 +78,4 @@ public:
     //void removeConnection(Connection connection);*/
 };
 #endif
+

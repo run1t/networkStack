@@ -1,38 +1,47 @@
+/*!
+ * \file stack.cpp
+ * \brief Fichier de gestion de l'envoie et reception de packet
+ * \author LE NOC Reunan, HIPEAU Kevin, VIAUD Thommas, TRICHARD Guillaume
+ * \version 1.0
+ */
+
 #include "Stack.h"
 
 /**
-* On va mettre dans se fichier toutes les mecanique de 
+* On va mettre dans ce fichier toutes les mecanique de 
 * la stack
 */
 
+//Permet de gérer les signaux
+void handle_SIGINT(int signal);
+
+/**
+ * \fn Stack::Stack(string ip,int port)
+ * \brief Fonction de gestion du socket
+ *
+ * \param la fonction prend en parametre l'ip et le port 
+ * \return La fonction retourne la stack
+ */
 Stack::Stack(string ip,int port){
 	this->port = port;
 	/* on mets en place le socket */
 	int sockfd;
 	int sockopt;
 
+	//Desactivation 
+	PC::desactivateICMP();
+	PC::desactivateRST();
 
-	int fdProc = open("/proc/sys/net/ipv4/icmp_echo_ignore_all",O_WRONLY);
-		if(fdProc == -1){
-			perror("Error opening the file /proc/sys/net/ipv4/icmp_echo_ignore_all\n");
-		}
-		int nbByteWrite = write(fdProc,"1",1);
-		if(nbByteWrite == 0){
-			printf("No write\n");
-		}
-		else if(nbByteWrite == -1){
-			perror("Error writing to file\n");
-		}
-		else if(nbByteWrite > 0){
-			printf("Succes writing to file\n");
-			int closeSuccess = close(fdProc);
-			if(closeSuccess == 0){
-				printf("File closed successfully\n");
-			}else if(closeSuccess == -1){
-				printf("Error closing the file\n");
-			}
-		}
 
+	struct sigaction siga;
+
+	siga.sa_handler = &handle_SIGINT;
+	siga.sa_flags = SA_RESTART;
+	//On prend en  compte tout les signaux
+	sigfillset(&siga.sa_mask);
+	if(sigaction(SIGINT,&siga,NULL) == -1){
+		printf("Error handling SIGINT\n");
+	}
 	/* */
 	struct ifreq ifopts;	
 	struct ifreq if_ip;
@@ -58,7 +67,7 @@ Stack::Stack(string ip,int port){
 	ioctl(sockfd, SIOCSIFFLAGS, &ifopts);
 
 
-	/* Gere un cas de fermeture prematurer*/
+	/* Gere un cas de fermeture prematuré*/
 	if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &sockopt, sizeof sockopt) == -1) {
 		perror("setsockopt");
 		close(sockfd);
@@ -80,6 +89,14 @@ Stack::Stack(string ip,int port){
 	this->sock = sockfd;
 };
 
+
+/**
+ * \fn void Stack::receiver()
+ * \brief Fonction de gestion de réception de packet IP et ICMP, elle permet d'écouter, trier et répondre correctement
+ *
+ * \param la fonction ne prend aucun parametre
+ * \return La fonction ne retoure rien
+ */
 void Stack::receiver(){
 	uint8_t buf[1024];
 	cout << PC::getIP() << endl;
@@ -158,6 +175,14 @@ void Stack::receiver(){
 		}
 }
 
+
+/**
+ * \fn void Stack::Send(TCPFrame tcp)
+ * \brief Fonction d'envoie de trame TCP
+ *
+ * \param la fonction prend en parametre le treame TCP
+ * \return La fonction ne retoure rien
+ */
 void Stack::Send(TCPFrame tcp){
 	#define DEFAULT_IF	"eth0"
 	
@@ -201,7 +226,13 @@ void Stack::Send(TCPFrame tcp){
 	  
 	close(sockfd);
 }
-
+/**
+ * \fn void Stack::Send(ICMPFrame icmp)
+ * \brief Fonction d'envoie de trame ICMP
+ *
+ * \param la fonction prend en parametre le trame ICMP
+ * \return La fonction ne retoure rien
+ */
 void Stack::Send(ICMPFrame icmp){
 	#define DEFAULT_IF	"eth0"
 	int sockfd;
@@ -242,7 +273,13 @@ void Stack::Send(ICMPFrame icmp){
 
 	close(sockfd);
 }
-
+/**
+ * \fn void Stack::Send(ARPFrame arp)
+ * \brief Fonction d'envoie de trame ARP
+ *
+ * \param la fonction prend en parametre le trame ARP
+ * \return La fonction ne retoure rien
+ */
 void Stack::Send(ARPFrame arp){
 	#define DEFAULT_IF	"eth0"
 	
@@ -312,3 +349,14 @@ void Stack::addConnection(Connection *connection){
 	cout << "Nombre de connection : " << Connection::ConnectionNumber << endl;
 	this->Connections.push_back(connection);
 }
+
+//Gestion de la fermeture du programme
+void handle_SIGINT(int signal){
+	if(signal == SIGINT){
+		PC::activateRST();
+		PC::activateICMP();
+		printf("Terminating the TCP/IP Stack\n");
+		exit(0);
+	}
+}
+

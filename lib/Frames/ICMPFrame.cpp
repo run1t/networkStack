@@ -1,6 +1,19 @@
+/**
+ * \file ICMPFrame.cpp
+ * \brief fichier qui permet de lire les trames ICMP bruts
+ * \author LE NOC Reunan, VIAUD Thomas, HIPEAU Kevin, TRICHARD Guillaume
+ * \version 0.1
+ *
+ */
 #include "ICMPFrame.h"
 
-
+/**
+ * \fn unsigned short ICMPFrame::checksum(unsigned short *ptr, unsigned int nbBytes)
+ * \brief Fonction de réalisation d'un checksum pour l'intégrité des données 
+ *
+ * \param la fonction prend en parametres la structure sur laquelle réaliser le checksum ainsi que sa taille
+ * \return la fonction retourne le checksum
+ */
 unsigned short ICMPFrame::checksum(unsigned short *ptr, unsigned int nbBytes) {
           /* Compute Internet Checksum for "count" bytes
             *         beginning at location "addr".
@@ -37,16 +50,34 @@ unsigned short ICMPFrame::checksum(unsigned short *ptr, unsigned int nbBytes) {
 	return(answer);
 }
 
-
+/**
+ * \fn unsigned short ICMPFrame::get_ip_checksum(struct iphdr * myip)
+ * \brief Fonction de réalisation d'un checksum pour l'IP
+ *
+ * \param la fonction prend en parametres la structure sur laquelle réaliser le checksum
+ * \return la fonction retourne le checksum
+ */
 unsigned short ICMPFrame::get_ip_checksum(struct iphdr * myip) {
         return checksum((unsigned short *)myip,sizeof(iphdr));
 }
-
+/**
+ * \fn unsigned short ICMPFrame::get_icmp_checksum(struct icmphdr * myicmp,int length)
+ * \brief Fonction de réalisation d'un checksum ICMP
+ *
+ * \param la fonction prend en parametres la structure sur laquelle réaliser le checksum ainsi que sa taille
+ * \return la fonction retourne le checksum
+ */
 unsigned short ICMPFrame::get_icmp_checksum(struct icmphdr * myicmp,int length) {
         return checksum((unsigned short *)myicmp,length);
 }
 
-
+/**
+ * \fn ICMPFrame::ICMPFrame(unsigned char* buffer)
+ * \brief Fonction de lecture d'un buffer brut
+ *
+ * \param la fonction prend en parametres le buffer afin de l'analyser
+ * \return la fonction retourne la trame analysé 
+ */
 ICMPFrame::ICMPFrame(unsigned char* buffer){
 	
 
@@ -93,7 +124,13 @@ ICMPFrame::ICMPFrame(){
 	this->data = "123456789AZERTYUIOP";
 	
 }
-
+/**
+ * \fn unsigned char* ICMPFrame::toFrame()
+ * \brief Fonction de création de la trame brut a partir des parametres 
+ *
+ * \param la fonction ne prend aucun parametres
+ * \return la fonction retourne la trame brut
+ */
 unsigned char* ICMPFrame::toFrame(){
 	vector<unsigned char> frame;
 

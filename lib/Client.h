@@ -2,7 +2,12 @@
 #include <functional>
 #include <stdio.h>
 #include <iostream>
-
+/*!
+ * \file Client.h
+ * \brief Fichier de gestion de la couche client
+ * \author LE NOC Reunan, HIPEAU Kevin, VIAUD Thommas, TRICHARD Guillaume
+ * \version 1.0
+ */
 using namespace std;
 class Client
 {
