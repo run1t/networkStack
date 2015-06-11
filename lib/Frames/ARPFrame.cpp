@@ -25,7 +25,7 @@ ARPFrame::ARPFrame(){
  * \fn ARPFrame::ARPFrame(unsigned char* buffer)
  * \brief Fonction de lecture de la trame ARP
  *
- * \param la fonction prend en parametres le buffer brut de la trame
+ * \param unsigned char* buffer la fonction prend en parametres le buffer brut de la trame
  * \return la fonction retourne la trame une fois analysé et parsé
  */
 ARPFrame::ARPFrame(unsigned char* buffer){
@@ -111,7 +111,6 @@ ARPFrame::ARPFrame(unsigned char* buffer){
  * \fn unsigned char* ARPFrame::toFrame()
  * \brief Fonction création de la trame ARP pour l'envoie 
  *
- * \param la fonction ne prend pas de parametres 
  * \return la fonction retourne la trame sous forme de buffer
  */
 unsigned char* ARPFrame::toFrame(){
