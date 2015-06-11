@@ -7,9 +7,6 @@
 
 #include "PC.h"
 
-
-
-
 /**
  * \fn string PC::getIP()
  * \brief Fonction de récupération de l'adresse ip de destination 
@@ -130,3 +127,18 @@ string PC::getDefaultInterface(){
 	
 }
 
+int PC::desactivateRST(){
+	int result;
+	string command = "iptables -A OUTPUT -o " + PC::getDefaultInterface() + " -p tcp --tcp-flags RST RST -j DROP";
+	result = system(command.c_str());
+	//retourne -1 si erreur
+	return result;
+}
+
+int PC::activateRST(){
+	int result;
+	string command = "ipables -A OUTPUT -o " + PC::getDefaultInterface() + " -p tcp --tcp-flags RST RST -j ACCEPT";
+	result = system(command.c_str());
+	//retourne -1 si erreur
+	return result;
+}
