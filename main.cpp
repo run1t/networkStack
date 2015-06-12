@@ -10,19 +10,23 @@
 using namespace std;
 
 void onData(Connection *connection){
-    
-    if (connection->Data.find("index.html") != std::string::npos) {
+    if(connection->Data.find("pause") != std::string::npos){
+        cout << "pause" << endl;
+        string command = "su reunan -c 'rhythmbox-client --pause'";
+        int result = system(command.c_str());
+        connection->SendHTTP("ok");
+    }else if(connection->Data.find("play") != std::string::npos){
+        cout << "play" << endl;
+        string command = "su reunan -c 'rhythmbox-client --play'";
+        int result = system(command.c_str());
+        cout << result << endl;
+        connection->SendHTTP("ok");
+    }else if (connection->Data.find("index.html") != std::string::npos) {
         std::ifstream t("index.html");
         std::string str((std::istreambuf_iterator<char>(t)),
         std::istreambuf_iterator<char>());
         //Should output 'this'
         connection->SendHTTP(str);
-    }else if(connection->Data.find("pause") != std::string::npos){
-        cout << "pause" << endl;
-        connection->SendHTTP("ok");
-    }else if(connection->Data.find("play") != std::string::npos){
-        cout << "play" << endl;
-        connection->SendHTTP("ok");
     }
  
 }
