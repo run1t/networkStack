@@ -3,34 +3,34 @@
 #include <pthread.h>
 #include <unistd.h>
 #include <functional>
-#include "lib/Stack.h"
-
+#include "lib/Server.h"
+#include <fstream>
+#include <streambuf>
 
 using namespace std;
 
-void onSyn(){
-    cout << "on a eu un Syn" << endl;
-}
-
-void onData(string data){
-    cout << "on a de la data " << endl;
-    cout << "Data : " << data << endl;
-}
-
-void onFin(){
-    cout << "on a eu un Fin" << endl;
+void onData(Connection *connection){
+    
+    if (connection->Data.find("index.html") != std::string::npos) {
+        std::ifstream t("index.html");
+        std::string str((std::istreambuf_iterator<char>(t)),
+        std::istreambuf_iterator<char>());
+        //Should output 'this'
+        connection->SendHTTP(str);
+    }else if(connection->Data.find("pause") != std::string::npos){
+        cout << "pause" << endl;
+        connection->SendHTTP("ok");
+    }else if(connection->Data.find("play") != std::string::npos){
+        cout << "play" << endl;
+        connection->SendHTTP("ok");
+    }
+ 
 }
 
 int main()
 {
-
-    Stack stack = * new Stack("192.168.1.27",80);
-    stack.addSynEvent (onSyn);
-    stack.addDataEvent(onData);
-    stack.addFinEvent (onFin);
-    stack.receiver();
-
-    cout << " ok ok " << endl;
-    
+    Server server = *new Server("10.17.16.22",80);
+    server.addEventData(onData);
+    server.join();
 }
 

@@ -19,7 +19,7 @@ void Connection::HandleConnection(TCPFrame tcp){
 	if(tcp.Flags == (TCP_FIN | TCP_ACK)){
 		this->State = FIN_WAIT_1;
 	}
-
+	this->DataOn = false;
 	switch(State){
 		case CLOSED:
 			//On regarde si c'est un SYN
@@ -28,7 +28,7 @@ void Connection::HandleConnection(TCPFrame tcp){
 				tcpRes.Flags = TCP_SYN | TCP_ACK;
 				tcpRes.seq_number = tcp.ack_number;
 				tcpRes.ack_number = tcp.seq_number + 1;
-				Connection::Send(tcpRes);
+				this->Send(tcpRes);
 				this->Frames.push_back(tcpRes);
 				this->State = SYN_RECEIVED;
 			}// Sinon on renvoi un RESET
@@ -41,7 +41,7 @@ void Connection::HandleConnection(TCPFrame tcp){
 		case SYN_RECEIVED:
 			// Le serveur a recu une demande de synchro
 			// on va verifier l'etat de l'ack de la reponse du client
-			if(tcp.Flags = TCP_ACK && this->Frames.back().seq_number == tcp.ack_number-1 && this->Frames.back().ack_number == tcp.seq_number){
+			if((tcp.Flags = TCP_ACK) && (this->Frames.back().seq_number == tcp.ack_number-1) && (this->Frames.back().ack_number == tcp.seq_number)){
 				this->State = ESTABLISHED;
 			}
 		break;
@@ -52,13 +52,12 @@ void Connection::HandleConnection(TCPFrame tcp){
 
 				tcpRes.seq_number = tcp.ack_number;
 				tcpRes.ack_number = tcp.seq_number + tcp.data.length();
-				tcpRes.data =   "HTTP/1.1 200 OK\n"
-								"Content-Type: text/html;charset=utf-8\n"
-								"\n"
-								"<html></html>\n"
-								"<body><div style=\"color:blue;\">Un div style pas style</div>\n";
-											
-				Connection::Send(tcpRes);
+				this->Data = tcp.data;
+				this->Response = tcpRes;
+
+				this->DataOn = true;
+				
+				//Connection::Send(tcpRes);
 					// Ok on a une bonne connection	
 				/*tcpRes.Flags = TCP_ACK | TCP_FIN;
 				tcpRes.seq_number = tcp.ack_number;
@@ -77,13 +76,13 @@ void Connection::HandleConnection(TCPFrame tcp){
 				tcpRes.ack_number = tcp.seq_number + 1;
 				tcpRes.data = "";
 				this->State = FIN_WAIT_2; 
-				Connection::Send(tcpRes);
+				this->Send(tcpRes);
 			}
 				
 		break;
 		
 		case FIN_WAIT_2:
-			cout << "On une connection Fermer" << endl;
+			this->State = CLOSED;
 		break;
 		
 		case CLOSE_WAIT:
@@ -103,6 +102,19 @@ void Connection::HandleConnection(TCPFrame tcp){
 		break;
 		
 	}
+}
+
+string Connection::getData(){
+	return Data;
+}
+
+void Connection::SendHTTP(string data){
+	this->Response.Windows = 65300;
+	this->Response.data = data;
+	this->Send(this->Response);
+	
+	this->Response.Flags = TCP_ACK | TCP_FIN;
+	this->Send(this->Response);
 }
 
 void Connection::Send(TCPFrame tcp){

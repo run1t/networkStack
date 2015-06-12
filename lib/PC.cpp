@@ -137,7 +137,7 @@ int PC::desactivateRST(){
 
 int PC::activateRST(){
 	int result;
-	string command = "ipables -A OUTPUT -o " + PC::getDefaultInterface() + " -p tcp --tcp-flags RST RST -j ACCEPT";
+	string command = "iptables -A OUTPUT -o " + PC::getDefaultInterface() + " -p tcp --tcp-flags RST RST -j ACCEPT";
 	result = system(command.c_str());
 	//retourne -1 si erreur
 	return result;

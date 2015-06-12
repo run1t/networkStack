@@ -31,15 +31,23 @@ extern "C" {    // another way
 
 };
 
+#if !defined( CONNECTION_H )
+#define CONNECTION_H
 class Connection
 {
 	public:
 	static int ConnectionNumber;
 	int port;
 	int State;
+	bool DataOn;
+	TCPFrame Response;
+	string Data;
 	vector<TCPFrame> Frames;
 
 	Connection(int port);
 	void HandleConnection(TCPFrame tcpframe);
 	void Send(TCPFrame tcp);
+	void SendHTTP(string data);
+	string getData();
 };
+#endif

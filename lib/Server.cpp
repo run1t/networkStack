@@ -7,7 +7,11 @@
 //  Copyright (c) 2015 Reunan Le noc. All rights reserved.
 //
 #include "Server.h"
-
+Server* Server::server;
+void onDatas(Connection *connection){
+	cout << "on a notre premier niveau "<< endl;
+	Server::server->onData(connection);
+}
 
 
 /**
@@ -15,14 +19,10 @@
 */
 
 Server::Server(string ip, int port){
-    
-	Stack stack = new Stack(); 
-
-
-    stack.addSynEvent = 
-   	stack.addDataEvent = 
-    stack.addFinEvent = 
+ 	this->stacker =  new Stack(ip,port);
+    this->stacker->addDataEvent(onDatas);
 }
+
 
 
 /**
@@ -31,24 +31,16 @@ Server::Server(string ip, int port){
 */
 
 
-void Server::addEventClient (function<void(Client)> func){
-	this->onClient = func;
-}
 
-void Server::addEventData   (function<void(string,Client)> func){
+
+void Server::addEventData  (function<void(Connection*)> func){
 	this->onData = func;
 }
 
-void Server::addEventLeave  (function<void(Client)> func){
-	this->onLeave = func;
-}
 
-void Server::addEventPing   (function<void(string)> func){
-	this->onPing = func;
-}
-
-void Server::addEventARP    (function<void(string)> func){
-	this->onARP = func;
+void Server::join(){
+	Server::server = this;
+	this->stacker->receiver();
 }
 
 /**

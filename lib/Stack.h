@@ -57,7 +57,7 @@ public:
 	int sock;
 
 	function<void()>	      onSyn;
-    function<void(string)>    onData;
+    function<void(Connection*)>    onData;
     function<void()>	      onFin;
    	vector<Connection*> Connections;
 
@@ -68,10 +68,9 @@ public:
 	void Send(TCPFrame tcp);
 	void Send(ICMPFrame icmp);
 	void Send(ARPFrame arp);
-	void addSynEvent (function<void()> func);
-   	void addDataEvent(function<void(string)> func);
-    void addFinEvent (function<void()> func);
 
+   	void addDataEvent(function<void(Connection*)> func);
+  
     /** Gestion des Connections **/
    	Connection* getConnection(int port);
    	void addConnection(Connection *connection);

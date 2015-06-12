@@ -20,7 +20,8 @@ CXXSOURCES = \
 	lib/Frames/SendFrame.cpp \
 	lib/Client.cpp \
 	lib/PC.cpp \
-	lib/Connection.cpp 
+	lib/Connection.cpp \
+	lib/Server.cpp 
 
 all: server
 
