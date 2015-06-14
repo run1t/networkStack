@@ -7,6 +7,10 @@
  */
 #include "ARPFrame.h"
 
+/**
+ * \fn ARPFrame::ARPFrame()
+ * \brief Constructeur par défaut d'une requête ARP
+ */
 ARPFrame::ARPFrame(){
 	this->eth = *new ETHFrame();
 	this->eth.Type = 0x0806;
@@ -18,15 +22,14 @@ ARPFrame::ARPFrame(){
 	this->senderMac = PC::getMAC();
 	this->targetMac = "00:00:00:00:00:00";
 	this->senderIp = PC::getIP();
-	this->targetIp = "0.0.0.0";  
-
-
+	this->targetIp = "0.0.0.0";
 }
+
 /**
  * \fn ARPFrame::ARPFrame(unsigned char* buffer)
  * \brief Fonction de lecture de la trame ARP
  *
- * \param la fonction prend en parametres le buffer brut de la trame
+ * \param unsigned char* buffer la fonction prend en parametres le buffer brut de la trame
  * \return la fonction retourne la trame une fois analysé et parsé
  */
 ARPFrame::ARPFrame(unsigned char* buffer){
@@ -59,7 +62,6 @@ ARPFrame::ARPFrame(unsigned char* buffer){
 		}
 
 	}
-	//string senderIp;
 	//IP src
 	this->senderIp = "";
 	for(int i = 28; i < 32 ; i++){
@@ -108,11 +110,11 @@ ARPFrame::ARPFrame(unsigned char* buffer){
 
 	}
 }
+
 /**
  * \fn unsigned char* ARPFrame::toFrame()
  * \brief Fonction création de la trame ARP pour l'envoie 
  *
- * \param la fonction ne prend pas de parametres 
  * \return la fonction retourne la trame sous forme de buffer
  */
 unsigned char* ARPFrame::toFrame(){
@@ -222,6 +224,7 @@ unsigned char* ARPFrame::toFrame(){
 	return ret;
 }
 
+
 void ARPFrame::Send(){
 	#define DEFAULT_IF	"eth0"
 	
@@ -272,3 +275,4 @@ void ARPFrame::Send(){
 	close(sockfd);
 	
 }
+

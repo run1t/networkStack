@@ -29,10 +29,10 @@ void handle_SIGINT(int signal);
  	int sockfd;
  	int sockopt;
 
-	//Desactivation 
+	//Desactivation des parties réseaux du kernel
  	PC::desactivateICMP();
  	PC::desactivateRST();
-
+	PC::desactivateARP();
 
  	struct sigaction siga;
 
@@ -335,10 +335,22 @@ void handle_SIGINT(int signal);
 
  }
 
+/**
+ * \fn void Stack::addDataEvent(function<void(Connection*)> func)
+ * \brief Fonction permettant de binder une fonction sur la réception de Data
+ *
+ * \param func prend une fonction à binder en paramètre
+ */
  void Stack::addDataEvent(function<void(Connection*)> func){
  	this->onData = func;
  }
 
+/**
+ * \fn void Stack::addDataEvent(function<void(Connection*)> func)
+ * \brief Fonction permettant de binder une fonction sur la réception de Data
+ *
+ * \param func prend une fonction à binder en paramètre
+ */
  Connection* Stack::getConnection(int port){
  	for(size_t i = 0; i < this->Connections.size() ; i++){
  		if(this->Connections.at(i)->port == port)
@@ -347,16 +359,29 @@ void handle_SIGINT(int signal);
  	return new Connection(-200);
  }
 
+/**
+ * \fn  void Stack::addConnection(Connection *connection)
+ * \brief Fonction permettant d'ajouter une connection 
+ *
+ * \param connection connection à ajouter
+ */
  void Stack::addConnection(Connection *connection){
  	Connection::ConnectionNumber++;
  	this->Connections.push_back(connection);
  }
 
 //Gestion de la fermeture du programme
+/**
+ * \fn  void handle_SIGINT(int signal)
+ * \brief Fonction qui permet de gérer les signaux provenant de l'utilisateur 
+ *
+ * \param signal Signal à gérer
+ */
  void handle_SIGINT(int signal){
  	if(signal == SIGINT){
  		PC::activateRST();
  		PC::activateICMP();
+		PC::activateARP();
  		printf("Terminating the TCP/IP Stack\n");
  		exit(0);
  	}

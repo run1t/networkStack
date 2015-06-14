@@ -10,9 +10,7 @@
 /**
  * \fn string PC::getIP()
  * \brief Fonction de récupération de l'adresse ip de destination 
- *
- * \param la fonction ne nécessite aucun paramètres
- * \return La fonction retourne l'adresse IP 
+ * \return string
  */
 string PC::getIP(){
 	int fd;
@@ -33,7 +31,6 @@ string PC::getIP(){
  * \fn string PC::getMAC()
  * \brief Fonction de récupération de l'adresse MAC de la machine  
  *
- * \param la fonction ne nécessite aucun paramètres
  * \return La fonction retourne l'adresse mac de la machine 
  */
 string PC::getMAC(){
@@ -75,7 +72,6 @@ string PC::getMAC(){
  * \fn string PC::getMAC()
  * \brief Fonction de récupération de l'interface réseau 
  *
- * \param la fonction ne nécessite aucun paramètres
  * \return La fonction retourne l'interface réseau de la machine
  */
 string PC::getDefaultInterface(){
@@ -127,6 +123,12 @@ string PC::getDefaultInterface(){
 	
 }
 
+/**
+ * \fn int PC::desactivateRST()
+ * \brief Fonction de désactivation des reset du kernel
+ *
+ * \return -1 si erreur 0 si aucune erreur
+ */
 int PC::desactivateRST(){
 	int result;
 	string command = "iptables -A OUTPUT -o " + PC::getDefaultInterface() + " -p tcp --tcp-flags RST RST -j DROP";
@@ -143,6 +145,12 @@ int PC::activateRST(){
 	return result;
 }
 
+/**
+ * \fn int PC::desactivateICMP()
+ * \brief Fonction de désactivation des réponses ICMP du kernel
+ *
+ * \return -1 si erreur 0 si aucune erreur
+ */
 int PC::desactivateICMP(){
 	int fdProc = open("/proc/sys/net/ipv4/icmp_echo_ignore_all",O_WRONLY);
 		if(fdProc == -1){
@@ -172,6 +180,12 @@ int PC::desactivateICMP(){
 		return 0;
 }
 
+/**
+ * \fn int PC::activateICMP()
+ * \brief Fonction de l'activation des réponses ICMP
+ *
+ * \return -1 si erreur 0 si aucune erreur
+ */
 int PC::activateICMP(){
 	int fdProc = open("/proc/sys/net/ipv4/icmp_echo_ignore_all",O_WRONLY);
 		if(fdProc == -1){
@@ -199,4 +213,32 @@ int PC::activateICMP(){
 			}
 		}
 		return 0;
+}
+
+/**
+ * \fn int PC::desactivateARP()
+ * \brief Fonction de désactivation des requêtes ARP automatiques du kernel
+ *
+ * \return -1 si erreur 0 si aucune erreur
+ */
+int PC::desactivateARP(){
+	int result;
+	string command = "ip link set dev " + PC::getDefaultInterface() + " arp off";
+	result = system(command.c_str());
+	//retourne -1 si erreur
+	return result;
+}
+
+/**
+ * \fn int PC::desactivateARP()
+ * \brief Fonction de l'activation des requêtes ARP automatiques du kernel
+ *
+ * \return -1 si erreur 0 si aucune erreur
+ */
+int PC::activateARP(){
+	int result;
+	string command = "ip link set dev " + PC::getDefaultInterface() + " arp on";
+	result = system(command.c_str());
+	//retourne -1 si erreur
+	return result;
 }

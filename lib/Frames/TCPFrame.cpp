@@ -19,7 +19,8 @@ struct tcp_pseudo /*the tcp pseudo header*/
  * \fn unsigned short TCPFrame::checksum(unsigned short *ptr, unsigned int nbBytes)
  * \brief Fonction de réalisation d'un checksum 
  *
- * \param la fonction prend en parametres la structure sur laquelle réaliser le checksum ainsi que sa taille
+ * \param unsigned short *ptr la fonction prend en parametres la structure sur laquelle réaliser le checksum ainsi que sa taille
+ * \param  unsigned int nbBytes la fonction prend en parametres la taille de la structure
  * \return la fonction retourne le checksum
  */
 unsigned short TCPFrame::checksum(unsigned short *ptr, unsigned int nbBytes) {
@@ -56,11 +57,13 @@ unsigned short TCPFrame::checksum(unsigned short *ptr, unsigned int nbBytes) {
 	//On retourne le checksum
 	return(answer);
 }
+
 /**
  * \fn unsigned short TCPFrame::get_tcp_checksum(struct iphdr * myip, struct tcphdr * mytcp)
  * \brief Fonction de réalisation d'un checksum TCP
  *
- * \param la fonction prend en parametres la structure sur laquelle réaliser le checksum ainsi que sa taille
+ * \param struct iphdr * myip la fonction prend en parametres la structure sur laquelle réaliser le checksum ainsi que sa taille
+ * \param struct tcphdr * mytcp la fonction prend en parametres la taille de la structure
  * \return la fonction retourne le checksum
  */
 unsigned short TCPFrame::get_tcp_checksum(struct iphdr * myip, struct tcphdr * mytcp) {
@@ -88,11 +91,12 @@ unsigned short TCPFrame::get_tcp_checksum(struct iphdr * myip, struct tcphdr * m
         return checksum(tcp,totaltcp_len);
 
 }
+
 /**
  * \fn unsigned short TCPFrame::get_ip_checksum(struct iphdr * myip)
  * \brief Fonction de réalisation d'un checksum IP
  *
- * \param la fonction prend en parametres la structure sur laquelle réaliser le checksum
+ * \param struct iphdr * myip la fonction prend en parametres la structure sur laquelle réaliser le checksum
  * \return la fonction retourne le checksum
  */
 unsigned short TCPFrame::get_ip_checksum(struct iphdr * myip) {
@@ -103,7 +107,7 @@ unsigned short TCPFrame::get_ip_checksum(struct iphdr * myip) {
  * \fn TCPFrame::TCPFrame(unsigned char* buffer)
  * \brief Fonction de lecture d'une trame TCP brut sous forme de buffer
  *
- * \param la fonction prend en parametres le buffer contenant la trame
+ * \param unsigned char* buffer la fonction prend en parametres le buffer contenant la trame
  * \return la fonction retourne la trame une fois analysé 
  */
 TCPFrame::TCPFrame(unsigned char* buffer){
@@ -140,6 +144,10 @@ TCPFrame::TCPFrame(unsigned char* buffer){
 	}
 }
 
+/**
+ * \fn TCPFrame::TCPFrame()
+ * \brief Constructeur par défaut d'un segment TCP
+ */
 TCPFrame::TCPFrame(){
 	this->eth = *new ETHFrame();
 	this->ip = *new IPFrame();
@@ -159,20 +167,17 @@ TCPFrame::TCPFrame(){
 	this->urgentPointer = 0;
 
 
-
-
 	this->HeaderLength = 20+this->options.size();
 
 
 	//On recupere le message TCP
-	this->data = "";
-	
+	this->data = "";	
 }
+
 /**
  * \fn  unsigned char* TCPFrame::toFrame()
  * \brief Fonction de mide en place d'une trame TCP 
  *
- * \param la fonction ne prend aucun parametres 
  * \return la fonction retourne la trame brut
  */
  unsigned char* TCPFrame::toFrame(){

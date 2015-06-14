@@ -1,11 +1,29 @@
+/*!
+ * \file Connection.cpp
+ * \brief Gère les connections
+ * \author LE NOC Reunan, HIPEAU Kevin, VIAUD Thommas, TRICHARD Guillaume
+ * \version 1.0
+ */
 #include "Connection.h"
 int Connection::ConnectionNumber  = 0;
+
+/**
+ * \fn Connection::Connection(int port)
+ * \brief Constructeur d'une connection
+ *
+ * \param port Prend le port en paramètre
+ */
 Connection::Connection(int port){
 	this->port = port;
 	this->State = CLOSED;
 }
 
-
+/**
+ * \fn void Connection::HandleConnection(TCPFrame tcp)
+ * \brief Gère la Connection en fonction de l'ètat de la connection
+ *
+ * \param tcp Prend un segment TCP
+ */
 void Connection::HandleConnection(TCPFrame tcp){
 	//On declare notre Trame de reponse
 	TCPFrame tcpRes = tcp;
@@ -131,7 +149,10 @@ void Connection::HandleConnection(TCPFrame tcp){
 		
 	}
 }
-
+/**
+ * \fn string Connection::getData()
+ * \brief Permet de récupérer les data de la connection
+ */
 string Connection::getData(){
 	return Data;
 }
@@ -145,6 +166,7 @@ void Connection::SendHTTP(string data){
 	this->Send(this->Response);
 }
 
+
 void Connection::Send(string data){
 	this->Response.Windows = 65300;
 	this->Response.data = data;
@@ -157,10 +179,17 @@ void Connection::Close(){
 	this->Send(this->Response);
 }
 
+
+/**
+ * \fn void Connection::Send(TCPFrame tcp)
+ * \brief Envoi d'un segment TCP
+ *
+ * \param tcp Segment TCP à envoyer
+ */
+
 void Connection::Send(TCPFrame tcp){
 	#define DEFAULT_IF	"eth0"
-	
-	
+
 	int sockfd;
 	struct ifreq if_idx;
 	struct sockaddr_ll socket_address;
@@ -181,7 +210,6 @@ void Connection::Send(TCPFrame tcp){
 	    perror("SIOCGIFINDEX");
 
 	unsigned char* datagram = tcp.toFrame();
-
 
 	/* Index of the network device */
 	socket_address.sll_ifindex = if_idx.ifr_ifindex;
