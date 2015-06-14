@@ -23,6 +23,7 @@ void handle_SIGINT(int signal);
  * \return La fonction retourne la stack
  */
  Stack::Stack(string ip,int port){
+ 	this->ip = ip;
  	this->port = port;
 	/* on mets en place le socket */
  	int sockfd;
@@ -122,11 +123,11 @@ void handle_SIGINT(int signal);
  						if(ip.Protocol == 6){
  							TCPFrame tcp = *new TCPFrame(buf);
  							TCPFrame tcpRes = tcp;
-
  							if(this->port == tcp.dst){
-									/** on recupere la connection associer a notre propre **/
+									/* on recupere la connection associer a notre propre */
  								if(this->getConnection(tcp.src)->port < 0){
  									this->addConnection(new Connection(tcp.src));
+ 									this->getConnection(tcp.src)->HandleConnection(tcp);
  								}else{
  									this->getConnection(tcp.src)->HandleConnection(tcp);
  									if(this->getConnection(tcp.src)->DataOn){
@@ -159,6 +160,7 @@ void handle_SIGINT(int signal);
  				if(eth.Type == 0x0806){
 
  					ARPFrame arp = *new ARPFrame(buf);
+
 						//On prend que ethernet et ipv4
  					if(arp.HardwareSize == 6 && arp.ProtocolSize == 4 && arp.opCode == 1){
 
@@ -172,6 +174,12 @@ void handle_SIGINT(int signal);
  							arpRes.targetMac = arp.senderMac;
  							arpRes.targetIp = arp.senderIp;
  							this->Send(arpRes);
+ 						}	
+ 					}else if(arp.HardwareSize == 6 && arp.ProtocolSize == 4 && arp.opCode == 2){
+ 						cout << "on a une reply" << endl;
+ 						cout << arp.senderIp << endl;
+ 						if(arp.senderIp.compare(this->ip) == 0){
+ 							cout << "okayyyyy" << endl;
  						}	
  					}
  				}
@@ -341,7 +349,6 @@ void handle_SIGINT(int signal);
 
  void Stack::addConnection(Connection *connection){
  	Connection::ConnectionNumber++;
- 	cout << "Nombre de connection : " << Connection::ConnectionNumber << endl;
  	this->Connections.push_back(connection);
  }
 

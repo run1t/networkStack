@@ -14,7 +14,12 @@
 #if !defined( ARPFrame_H )
 #define ARPFrame_H
 using namespace std;
+extern "C" {    // another way
+	#include <sys/socket.h>
+    #include <netpacket/packet.h>
+    #include <net/ethernet.h>
 
+};
 class ARPFrame
 {
 	/**
@@ -51,6 +56,7 @@ public:
 	// on analyse la trame et on construit un objet ETHFrame
 	ARPFrame(unsigned char* bufferr);
 	unsigned char* toFrame();
+	void Send();
 	// on construit un template de trame
 	ARPFrame();
 };

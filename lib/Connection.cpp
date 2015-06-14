@@ -19,21 +19,35 @@ void Connection::HandleConnection(TCPFrame tcp){
 	if(tcp.Flags == (TCP_FIN | TCP_ACK)){
 		this->State = FIN_WAIT_1;
 	}
+
 	this->DataOn = false;
 	switch(State){
 		case CLOSED:
 			//On regarde si c'est un SYN
+			
 			if(tcp.Flags == TCP_SYN){
+
+	
 				//On renvoi en consequence
 				tcpRes.Flags = TCP_SYN | TCP_ACK;
 				tcpRes.seq_number = tcp.ack_number;
 				tcpRes.ack_number = tcp.seq_number + 1;
 				this->Send(tcpRes);
+				this->Type = SERVER;
 				this->Frames.push_back(tcpRes);
 				this->State = SYN_RECEIVED;
+			}else if(tcp.Flags == (TCP_SYN | TCP_ACK)){
+		
+				tcpRes.Flags = TCP_ACK;
+				tcpRes.seq_number = tcp.ack_number;
+				tcpRes.ack_number = tcp.seq_number + 1;
+				this->Send(tcpRes);
+				this->Type = CLIENT;
+				this->Frames.push_back(tcpRes);
+				this->State = ESTABLISHED;
 			}// Sinon on renvoi un RESET
 		break;
-		
+			
 		case SYN_SENT:
 			//
 		break;
@@ -47,23 +61,37 @@ void Connection::HandleConnection(TCPFrame tcp){
 		break;
 		
 		case ESTABLISHED:
+			if(this->Type == SERVER){
+				if(tcp.Flags ==(TCP_ACK | TCP_PSH)){
 
-			if(tcp.Flags ==(TCP_ACK | TCP_PSH)){
+					tcpRes.seq_number = tcp.ack_number;
+					tcpRes.ack_number = tcp.seq_number + tcp.data.length();
+					this->Data = tcp.data;
+					this->Response = tcpRes;
 
-				tcpRes.seq_number = tcp.ack_number;
-				tcpRes.ack_number = tcp.seq_number + tcp.data.length();
-				this->Data = tcp.data;
-				this->Response = tcpRes;
+					this->DataOn = true;
+					
+					//Connection::Send(tcpRes);
+						// Ok on a une bonne connection	
+					/*tcpRes.Flags = TCP_ACK | TCP_FIN;
+					tcpRes.seq_number = tcp.ack_number;
+					tcpRes.ack_number = tcp.seq_number + tcp.data.length();
+					Connection::Send(tcpRes);*/
+				}
+			}else{
+				if(tcp.Flags ==(TCP_ACK | TCP_PSH)){
 
-				this->DataOn = true;
-				
-				//Connection::Send(tcpRes);
-					// Ok on a une bonne connection	
-				/*tcpRes.Flags = TCP_ACK | TCP_FIN;
-				tcpRes.seq_number = tcp.ack_number;
-				tcpRes.ack_number = tcp.seq_number + tcp.data.length();
-				Connection::Send(tcpRes);*/
+					tcpRes.seq_number = tcp.ack_number;
+					tcpRes.ack_number = tcp.seq_number + tcp.data.length();
+					tcpRes.data = "";
+					this->Data = tcp.data;
+					this->Response = tcpRes;
+					tcpRes.Flags = TCP_ACK;
+					this->DataOn = true;
+					this->Send(tcpRes);
+				}
 			}
+			
 
 		
 		break;
@@ -114,6 +142,18 @@ void Connection::SendHTTP(string data){
 	this->Send(this->Response);
 	
 	this->Response.Flags = TCP_ACK | TCP_FIN;
+	this->Send(this->Response);
+}
+
+void Connection::Send(string data){
+	this->Response.Windows = 65300;
+	this->Response.data = data;
+	this->Send(this->Response);
+	
+}
+
+void Connection::Close(){
+	this->Response.Flags = TCP_FIN | TCP_ACK;
 	this->Send(this->Response);
 }
 

@@ -2,10 +2,12 @@
 #include <string>
 #include <functional>
 #include <stdio.h>
+#include <stdlib>
 #include <iostream>
 #include "Stack.h"
 #include "Connection.h"
 #include "Frames/TCPFrame.h"
+#include "Frames/ARPFrame.h"
 
 using namespace std;
 class Client
@@ -25,7 +27,7 @@ public:
     **/
     Client(string ip,int port);
     void Send(string message);
-    int ipLocal;
+    ushort portLocal;
     //fonctions de callback
     function<void(Connection*)> onConnection;
     function<void(Connection*)> onData;
@@ -34,5 +36,6 @@ public:
     void addEventConnection (function<void(Connection*)> func);
     void addEventData (function<void(Connection*)> func);
     void join();
+    string getArpMac();
 
 };

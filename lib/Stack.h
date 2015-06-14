@@ -52,7 +52,7 @@ class Stack
 {	
 public:
 	/*Attributs de la stack */
-	string IP;
+	string ip;
 	int  port;
 	int sock;
 

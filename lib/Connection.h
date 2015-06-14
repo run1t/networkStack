@@ -3,7 +3,8 @@
 #define TCP_RST 4
 #define TCP_SYN 2
 #define TCP_FIN 1
-
+#define CLIENT 1
+#define SERVER 2
 
 #define SYN_SENT 1
 #define SYN_RECEIVED 2
@@ -40,6 +41,7 @@ class Connection
 	int port;
 	int State;
 	bool DataOn;
+	int Type;
 	TCPFrame Response;
 	string Data;
 	vector<TCPFrame> Frames;
@@ -47,6 +49,8 @@ class Connection
 	Connection(int port);
 	void HandleConnection(TCPFrame tcpframe);
 	void Send(TCPFrame tcp);
+	void Send(string data);
+	void Close();
 	void SendHTTP(string data);
 	string getData();
 };

@@ -49,7 +49,6 @@ public:
 
 
     //Envoi des données
-    void send (string message,Client client);
     void join();
     //Gestion de la pile utilisateur
     void addClient(Client client);

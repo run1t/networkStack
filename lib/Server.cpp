@@ -31,8 +31,6 @@ Server::Server(string ip, int port){
 */
 
 
-
-
 void Server::addEventData  (function<void(Connection*)> func){
 	this->onData = func;
 }
@@ -43,11 +41,3 @@ void Server::join(){
 	this->stacker->receiver();
 }
 
-/**
-* Gestion de l'envoi des données
-*/
-
-//Envoi des données
-void Server::send (string message,Client client){
-
-}

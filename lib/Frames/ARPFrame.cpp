@@ -9,13 +9,14 @@
 
 ARPFrame::ARPFrame(){
 	this->eth = *new ETHFrame();
+	this->eth.Type = 0x0806;
 	this->HardwareType = 1;
 	this->ProtocolIp = 0x0800;
 	this->HardwareSize = 6;
 	this->ProtocolSize = 4;
 	this->opCode = 1;
 	this->senderMac = PC::getMAC();
-	this->targetMac = "FF:FF:FF:FF:FF:FF";
+	this->targetMac = "00:00:00:00:00:00";
 	this->senderIp = PC::getIP();
 	this->targetIp = "0.0.0.0";  
 
@@ -219,4 +220,55 @@ unsigned char* ARPFrame::toFrame(){
 	}
 	
 	return ret;
+}
+
+void ARPFrame::Send(){
+	#define DEFAULT_IF	"eth0"
+	
+	
+	int sockfd;
+	struct ifreq if_idx;
+	struct sockaddr_ll socket_address;
+	char ifName[IFNAMSIZ];
+	
+	
+	strcpy(ifName, DEFAULT_IF);
+ 
+	/* Open RAW socket to send on */
+	if ((sockfd = socket(AF_PACKET, SOCK_RAW, IPPROTO_RAW)) == -1) {
+	    perror("socket");
+	}
+ 
+	/* Get the index of the interface to send on */
+	memset(&if_idx, 0, sizeof(struct ifreq));
+	strncpy(if_idx.ifr_name, ifName, IFNAMSIZ-1);
+	if (ioctl(sockfd, SIOCGIFINDEX, &if_idx) < 0)
+	    perror("SIOCGIFINDEX");
+
+	unsigned char* datagram = this->toFrame();
+
+
+	/* Index of the network device */
+	socket_address.sll_ifindex = if_idx.ifr_ifindex;
+	/* Address length*/
+	socket_address.sll_halen = ETH_ALEN;
+	/* Destination MAC */
+	socket_address.sll_addr[0] = datagram[0];
+	socket_address.sll_addr[1] = datagram[1];
+	socket_address.sll_addr[2] = datagram[2];
+	socket_address.sll_addr[3] = datagram[3];
+	socket_address.sll_addr[4] = datagram[4];
+	socket_address.sll_addr[5] = datagram[5];
+ 
+	/* Send packet */
+
+	if(sendto(sockfd, datagram, this->frameLength, 0, (struct sockaddr*)&socket_address, sizeof(struct sockaddr_ll)) < 0){
+		cout << "grosse erreur de mes deux" << endl;
+	}else{
+		cout << "packet bien envoyer " << endl;
+	}
+
+	  
+	close(sockfd);
+	
 }

@@ -10,26 +10,39 @@
 using namespace std;
 
 void onData(Connection *connection){
-    if(connection->Data.find("pause") != std::string::npos){
-        cout << "pause" << endl;
-        string command = "su reunan -c 'rhythmbox-client --pause'";
-        int result = system(command.c_str());
-        connection->SendHTTP("ok");
-    }else if(connection->Data.find("play") != std::string::npos){
-        cout << "play" << endl;
-        string command = "su reunan -c 'rhythmbox-client --play'";
-        int result = system(command.c_str());
-        cout << result << endl;
-        connection->SendHTTP("ok");
-    }else if (connection->Data.find("index.html") != std::string::npos) {
-        std::ifstream t("index.html");
-        std::string str((std::istreambuf_iterator<char>(t)),
-        std::istreambuf_iterator<char>());
-        //Should output 'this'
-        connection->SendHTTP(str);
+    cout << "Data :" << endl;
+    cout << connection->Data << endl;
+
+    if(connection->Data.find("Connected") != std::string::npos){
+        connection->Send("Mother fucker");
+    }else if(connection->Data.find("Close") != std::string::npos){
+        connection->Close();
     }
  
 }
+
+// void onData(Connection *connection){
+
+//     if(connection->Data.find("pause") != std::string::npos){
+//         cout << "pause" << endl;
+//         string command = "su reunan -c 'rhythmbox-client --pause'";
+//         int result = system(command.c_str());
+//         connection->SendHTTP("ok");
+//     }else if(connection->Data.find("play") != std::string::npos){
+//         cout << "play" << endl;
+//         string command = "su reunan -c 'rhythmbox-client --play'";
+//         int result = system(command.c_str());
+//         cout << result << endl;
+//         connection->SendHTTP("ok");
+//     }else if (connection->Data.find("index.html") != std::string::npos) {
+//         std::ifstream t("index.html");
+//         std::string str((std::istreambuf_iterator<char>(t)),
+//         std::istreambuf_iterator<char>());
+//         //Should output 'this'
+//         connection->SendHTTP(str);
+//     }
+ 
+// }
 
 void onConnection(Connection *connection){
     if(connection->Data.find("pause") != std::string::npos){
@@ -47,7 +60,6 @@ void onConnection(Connection *connection){
         std::ifstream t("index.html");
         std::string str((std::istreambuf_iterator<char>(t)),
         std::istreambuf_iterator<char>());
-        //Should output 'this'
         connection->SendHTTP(str);
     }
  
@@ -59,7 +71,7 @@ int main()
     server.addEventData(onData);
     server.join();*/
 
-    Client client = *new Client("192.168.1.27",80);
+    Client client = *new Client("192.168.1.26",1337);
     client.addEventData(onData);
     client.addEventConnection(onConnection);
     client.join();
