@@ -29,11 +29,9 @@ public:
     void Send(string message);
     ushort portLocal;
     //fonctions de callback
-    function<void(Connection*)> onConnection;
     function<void(Connection*)> onData;
 
     //Declarations des evenements
-    void addEventConnection (function<void(Connection*)> func);
     void addEventData (function<void(Connection*)> func);
     void join();
     string getArpMac();

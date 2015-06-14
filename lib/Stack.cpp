@@ -175,12 +175,6 @@ void handle_SIGINT(int signal);
  							arpRes.targetIp = arp.senderIp;
  							this->Send(arpRes);
  						}	
- 					}else if(arp.HardwareSize == 6 && arp.ProtocolSize == 4 && arp.opCode == 2){
- 						cout << "on a une reply" << endl;
- 						cout << arp.senderIp << endl;
- 						if(arp.senderIp.compare(this->ip) == 0){
- 							cout << "okayyyyy" << endl;
- 						}	
  					}
  				}
  			}

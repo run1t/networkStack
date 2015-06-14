@@ -113,13 +113,8 @@ string PC::getDefaultInterface(){
 			printf("error closing the file");
 		}
 	}
-	if(!string(buffEth0).compare("up")){
-		return "eth0";
-	}else if(!string(buffWlan0).compare("up")){
-		return "wlan0";
-	}else{
-		return "none";
-	}
+
+	return "eth0";
 	
 }
 

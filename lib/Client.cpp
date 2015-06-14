@@ -24,19 +24,17 @@ void Client::Send(string Message){
 	
 }
 
-//Declarations des evenements
-void Client::addEventConnection (function<void(Connection*)> func){
-	this->onConnection = func;
-}
-
-
 void Client::addEventData (function<void(Connection*)> func){
 	this->onData = func;
 }
 
 string Client::getArpMac(){
+	PC::desactivateICMP();
+ 	PC::desactivateRST();
+	PC::desactivateARP();
 	ARPFrame arp = *new ARPFrame();
 	arp.targetIp = this->ip;
+
 	arp.Send();
 	int sockfd;
  	int sockopt;
@@ -90,21 +88,30 @@ string Client::getArpMac(){
 			//On verifie que l'on a bien des données
 
  		if(numbytes > 0){
+
  			ETHFrame eth = *new ETHFrame(buf);
 				//c'est pour nous ?
- 			if(eth.dst.compare(PC::getMAC()) != 0){
+
  				if(eth.Type == 0x0806){
+
  					ARPFrame arp = *new ARPFrame(buf);
+ 						cout << "test" << arp.senderIp << endl;
 					if(arp.HardwareSize == 6 && arp.ProtocolSize == 4 && arp.opCode == 2){
+						cout << "test" << arp.senderIp << endl;
  						if(arp.senderIp.compare(this->ip) == 0){
+ 							cout << "okayy" << endl;
+ 							PC::activateICMP();
+						 	PC::activateRST();
+							PC::activateARP();
+							close(sockfd);
  							return arp.senderMac;
  						}	
  					}
  				}
- 			}
+ 			
  		}
- 	}
-
+ 	}	
+ 	close(sockfd);
 	return "FF:FF:FF:FF:FF:FF";
 }
 
@@ -112,10 +119,10 @@ void Client::join(){
 	Client::client = this;
 	TCPFrame tcp = *new TCPFrame();
 	tcp.Flags = TCP_SYN;
-	tcp.eth.dst = this->getArpMac();
+	tcp.eth.dst = "c8:e0:eb:14:57:f3";
 	cout << tcp.eth.dst << endl;
 	tcp.ip.dst = this->ip;
-	tcp.ip.src = "192.168.1.74";
+	tcp.ip.src = PC::getIP();
 	tcp.dst = this->portLocal;
 	tcp.src = this->port;
 	this->stacker->Send(tcp);
