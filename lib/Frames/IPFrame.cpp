@@ -21,15 +21,15 @@ IPFrame::IPFrame(){
 
 	this->DFS = 0;
 	this->TotalLength = 0;
-	this->Id = rand();
+	this->Id = 0;
 
 	// Informations sur la fragmentation
 	this->Flag_Reserved = 0;
 	this->Flag_DF = 0;
 	this->Flag_MF = 0;
-	this->Flags = 0 ;
+	this->Flags = 64;
 	this->PositionFragment = 0;
-	this->TTL = 64;
+	this->TTL = 255;
 	this->Protocol = 6;
 	this->Checksum = 0;
 	//IP src

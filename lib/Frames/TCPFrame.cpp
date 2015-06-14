@@ -150,14 +150,30 @@ TCPFrame::TCPFrame(){
 
 	this->src = 20;
 	this->dst = 80;
-	this->seq_number = 100;
+	this->seq_number = 0;
 	this->ack_number = 0;
 	this->HeaderLength = 20;
 	this->Flags = 0;
 	this->Windows = 65535;
 	this->Checksum = 0;
 	this->urgentPointer = 0;
-	
+
+	//Maximu Segment Size
+	this->options.push_back(0x02);
+	this->options.push_back(0x04);
+	this->options.push_back(0x05);
+	this->options.push_back(0xB4);
+
+	//
+	this->options.push_back(0x04);
+	this->options.push_back(0x02);
+	this->options.push_back(0x08);
+	this->options.push_back(0x0A);
+
+
+
+	this->HeaderLength = 20+this->options.size();
+
 
 	//On recupere le message TCP
 	this->data = "";
