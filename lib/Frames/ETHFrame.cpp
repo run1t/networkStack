@@ -6,11 +6,17 @@
  * \version 0.1
  *
  */
+
+/**
+ * \fn ETHFrame::ETHFrame()
+ * \brief Constructeur par défaut d'une trame Ethernet
+ */
 ETHFrame::ETHFrame(){
 	this->src = PC::getMAC();
 	this->dst = "FF:FF:FF:FF:FF:FF";
 	this->Type = 0x0800;
 }
+
 /**
  * \fn ETHFrame::ETHFrame(unsigned char* buffer)
  * \brief Fonction de lecture de la trame ethernet

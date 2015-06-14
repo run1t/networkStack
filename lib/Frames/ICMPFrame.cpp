@@ -107,6 +107,12 @@ ICMPFrame::ICMPFrame(unsigned char* buffer){
 
 }
 
+/**
+ * \fn ICMPFrame::ICMPFrame()
+ * \brief Constructeur par défaut d'un paquet ICMP
+ *
+ * \return la fonction retourne le paquet ICMP par défaut
+ */
 ICMPFrame::ICMPFrame(){
 	/**
 	* On recupere les autres couches 
@@ -126,6 +132,7 @@ ICMPFrame::ICMPFrame(){
 	this->data = "123456789AZERTYUIOP";
 	
 }
+
 /**
  * \fn unsigned char* ICMPFrame::toFrame()
  * \brief Fonction de création de la trame brut a partir des parametres 

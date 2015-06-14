@@ -7,6 +7,10 @@
  */
 #include "ARPFrame.h"
 
+/**
+ * \fn ARPFrame::ARPFrame()
+ * \brief Constructeur par défaut d'une requête ARP
+ */
 ARPFrame::ARPFrame(){
 	this->eth = *new ETHFrame();
 	this->HardwareType = 1;
@@ -17,10 +21,9 @@ ARPFrame::ARPFrame(){
 	this->senderMac = PC::getMAC();
 	this->targetMac = "FF:FF:FF:FF:FF:FF";
 	this->senderIp = PC::getIP();
-	this->targetIp = "0.0.0.0";  
-
-
+	this->targetIp = "0.0.0.0";
 }
+
 /**
  * \fn ARPFrame::ARPFrame(unsigned char* buffer)
  * \brief Fonction de lecture de la trame ARP
@@ -58,7 +61,6 @@ ARPFrame::ARPFrame(unsigned char* buffer){
 		}
 
 	}
-	//string senderIp;
 	//IP src
 	this->senderIp = "";
 	for(int i = 28; i < 32 ; i++){
@@ -107,6 +109,7 @@ ARPFrame::ARPFrame(unsigned char* buffer){
 
 	}
 }
+
 /**
  * \fn unsigned char* ARPFrame::toFrame()
  * \brief Fonction création de la trame ARP pour l'envoie 

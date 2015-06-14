@@ -7,6 +7,10 @@
  */
 #include "IPFrame.h"
 
+/**
+ * \fn IPFrame::IPFrame()
+ * \brief Constructeur par défaut d'un paquet IP
+ */
 IPFrame::IPFrame(){
 	this->eth = *new ETHFrame();
 	/**
@@ -39,6 +43,7 @@ IPFrame::IPFrame(){
 	this->dst = "0.0.0.0";
 	
 }
+
 /**
  * \fn IPFrame::IPFrame(unsigned char* buffer)
  * \brief Fonction de lecture d'une trame brut sous forme de buffer

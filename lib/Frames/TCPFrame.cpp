@@ -57,6 +57,7 @@ unsigned short TCPFrame::checksum(unsigned short *ptr, unsigned int nbBytes) {
 	//On retourne le checksum
 	return(answer);
 }
+
 /**
  * \fn unsigned short TCPFrame::get_tcp_checksum(struct iphdr * myip, struct tcphdr * mytcp)
  * \brief Fonction de réalisation d'un checksum TCP
@@ -90,6 +91,7 @@ unsigned short TCPFrame::get_tcp_checksum(struct iphdr * myip, struct tcphdr * m
         return checksum(tcp,totaltcp_len);
 
 }
+
 /**
  * \fn unsigned short TCPFrame::get_ip_checksum(struct iphdr * myip)
  * \brief Fonction de réalisation d'un checksum IP
@@ -142,6 +144,10 @@ TCPFrame::TCPFrame(unsigned char* buffer){
 	}
 }
 
+/**
+ * \fn TCPFrame::TCPFrame()
+ * \brief Constructeur par défaut d'un segment TCP
+ */
 TCPFrame::TCPFrame(){
 	this->eth = *new ETHFrame();
 	this->ip = *new IPFrame();
@@ -166,7 +172,6 @@ TCPFrame::TCPFrame(){
 	this->options.push_back(0x05);
 	this->options.push_back(0xB4);
 
-	//
 	this->options.push_back(0x04);
 	this->options.push_back(0x02);
 	this->options.push_back(0x08);
@@ -178,9 +183,9 @@ TCPFrame::TCPFrame(){
 
 
 	//On recupere le message TCP
-	this->data = "";
-	
+	this->data = "";	
 }
+
 /**
  * \fn  unsigned char* TCPFrame::toFrame()
  * \brief Fonction de mide en place d'une trame TCP 
