@@ -233,6 +233,7 @@ void handle_SIGINT(int signal);
 
  	close(sockfd);
  }
+
 /**
  * \fn void Stack::Send(ICMPFrame icmp)
  * \brief Fonction d'envoie de trame ICMP
@@ -280,6 +281,7 @@ void handle_SIGINT(int signal);
 
  	close(sockfd);
  }
+
 /**
  * \fn void Stack::Send(ARPFrame arp)
  * \brief Fonction d'envoie de trame ARP

@@ -58,8 +58,7 @@ string PC::getMAC(){
 			}else{
 				mac += result;
 			}
-      		
-    	}
+    		}
   	}
   	else
   	{

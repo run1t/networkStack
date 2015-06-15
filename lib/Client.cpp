@@ -67,20 +67,14 @@ string Client::getArpMac(){
  	strcpy(ifName, DEFAULT_IF);
  	memset(&if_ip, 0, sizeof(struct ifreq));
 
-	/* On ouver l'ecoute des packet Ethernet */
+	/* On ouvre l'ecoute des packet Ethernet */
  	if ((sockfd = socket(AF_PACKET, SOCK_RAW, htons (ETH_P_ALL))) == -1) {
  		perror("listener: socket");	
  	}
-
-	/* On met l'interface en promiscuis mode ce qui 
-	permet d"couter tout les connections escequue 
-	c'est vraiment necessaire ?*/
-
 	strncpy(ifopts.ifr_name, ifName, IFNAMSIZ-1);
 	ioctl(sockfd, SIOCGIFFLAGS, &ifopts);
 	ifopts.ifr_flags |= IFF_PROMISC;
 	ioctl(sockfd, SIOCSIFFLAGS, &ifopts);
-
 
 	/* Gere un cas de fermeture prematuré*/
 	if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &sockopt, sizeof sockopt) == -1) {
@@ -106,20 +100,15 @@ string Client::getArpMac(){
  	while(1){
  		int	numbytes = recvfrom(sockfd, buf, 1024, 0, NULL, NULL);
 			//On verifie que l'on a bien des données
-
  		if(numbytes > 0){
 
  			ETHFrame eth = *new ETHFrame(buf);
-				//c'est pour nous ?
 
  				if(eth.Type == 0x0806){
-
  					ARPFrame arp = *new ARPFrame(buf);
  						cout << "test" << arp.senderIp << endl;
 					if(arp.HardwareSize == 6 && arp.ProtocolSize == 4 && arp.opCode == 2){
-						cout << "test" << arp.senderIp << endl;
  						if(arp.senderIp.compare(this->ip) == 0){
- 							cout << "okayy" << endl;
  							PC::activateICMP();
 						 	PC::activateRST();
 							PC::activateARP();
@@ -128,7 +117,6 @@ string Client::getArpMac(){
  						}	
  					}
  				}
- 			
  		}
  	}	
  	close(sockfd);
@@ -144,7 +132,6 @@ void Client::join(){
 	TCPFrame tcp = *new TCPFrame();
 	tcp.Flags = TCP_SYN;
 	string arpMac = this->getArpMac();
-	cout << "MAc arp" << arpMac << endl;
 	tcp.eth.dst = arpMac;
 	cout << tcp.eth.dst << endl;
 	tcp.ip.dst = this->ip;

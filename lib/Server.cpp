@@ -48,7 +48,6 @@ Server::Server(string ip, int port){
  * \brief bind une fonction à l'évenement de réception de Data
  * \param function fonction à bindé
  */
-
 void Server::addEventData  (function<void(Connection*)> func){
 	this->onData = func;
 }
