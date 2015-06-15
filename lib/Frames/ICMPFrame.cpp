@@ -142,7 +142,6 @@ ICMPFrame::ICMPFrame(){
 unsigned char* ICMPFrame::toFrame(){
 	vector<unsigned char> frame;
 
-
 	/**
 	* Remplissage du Header Ethernet
 	*/
@@ -234,12 +233,6 @@ unsigned char* ICMPFrame::toFrame(){
 	/**
 	* On rempli le packet ICMP
 	*/
-
-	//int Type;
-	//int Code;
-	//int Checksum;
-	//int Id;
-	//int sequence;
 	frame.push_back(this->Type);
 	frame.push_back(this->Code);
 	frame.push_back(0x00);
@@ -270,7 +263,7 @@ unsigned char* ICMPFrame::toFrame(){
 	frame[pos+1] = (checkIP)  & 0xFF;
 	
 	/**
-	* On va recupere la position du checksum dans la tram
+	* On va recuperer la position du checksum dans la trame
 	*/
 	int position = this->ip.HeaderLength + 13 + 3; 
 	unsigned short check = this->get_icmp_checksum((struct icmphdr*)(ret + sizeof(ethhdr) + sizeof(iphdr)),8 + this->data.length());

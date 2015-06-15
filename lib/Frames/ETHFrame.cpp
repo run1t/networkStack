@@ -72,5 +72,4 @@ ETHFrame::ETHFrame(unsigned char* buffer){
 
 	//Type
 	this->Type = (buffer[12]<<8)+buffer[13];
-
 }

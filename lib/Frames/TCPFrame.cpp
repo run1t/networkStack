@@ -111,8 +111,6 @@ unsigned short TCPFrame::get_ip_checksum(struct iphdr * myip) {
  * \return la fonction retourne la trame une fois analysé 
  */
 TCPFrame::TCPFrame(unsigned char* buffer){
-	
-
 	/**
 	* On recupere les autres couches 
 	*/
@@ -155,7 +153,6 @@ TCPFrame::TCPFrame(){
 	/**
 	* On recupere TCP
 	*/
-
 	this->src = 20;
 	this->dst = 80;
 	this->seq_number = 12345735;
@@ -166,9 +163,7 @@ TCPFrame::TCPFrame(){
 	this->Checksum = 0;
 	this->urgentPointer = 0;
 
-
 	this->HeaderLength = 20+this->options.size();
-
 
 	//On recupere le message TCP
 	this->data = "";	
@@ -182,8 +177,6 @@ TCPFrame::TCPFrame(){
  */
  unsigned char* TCPFrame::toFrame(){
 	vector<unsigned char> frame;
-
-
 	/**
 	* Remplissage du Header Ethernet
 	*/
@@ -199,8 +192,7 @@ TCPFrame::TCPFrame(){
 			ss >> buffer;
 			frame.push_back(static_cast<unsigned char>(buffer));
 			offset += 3;
-		}
-		
+		}	
 	}
 
 	// Address Source
@@ -212,8 +204,7 @@ TCPFrame::TCPFrame(){
 			ss >> buffer;
 			frame.push_back(static_cast<unsigned char>(buffer));
 			offset += 3;
-		}
-		
+		}	
 	}
 
 	//Ether Type
@@ -223,7 +214,6 @@ TCPFrame::TCPFrame(){
 	/**
 	* Remplissage du header Ip
 	*/
-
 	frame.push_back((this->ip.Version << 4) | (this->ip.HeaderLength/4));
 	
 	//DFS
@@ -237,7 +227,6 @@ TCPFrame::TCPFrame(){
 	frame.push_back((this->ip.Id >> 8) & 0xFF);
 	frame.push_back((this->ip.Id) & 0xFF);
 
-	
 	//fragment offset
 	frame.push_back(this->ip.Flags);
 	frame.push_back(this->ip.PositionFragment);
@@ -271,7 +260,6 @@ TCPFrame::TCPFrame(){
 	for(size_t i = 0 ; i < this->ip.options.size() ; i++){
 		frame.push_back(this->ip.options.at(i));
 	}
-
 	/*
 	* Remplissage de la trame TCP
 	**/
@@ -338,6 +326,5 @@ TCPFrame::TCPFrame(){
 	for(size_t i = 0; i < frame.size() ; i++){
 		ret[i] = frame.at(i);
 	}
-	
 	return ret;
 }

@@ -22,7 +22,6 @@ IPFrame::IPFrame(){
 	this->Version = 4;
 	this->HeaderLength = 20;
 
-
 	this->DFS = 0;
 	this->TotalLength = 0;
 	this->Id = 0;
@@ -89,7 +88,6 @@ IPFrame::IPFrame(unsigned char* buffer){
 		}else{
 			this->src += result ;
 		}
-
 	}
 
 	//IP dst
@@ -104,11 +102,9 @@ IPFrame::IPFrame(unsigned char* buffer){
 		}else{
 			this->dst += result ;
 		}
-
 	}
 
 	for(int i = 21 ; i < this->HeaderLength; i++){
 		this->options.push_back(buffer[i+14]);
 	}
-
 }

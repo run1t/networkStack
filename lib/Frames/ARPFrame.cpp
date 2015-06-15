@@ -92,9 +92,7 @@ ARPFrame::ARPFrame(unsigned char* buffer){
 		}else{
 			this->targetMac += result ;
 		}
-
 	}
-	//string senderIp;
 	//IP src
 	this->targetIp = "";
 	for(int i = 38; i < 42; i++){
@@ -148,13 +146,11 @@ unsigned char* ARPFrame::toFrame(){
 			frame.push_back(static_cast<unsigned char>(buffer));
 			offset += 3;
 		}
-		
 	}
 
 	//Ether Type
 	frame.push_back((this->eth.Type >> 8) & 0xFF);
-	frame.push_back((this->eth.Type) & 0xFF);
-		
+	frame.push_back((this->eth.Type) & 0xFF);	
 	/**
 	* Remplissage de ARP
 	*/
@@ -205,8 +201,6 @@ unsigned char* ARPFrame::toFrame(){
 		}
 	}
 
-	
-	
 	istringstream s1(this->targetIp);  // input stream that now contains the ip address string
 	s1 >> byte1 >> dot >> byte2 >> dot >> byte3 >> dot >> byte4 >> dot;
 	frame.push_back(byte1);
@@ -224,11 +218,13 @@ unsigned char* ARPFrame::toFrame(){
 	return ret;
 }
 
-
+/**
+ * \fn ARPFrame::Send()
+ * \brief Méthode envoyant une requête ARP
+ */
 void ARPFrame::Send(){
 	#define DEFAULT_IF	"eth0"
-	
-	
+		
 	int sockfd;
 	struct ifreq if_idx;
 	struct sockaddr_ll socket_address;
@@ -262,17 +258,11 @@ void ARPFrame::Send(){
 	socket_address.sll_addr[3] = datagram[3];
 	socket_address.sll_addr[4] = datagram[4];
 	socket_address.sll_addr[5] = datagram[5];
- 
 	/* Send packet */
 
 	if(sendto(sockfd, datagram, this->frameLength, 0, (struct sockaddr*)&socket_address, sizeof(struct sockaddr_ll)) < 0){
-		cout << "grosse erreur de mes deux" << endl;
-	}else{
-		cout << "packet bien envoyer " << endl;
-	}
-
-	  
+		perror("Error sending the ARP Request");
+	} 
 	close(sockfd);
-	
 }
 
