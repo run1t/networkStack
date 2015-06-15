@@ -1,6 +1,6 @@
 /*!
  * \file stack.cpp
- * \brief Fichier de gestion de l'envoie et reception de packet
+ * \brief Fichier de gestion de l'envoi et réception de packet
  * \author LE NOC Reunan, HIPEAU Kevin, VIAUD Thommas, TRICHARD Guillaume
  * \version 1.0
  */
@@ -104,9 +104,7 @@ void handle_SIGINT(int signal);
  	cout << PC::getMAC() << endl;
  	while(1){
  		int	numbytes = recvfrom(sock, buf, 1024, 0, NULL, NULL);
-			//On verifie que l'on a bien des données
-
-
+			//On verifie que l'on a bien des donnée
  		if(numbytes > 0){
  			ETHFrame eth = *new ETHFrame(buf);
 				//c'est pour nous ?
@@ -119,7 +117,7 @@ void handle_SIGINT(int signal);
 
  					if(ip.dst.compare(PC::getIP()) == 0){
 
-							//on check lsi c'est pour
+							//on check si c'est pour
  						if(ip.Protocol == 6){
  							TCPFrame tcp = *new TCPFrame(buf);
  							TCPFrame tcpRes = tcp;
@@ -193,7 +191,6 @@ void handle_SIGINT(int signal);
  void Stack::Send(TCPFrame tcp){
 	#define DEFAULT_IF	"eth0"
 
-
  	int sockfd;
  	struct ifreq if_idx;
  	struct sockaddr_ll socket_address;
@@ -214,7 +211,6 @@ void handle_SIGINT(int signal);
  		perror("SIOCGIFINDEX");
 
  	unsigned char* datagram = tcp.toFrame();
-
 
 	/* Index of the network device */
  	socket_address.sll_ifindex = if_idx.ifr_ifindex;
@@ -277,8 +273,6 @@ void handle_SIGINT(int signal);
 
 	/* Send packet */
  	sendto(sockfd, datagram, icmp.frameLength, 0, (struct sockaddr*)&socket_address, sizeof(struct sockaddr_ll));
-
-
  	close(sockfd);
  }
 
@@ -326,9 +320,7 @@ void handle_SIGINT(int signal);
 
 	/* Send packet */
  	sendto(sockfd, datagram, arp.frameLength, 0, (struct sockaddr*)&socket_address, sizeof(struct sockaddr_ll));
-
- 	close(sockfd);	
-
+ 	close(sockfd);
  }
 
 /**
@@ -369,8 +361,7 @@ void handle_SIGINT(int signal);
 //Gestion de la fermeture du programme
 /**
  * \fn  void handle_SIGINT(int signal)
- * \brief Fonction qui permet de gérer les signaux provenant de l'utilisateur 
- *
+ * \brief Fonction qui permet de gérer les signaux provenant de l'utilisateur
  * \param signal Signal à gérer
  */
  void handle_SIGINT(int signal){

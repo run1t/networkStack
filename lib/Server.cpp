@@ -1,11 +1,9 @@
-
-//
-//  Server.cpp
-//  callback Test
-//
-//  Created by Reunan Le noc on 02/06/15.
-//  Copyright (c) 2015 Reunan Le noc. All rights reserved.
-//
+/*!
+ * \file Server.cpp
+ * \brief Fichier gérant le serveur 
+ * \author LE NOC Reunan, HIPEAU Kevin, VIAUD Thommas, TRICHARD Guillaume
+ * \version 1.0
+ */
 #include "Server.h"
 Server* Server::server;
 
@@ -18,7 +16,6 @@ void onDatas(Connection *connection){
 	cout << "on a notre premier niveau "<< endl;
 	Server::server->onData(connection);
 }
-
 
 /**
 * Gestion de la stack IP
@@ -35,13 +32,10 @@ Server::Server(string ip, int port){
     this->stacker->addDataEvent(onDatas);
 }
 
-
-
 /**
 * Gestion des evenements qui sorte 
 * de notre pile
 */
-
 
 /**
  * \fn void Server::addEventData  (function<void(Connection*)> func)

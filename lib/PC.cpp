@@ -20,7 +20,6 @@ string PC::getIP(){
 	strncpy(ifr.ifr_name, "eth0", IFNAMSIZ-1);
 	ioctl(fd, SIOCGIFADDR, &ifr);
 	close(fd);
-
 	/**
 	* Recuperation de l'ip destination
 	*/ 
@@ -112,15 +111,12 @@ string PC::getDefaultInterface(){
 			printf("error closing the file");
 		}
 	}
-
 	return "eth0";
-	
 }
 
 /**
  * \fn int PC::desactivateRST()
  * \brief Fonction de désactivation des reset du kernel
- *
  * \return -1 si erreur 0 si aucune erreur
  */
 int PC::desactivateRST(){
@@ -131,6 +127,11 @@ int PC::desactivateRST(){
 	return result;
 }
 
+/**
+ * \fn int PC::activateRST()
+ * \brief Fonction d'activation des reset du kernel
+ * \return -1 si erreur 0 si aucune erreur
+ */
 int PC::activateRST(){
 	int result;
 	string command = "iptables -A OUTPUT -o " + PC::getDefaultInterface() + " -p tcp --tcp-flags RST RST -j ACCEPT";
@@ -161,10 +162,8 @@ int PC::desactivateICMP(){
 			return -1;
 		}
 		else if(nbByteWrite > 0){
-			printf("Succes writing to file\n");
 			int closeSuccess = close(fdProc);
-			if(closeSuccess == 0){
-				printf("File closed successfully\n");
+			if(closeSuccess == 0
 				return 0;
 			}else if(closeSuccess == -1){
 				printf("Error closing the file\n");
@@ -176,8 +175,7 @@ int PC::desactivateICMP(){
 
 /**
  * \fn int PC::activateICMP()
- * \brief Fonction de l'activation des réponses ICMP
- *
+ * \brief Fonction l'activation des réponses ICMP du kernel
  * \return -1 si erreur 0 si aucune erreur
  */
 int PC::activateICMP(){
@@ -196,10 +194,8 @@ int PC::activateICMP(){
 			return -1;
 		}
 		else if(nbByteWrite > 0){
-			printf("Succes writing to file\n");
 			int closeSuccess = close(fdProc);
 			if(closeSuccess == 0){
-				printf("File closed successfully\n");
 				return 0;
 			}else if(closeSuccess == -1){
 				printf("Error closing the file\n");
