@@ -1,5 +1,5 @@
 /*!
- * \file stack.h
+ * \file Stack.h
  * \brief Fichier de gestion de l'envoie et reception de packet TCP, ICMP et ARP
  * \author LE NOC Reunan, HIPEAU Kevin, VIAUD Thommas, TRICHARD Guillaume
  * \version 1.0
