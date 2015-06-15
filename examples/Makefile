@@ -12,7 +12,7 @@ CXXSOURCES = \
 	../lib/PC.cpp \
 	../lib/Connection.cpp 
 
-all: server HttpServer
+all: server HttpServer Client
 
 server: 
 	$(CXX) $(CXXFLAGS) -o server  $(CXXSOURCES) ../lib/Server.cpp Server/Server.cpp  -std=c++11  -fdiagnostics-color
@@ -20,8 +20,12 @@ server:
 HttpServer: 
 	$(CXX) $(CXXFLAGS) -o httpServer  $(CXXSOURCES) ../lib/Server.cpp HttpServer/HttpServer.cpp  -std=c++11  -fdiagnostics-color
 
-.PHONY: all server HttpServer clean
+Client: 
+	$(CXX) $(CXXFLAGS) -o client  $(CXXSOURCES) ../lib/Client.cpp Client/Client.cpp  -std=c++11  -fdiagnostics-color
+
+.PHONY: all server HttpServer Client clean
 clean:
 	$(RM) -rf server
 	$(RM) -rf httpServer
+	$(RM) -rf client
 	$(RM) ./*.o
