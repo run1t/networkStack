@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.9.1"/>
-<title>Network_stack: ICMPFrame Class Reference</title>
+<title>network_stack: ICMPFrame Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -23,7 +23,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">Network_stack
+   <div id="projectname">network_stack
    </div>
   </td>
  </tr>
@@ -38,7 +38,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -112,6 +111,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aa74b2673a8d2e7ed863ec439d0754ae9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_m_p_frame.html#aa74b2673a8d2e7ed863ec439d0754ae9">ICMPFrame</a> (unsigned char *buffer)</td></tr>
 <tr class="memdesc:aa74b2673a8d2e7ed863ec439d0754ae9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction de lecture d'un buffer brut.  <a href="#aa74b2673a8d2e7ed863ec439d0754ae9">More...</a><br /></td></tr>
 <tr class="separator:aa74b2673a8d2e7ed863ec439d0754ae9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff58f026d4ad551c11823d871ed2423c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_m_p_frame.html#aff58f026d4ad551c11823d871ed2423c">ICMPFrame</a> ()</td></tr>
+<tr class="memdesc:aff58f026d4ad551c11823d871ed2423c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructeur par défaut d'un paquet ICMP.  <a href="#aff58f026d4ad551c11823d871ed2423c">More...</a><br /></td></tr>
+<tr class="separator:aff58f026d4ad551c11823d871ed2423c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9f4c6cf6a6b68066713cb2367f6cda65"><td class="memItemLeft" align="right" valign="top">unsigned char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_m_p_frame.html#a9f4c6cf6a6b68066713cb2367f6cda65">toFrame</a> ()</td></tr>
 <tr class="memdesc:a9f4c6cf6a6b68066713cb2367f6cda65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction de création de la trame brut a partir des parametres.  <a href="#a9f4c6cf6a6b68066713cb2367f6cda65">More...</a><br /></td></tr>
 <tr class="separator:a9f4c6cf6a6b68066713cb2367f6cda65"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -151,7 +153,7 @@ vector&lt; unsigned char &gt;&#160;</td><td class="memItemRight" valign="bottom"
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p>Definition at line <a class="el" href="_i_c_m_p_frame_8h_source.html#l00049">49</a> of file <a class="el" href="_i_c_m_p_frame_8h_source.html">ICMPFrame.h</a>.</p>
+<p>Definition at line <a class="el" href="_i_c_m_p_frame_8h_source.html#l00051">51</a> of file <a class="el" href="_i_c_m_p_frame_8h_source.html">ICMPFrame.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="aa74b2673a8d2e7ed863ec439d0754ae9"></a>
 <div class="memitem">
@@ -170,7 +172,7 @@ vector&lt; unsigned char &gt;&#160;</td><td class="memItemRight" valign="bottom"
 <p>Fonction de lecture d'un buffer brut. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">la</td><td>fonction prend en parametres le buffer afin de l'analyser </td></tr>
+    <tr><td class="paramname">unsigned</td><td>char* buffer la fonction prend en parametres le buffer afin de l'analyser </td></tr>
   </table>
   </dd>
 </dl>
@@ -178,7 +180,29 @@ vector&lt; unsigned char &gt;&#160;</td><td class="memItemRight" valign="bottom"
 <p>On recupere les autres couches</p>
 <p>On recupere TCP</p>
 
-<p>Definition at line <a class="el" href="_i_c_m_p_frame_8cpp_source.html#l00081">81</a> of file <a class="el" href="_i_c_m_p_frame_8cpp_source.html">ICMPFrame.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_i_c_m_p_frame_8cpp_source.html#l00082">82</a> of file <a class="el" href="_i_c_m_p_frame_8cpp_source.html">ICMPFrame.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aff58f026d4ad551c11823d871ed2423c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ICMPFrame::ICMPFrame </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Constructeur par défaut d'un paquet ICMP. </p>
+<dl class="section return"><dt>Returns</dt><dd>la fonction retourne le paquet ICMP par défaut </dd></dl>
+<p>On recupere les autres couches</p>
+<p>On recupere TCP</p>
+
+<p>Definition at line <a class="el" href="_i_c_m_p_frame_8cpp_source.html#l00115">115</a> of file <a class="el" href="_i_c_m_p_frame_8cpp_source.html">ICMPFrame.cpp</a>.</p>
 
 </div>
 </div>
@@ -210,13 +234,23 @@ vector&lt; unsigned char &gt;&#160;</td><td class="memItemRight" valign="bottom"
 <p>Fonction de réalisation d'un checksum pour l'intégrité des données. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">la</td><td>fonction prend en parametres la structure sur laquelle réaliser le checksum ainsi que sa taille </td></tr>
+    <tr><td class="paramname">unsigned</td><td>short *ptr la fonction prend en parametres la structure sur laquelle réaliser le checksum </td></tr>
+    <tr><td class="paramname">unsigned</td><td>int nbBytes la fonction prend en parametres la taille </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>la fonction retourne le checksum </dd></dl>
 
-<p>Definition at line <a class="el" href="_i_c_m_p_frame_8cpp_source.html#l00017">17</a> of file <a class="el" href="_i_c_m_p_frame_8cpp_source.html">ICMPFrame.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_i_c_m_p_frame_8cpp_source.html#l00018">18</a> of file <a class="el" href="_i_c_m_p_frame_8cpp_source.html">ICMPFrame.cpp</a>.</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_i_c_m_p_frame_a4d37aca024ff4842bb4e6393d01d6ae8_icgraph.png" border="0" usemap="#class_i_c_m_p_frame_a4d37aca024ff4842bb4e6393d01d6ae8_icgraph" alt=""/></div>
+<map name="class_i_c_m_p_frame_a4d37aca024ff4842bb4e6393d01d6ae8_icgraph" id="class_i_c_m_p_frame_a4d37aca024ff4842bb4e6393d01d6ae8_icgraph">
+<area shape="rect" id="node2" href="class_i_c_m_p_frame.html#af1b6110a4c2a72a09b3c074eb8bac367" title="Fonction de réalisation d&#39;un checksum pour l&#39;IP. " alt="" coords="215,5,417,32"/><area shape="rect" id="node5" href="class_i_c_m_p_frame.html#a14c78644117a4bdee236cc234c31b8f0" title="Fonction de réalisation d&#39;un checksum ICMP. " alt="" coords="239,57,393,98"/><area shape="rect" id="node3" href="class_i_c_m_p_frame.html#a9f4c6cf6a6b68066713cb2367f6cda65" title="Fonction de création de la trame brut a partir des parametres. " alt="" coords="465,35,615,61"/><area shape="rect" id="node4" href="class_stack.html#a34b65b37c7b790a3000859591f2b1c73" title="Fonction d&#39;envoie de trame ICMP. " alt="" coords="663,35,757,61"/></map>
+</div>
+</p>
 
 </div>
 </div>
@@ -247,13 +281,32 @@ vector&lt; unsigned char &gt;&#160;</td><td class="memItemRight" valign="bottom"
 <p>Fonction de réalisation d'un checksum ICMP. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">la</td><td>fonction prend en parametres la structure sur laquelle réaliser le checksum ainsi que sa taille </td></tr>
+    <tr><td class="paramname">struct</td><td>icmphdr * myicmp la fonction prend en parametres la structure sur laquelle réaliser le checksum </td></tr>
+    <tr><td class="paramname">int</td><td>length la fonction prend en parametres la taille de la structure </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>la fonction retourne le checksum </dd></dl>
 
-<p>Definition at line <a class="el" href="_i_c_m_p_frame_8cpp_source.html#l00070">70</a> of file <a class="el" href="_i_c_m_p_frame_8cpp_source.html">ICMPFrame.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_i_c_m_p_frame_8cpp_source.html#l00071">71</a> of file <a class="el" href="_i_c_m_p_frame_8cpp_source.html">ICMPFrame.cpp</a>.</p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_i_c_m_p_frame_a14c78644117a4bdee236cc234c31b8f0_cgraph.png" border="0" usemap="#class_i_c_m_p_frame_a14c78644117a4bdee236cc234c31b8f0_cgraph" alt=""/></div>
+<map name="class_i_c_m_p_frame_a14c78644117a4bdee236cc234c31b8f0_cgraph" id="class_i_c_m_p_frame_a14c78644117a4bdee236cc234c31b8f0_cgraph">
+<area shape="rect" id="node2" href="class_i_c_m_p_frame.html#a4d37aca024ff4842bb4e6393d01d6ae8" title="Fonction de réalisation d&#39;un checksum pour l&#39;intégrité des données. " alt="" coords="208,13,369,39"/></map>
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_i_c_m_p_frame_a14c78644117a4bdee236cc234c31b8f0_icgraph.png" border="0" usemap="#class_i_c_m_p_frame_a14c78644117a4bdee236cc234c31b8f0_icgraph" alt=""/></div>
+<map name="class_i_c_m_p_frame_a14c78644117a4bdee236cc234c31b8f0_icgraph" id="class_i_c_m_p_frame_a14c78644117a4bdee236cc234c31b8f0_icgraph">
+<area shape="rect" id="node2" href="class_i_c_m_p_frame.html#a9f4c6cf6a6b68066713cb2367f6cda65" title="Fonction de création de la trame brut a partir des parametres. " alt="" coords="208,13,357,39"/><area shape="rect" id="node3" href="class_stack.html#a34b65b37c7b790a3000859591f2b1c73" title="Fonction d&#39;envoie de trame ICMP. " alt="" coords="405,13,500,39"/></map>
+</div>
+</p>
 
 </div>
 </div>
@@ -274,13 +327,31 @@ vector&lt; unsigned char &gt;&#160;</td><td class="memItemRight" valign="bottom"
 <p>Fonction de réalisation d'un checksum pour l'IP. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">la</td><td>fonction prend en parametres la structure sur laquelle réaliser le checksum </td></tr>
+    <tr><td class="paramname">struct</td><td>iphdr * myip la fonction prend en parametres la structure sur laquelle réaliser le checksum </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>la fonction retourne le checksum </dd></dl>
 
 <p>Definition at line <a class="el" href="_i_c_m_p_frame_8cpp_source.html#l00060">60</a> of file <a class="el" href="_i_c_m_p_frame_8cpp_source.html">ICMPFrame.cpp</a>.</p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_i_c_m_p_frame_af1b6110a4c2a72a09b3c074eb8bac367_cgraph.png" border="0" usemap="#class_i_c_m_p_frame_af1b6110a4c2a72a09b3c074eb8bac367_cgraph" alt=""/></div>
+<map name="class_i_c_m_p_frame_af1b6110a4c2a72a09b3c074eb8bac367_cgraph" id="class_i_c_m_p_frame_af1b6110a4c2a72a09b3c074eb8bac367_cgraph">
+<area shape="rect" id="node2" href="class_i_c_m_p_frame.html#a4d37aca024ff4842bb4e6393d01d6ae8" title="Fonction de réalisation d&#39;un checksum pour l&#39;intégrité des données. " alt="" coords="256,5,417,32"/></map>
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_i_c_m_p_frame_af1b6110a4c2a72a09b3c074eb8bac367_icgraph.png" border="0" usemap="#class_i_c_m_p_frame_af1b6110a4c2a72a09b3c074eb8bac367_icgraph" alt=""/></div>
+<map name="class_i_c_m_p_frame_af1b6110a4c2a72a09b3c074eb8bac367_icgraph" id="class_i_c_m_p_frame_af1b6110a4c2a72a09b3c074eb8bac367_icgraph">
+<area shape="rect" id="node2" href="class_i_c_m_p_frame.html#a9f4c6cf6a6b68066713cb2367f6cda65" title="Fonction de création de la trame brut a partir des parametres. " alt="" coords="256,5,405,32"/><area shape="rect" id="node3" href="class_stack.html#a34b65b37c7b790a3000859591f2b1c73" title="Fonction d&#39;envoie de trame ICMP. " alt="" coords="453,5,548,32"/></map>
+</div>
+</p>
 
 </div>
 </div>
@@ -298,25 +369,37 @@ vector&lt; unsigned char &gt;&#160;</td><td class="memItemRight" valign="bottom"
 </div><div class="memdoc">
 
 <p>Fonction de création de la trame brut a partir des parametres. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">la</td><td>fonction ne prend aucun parametres </td></tr>
-  </table>
-  </dd>
-</dl>
 <dl class="section return"><dt>Returns</dt><dd>la fonction retourne la trame brut </dd></dl>
 <p>Remplissage du Header Ethernet</p>
 <p>Remplissage du header Ip</p>
 <p>On rempli le packet ICMP</p>
-<p>On va recupere la position du checksum dans la tram</p>
+<p>On va recuperer la position du checksum dans la trame</p>
 
-<p>Definition at line <a class="el" href="_i_c_m_p_frame_8cpp_source.html#l00118">118</a> of file <a class="el" href="_i_c_m_p_frame_8cpp_source.html">ICMPFrame.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_i_c_m_p_frame_8cpp_source.html#l00141">141</a> of file <a class="el" href="_i_c_m_p_frame_8cpp_source.html">ICMPFrame.cpp</a>.</p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_i_c_m_p_frame_a9f4c6cf6a6b68066713cb2367f6cda65_cgraph.png" border="0" usemap="#class_i_c_m_p_frame_a9f4c6cf6a6b68066713cb2367f6cda65_cgraph" alt=""/></div>
+<map name="class_i_c_m_p_frame_a9f4c6cf6a6b68066713cb2367f6cda65_cgraph" id="class_i_c_m_p_frame_a9f4c6cf6a6b68066713cb2367f6cda65_cgraph">
+<area shape="rect" id="node2" href="class_i_c_m_p_frame.html#af1b6110a4c2a72a09b3c074eb8bac367" title="Fonction de réalisation d&#39;un checksum pour l&#39;IP. " alt="" coords="203,5,405,32"/><area shape="rect" id="node4" href="class_i_c_m_p_frame.html#a14c78644117a4bdee236cc234c31b8f0" title="Fonction de réalisation d&#39;un checksum ICMP. " alt="" coords="227,57,381,98"/><area shape="rect" id="node3" href="class_i_c_m_p_frame.html#a4d37aca024ff4842bb4e6393d01d6ae8" title="Fonction de réalisation d&#39;un checksum pour l&#39;intégrité des données. " alt="" coords="453,35,615,61"/></map>
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_i_c_m_p_frame_a9f4c6cf6a6b68066713cb2367f6cda65_icgraph.png" border="0" usemap="#class_i_c_m_p_frame_a9f4c6cf6a6b68066713cb2367f6cda65_icgraph" alt=""/></div>
+<map name="class_i_c_m_p_frame_a9f4c6cf6a6b68066713cb2367f6cda65_icgraph" id="class_i_c_m_p_frame_a9f4c6cf6a6b68066713cb2367f6cda65_icgraph">
+<area shape="rect" id="node2" href="class_stack.html#a34b65b37c7b790a3000859591f2b1c73" title="Fonction d&#39;envoie de trame ICMP. " alt="" coords="203,5,297,32"/></map>
+</div>
+</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>lib/Frames/<a class="el" href="_i_c_m_p_frame_8h_source.html">ICMPFrame.h</a></li>
-<li>lib/Frames/<a class="el" href="_i_c_m_p_frame_8cpp_source.html">ICMPFrame.cpp</a></li>
+<li>Frames/<a class="el" href="_i_c_m_p_frame_8h_source.html">ICMPFrame.h</a></li>
+<li>Frames/<a class="el" href="_i_c_m_p_frame_8cpp_source.html">ICMPFrame.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

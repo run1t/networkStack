@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.9.1"/>
-<title>My Project: Server.cpp Source File</title>
+<title>network_stack: Server.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -23,7 +23,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">My Project
+   <div id="projectname">network_stack
    </div>
   </td>
  </tr>
@@ -89,31 +89,30 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<a class="code" href="class_server.html">Server</a>* Server::server;</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;</div>
 <div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="_server_8cpp.html#a9931a29f5086a322a977276119b7d43a">   15</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="_server_8cpp.html#a9931a29f5086a322a977276119b7d43a">onDatas</a>(<a class="code" href="class_connection.html">Connection</a> *connection){</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;on a notre premier niveau &quot;</span>&lt;&lt; endl;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    Server::server-&gt;onData(connection);</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;}</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="class_server.html#a3fae1efe21a489f9ec59785398007a45">   30</a></span>&#160;<a class="code" href="class_server.html#a3fae1efe21a489f9ec59785398007a45">Server::Server</a>(<span class="keywordtype">string</span> ip, <span class="keywordtype">int</span> port){</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    this-&gt;stacker =  <span class="keyword">new</span> <a class="code" href="class_stack.html">Stack</a>(ip,port);</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    this-&gt;stacker-&gt;<a class="code" href="class_stack.html#a88223ccd084ecfd0f66875693ede8b18">addDataEvent</a>(<a class="code" href="_server_8cpp.html#a9931a29f5086a322a977276119b7d43a">onDatas</a>);</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;}</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;</div>
-<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="class_server.html#a6b4e4c498ef79575137254b84229cb8f">   45</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="class_server.html#a6b4e4c498ef79575137254b84229cb8f">Server::addEventData</a>  (<span class="keyword">function</span>&lt;<span class="keywordtype">void</span>(<a class="code" href="class_connection.html">Connection</a>*)&gt; func){</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    this-&gt;onData = func;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;}</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;</div>
-<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="class_server.html#a7c4501173cd10b9dfff472be5b3ebb5d">   53</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="class_server.html#a7c4501173cd10b9dfff472be5b3ebb5d">Server::join</a>(){</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    Server::server = <span class="keyword">this</span>;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    this-&gt;stacker-&gt;<a class="code" href="class_stack.html#a57631b70ddce6adc9d507209236ac1fe">receiver</a>();</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;}</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    Server::server-&gt;onData(connection);</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;}</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;</div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="class_server.html#a3fae1efe21a489f9ec59785398007a45">   29</a></span>&#160;<a class="code" href="class_server.html#a3fae1efe21a489f9ec59785398007a45">Server::Server</a>(<span class="keywordtype">string</span> ip, <span class="keywordtype">int</span> port){</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    this-&gt;stacker =  <span class="keyword">new</span> <a class="code" href="class_stack.html">Stack</a>(ip,port);</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    this-&gt;stacker-&gt;<a class="code" href="class_stack.html#a88223ccd084ecfd0f66875693ede8b18">addDataEvent</a>(<a class="code" href="_server_8cpp.html#a9931a29f5086a322a977276119b7d43a">onDatas</a>);</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;}</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;</div>
+<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="class_server.html#a6b4e4c498ef79575137254b84229cb8f">   44</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="class_server.html#a6b4e4c498ef79575137254b84229cb8f">Server::addEventData</a>  (<span class="keyword">function</span>&lt;<span class="keywordtype">void</span>(<a class="code" href="class_connection.html">Connection</a>*)&gt; func){</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    this-&gt;onData = func;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;}</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
+<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="class_server.html#a7c4501173cd10b9dfff472be5b3ebb5d">   52</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="class_server.html#a7c4501173cd10b9dfff472be5b3ebb5d">Server::join</a>(){</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    Server::server = <span class="keyword">this</span>;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    this-&gt;stacker-&gt;<a class="code" href="class_stack.html#a57631b70ddce6adc9d507209236ac1fe">receiver</a>();</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;}</div>
 <div class="ttc" id="class_stack_html"><div class="ttname"><a href="class_stack.html">Stack</a></div><div class="ttdef"><b>Definition:</b> <a href="_stack_8h_source.html#l00051">Stack.h:51</a></div></div>
 <div class="ttc" id="class_server_html"><div class="ttname"><a href="class_server.html">Server</a></div><div class="ttdef"><b>Definition:</b> <a href="_server_8h_source.html#l00030">Server.h:30</a></div></div>
-<div class="ttc" id="class_server_html_a7c4501173cd10b9dfff472be5b3ebb5d"><div class="ttname"><a href="class_server.html#a7c4501173cd10b9dfff472be5b3ebb5d">Server::join</a></div><div class="ttdeci">void join()</div><div class="ttdoc">lance l&#39;écoute </div><div class="ttdef"><b>Definition:</b> <a href="_server_8cpp_source.html#l00053">Server.cpp:53</a></div></div>
+<div class="ttc" id="class_server_html_a7c4501173cd10b9dfff472be5b3ebb5d"><div class="ttname"><a href="class_server.html#a7c4501173cd10b9dfff472be5b3ebb5d">Server::join</a></div><div class="ttdeci">void join()</div><div class="ttdoc">lance l&#39;écoute </div><div class="ttdef"><b>Definition:</b> <a href="_server_8cpp_source.html#l00052">Server.cpp:52</a></div></div>
 <div class="ttc" id="_server_8h_html"><div class="ttname"><a href="_server_8h.html">Server.h</a></div><div class="ttdoc">Fichier permettant de gérer le server. </div></div>
 <div class="ttc" id="class_connection_html"><div class="ttname"><a href="class_connection.html">Connection</a></div><div class="ttdef"><b>Definition:</b> <a href="_connection_8h_source.html#l00043">Connection.h:43</a></div></div>
-<div class="ttc" id="class_server_html_a3fae1efe21a489f9ec59785398007a45"><div class="ttname"><a href="class_server.html#a3fae1efe21a489f9ec59785398007a45">Server::Server</a></div><div class="ttdeci">Server(string ip, int port)</div><div class="ttdoc">Constructeur de la classe Server. </div><div class="ttdef"><b>Definition:</b> <a href="_server_8cpp_source.html#l00030">Server.cpp:30</a></div></div>
+<div class="ttc" id="class_server_html_a3fae1efe21a489f9ec59785398007a45"><div class="ttname"><a href="class_server.html#a3fae1efe21a489f9ec59785398007a45">Server::Server</a></div><div class="ttdeci">Server(string ip, int port)</div><div class="ttdoc">Constructeur de la classe Server. </div><div class="ttdef"><b>Definition:</b> <a href="_server_8cpp_source.html#l00029">Server.cpp:29</a></div></div>
 <div class="ttc" id="class_stack_html_a88223ccd084ecfd0f66875693ede8b18"><div class="ttname"><a href="class_stack.html#a88223ccd084ecfd0f66875693ede8b18">Stack::addDataEvent</a></div><div class="ttdeci">void addDataEvent(function&lt; void(Connection *)&gt; func)</div><div class="ttdoc">Fonction permettant de binder une fonction sur la réception de Data. </div><div class="ttdef"><b>Definition:</b> <a href="_stack_8cpp_source.html#l00332">Stack.cpp:332</a></div></div>
-<div class="ttc" id="class_server_html_a6b4e4c498ef79575137254b84229cb8f"><div class="ttname"><a href="class_server.html#a6b4e4c498ef79575137254b84229cb8f">Server::addEventData</a></div><div class="ttdeci">void addEventData(function&lt; void(Connection *)&gt; func)</div><div class="ttdoc">bind une fonction à l&#39;évenement de réception de Data </div><div class="ttdef"><b>Definition:</b> <a href="_server_8cpp_source.html#l00045">Server.cpp:45</a></div></div>
+<div class="ttc" id="class_server_html_a6b4e4c498ef79575137254b84229cb8f"><div class="ttname"><a href="class_server.html#a6b4e4c498ef79575137254b84229cb8f">Server::addEventData</a></div><div class="ttdeci">void addEventData(function&lt; void(Connection *)&gt; func)</div><div class="ttdoc">bind une fonction à l&#39;évenement de réception de Data </div><div class="ttdef"><b>Definition:</b> <a href="_server_8cpp_source.html#l00044">Server.cpp:44</a></div></div>
 <div class="ttc" id="class_stack_html_a57631b70ddce6adc9d507209236ac1fe"><div class="ttname"><a href="class_stack.html#a57631b70ddce6adc9d507209236ac1fe">Stack::receiver</a></div><div class="ttdeci">void receiver()</div><div class="ttdoc">Fonction de gestion de réception de packet IP et ICMP, elle permet d&#39;écouter, trier et répondre corre...</div><div class="ttdef"><b>Definition:</b> <a href="_stack_8cpp_source.html#l00091">Stack.cpp:91</a></div></div>
 <div class="ttc" id="_server_8cpp_html_a9931a29f5086a322a977276119b7d43a"><div class="ttname"><a href="_server_8cpp.html#a9931a29f5086a322a977276119b7d43a">onDatas</a></div><div class="ttdeci">void onDatas(Connection *connection)</div><div class="ttdoc">Fonction permettant de réagir sur la réception de Data. </div><div class="ttdef"><b>Definition:</b> <a href="_server_8cpp_source.html#l00015">Server.cpp:15</a></div></div>
 </div><!-- fragment --></div><!-- contents -->

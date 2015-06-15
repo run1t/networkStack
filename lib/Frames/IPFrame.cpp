@@ -1,5 +1,5 @@
 /**
- * \file IPPFrame.cpp
+ * \file IPFrame.cpp
  * \brief fichier qui permet de lire les trames ICMP bruts
  * \author LE NOC Reunan, VIAUD Thomas, HIPEAU Kevin, TRICHARD Guillaume
  * \version 0.1

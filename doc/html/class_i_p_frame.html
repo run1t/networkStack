@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.9.1"/>
-<title>Network_stack: IPFrame Class Reference</title>
+<title>network_stack: IPFrame Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -23,7 +23,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">Network_stack
+   <div id="projectname">network_stack
    </div>
   </td>
  </tr>
@@ -38,7 +38,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -103,6 +102,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a6c3e225798b3ad88ca74a37420048b06"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_p_frame.html#a6c3e225798b3ad88ca74a37420048b06">IPFrame</a> (unsigned char *bufferr)</td></tr>
 <tr class="memdesc:a6c3e225798b3ad88ca74a37420048b06"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction de lecture d'une trame brut sous forme de buffer.  <a href="#a6c3e225798b3ad88ca74a37420048b06">More...</a><br /></td></tr>
 <tr class="separator:a6c3e225798b3ad88ca74a37420048b06"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a74ecfacfe40f385a5d24de9ba5458801"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_p_frame.html#a74ecfacfe40f385a5d24de9ba5458801">IPFrame</a> ()</td></tr>
+<tr class="memdesc:a74ecfacfe40f385a5d24de9ba5458801"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructeur par défaut d'un paquet IP.  <a href="#a74ecfacfe40f385a5d24de9ba5458801">More...</a><br /></td></tr>
+<tr class="separator:a74ecfacfe40f385a5d24de9ba5458801"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -159,7 +161,7 @@ string&#160;</td><td class="memItemRight" valign="bottom"><b>dst</b></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p>Definition at line <a class="el" href="_i_p_frame_8h_source.html#l00017">17</a> of file <a class="el" href="_i_p_frame_8h_source.html">IPFrame.h</a>.</p>
+<p>Definition at line <a class="el" href="_i_p_frame_8h_source.html#l00023">23</a> of file <a class="el" href="_i_p_frame_8h_source.html">IPFrame.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a6c3e225798b3ad88ca74a37420048b06"></a>
 <div class="memitem">
@@ -178,14 +180,43 @@ string&#160;</td><td class="memItemRight" valign="bottom"><b>dst</b></td></tr>
 <p>Fonction de lecture d'une trame brut sous forme de buffer. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">la</td><td>fonction prend en parametres le buffer contenant la trame </td></tr>
+    <tr><td class="paramname">unsigned</td><td>char* buffer la fonction prend en parametres le buffer contenant la trame </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>la fonction retourne la trame une fois analysé </dd></dl>
 <p>On commence le remplissage de la trame IP juste après le header Ethernet au byte 14</p>
 
-<p>Definition at line <a class="el" href="_i_p_frame_8cpp_source.html#l00020">20</a> of file <a class="el" href="_i_p_frame_8cpp_source.html">IPFrame.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_i_p_frame_8cpp_source.html#l00053">53</a> of file <a class="el" href="_i_p_frame_8cpp_source.html">IPFrame.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a74ecfacfe40f385a5d24de9ba5458801"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">IPFrame::IPFrame </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Constructeur par défaut d'un paquet IP. </p>
+<p>On commence le remplissage de la trame IP juste après le header Ethernet au byte 14</p>
+
+<p>Definition at line <a class="el" href="_i_p_frame_8cpp_source.html#l00014">14</a> of file <a class="el" href="_i_p_frame_8cpp_source.html">IPFrame.cpp</a>.</p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_i_p_frame_a74ecfacfe40f385a5d24de9ba5458801_cgraph.png" border="0" usemap="#class_i_p_frame_a74ecfacfe40f385a5d24de9ba5458801_cgraph" alt=""/></div>
+<map name="class_i_p_frame_a74ecfacfe40f385a5d24de9ba5458801_cgraph" id="class_i_p_frame_a74ecfacfe40f385a5d24de9ba5458801_cgraph">
+<area shape="rect" id="node2" href="class_p_c.html#a0f4e6f28ce983fa330d5014b79016e18" title="Fonction de récupération de l&#39;adresse ip de destination. " alt="" coords="184,5,264,32"/></map>
+</div>
+</p>
 
 </div>
 </div>
@@ -201,13 +232,13 @@ string&#160;</td><td class="memItemRight" valign="bottom"><b>dst</b></td></tr>
 </div><div class="memdoc">
 <p>Trame IP 4 bits Version 4 bits HeaderLength 1 bytes DFS 2 bytes TotalLength 2 bytes ID 3 bits Flags -&gt; 1 Reserved -&gt; 1 DF -&gt; 1 MF 13 bits Fragments Offset 1 byte TTL 1 byte Protocol 2 bytes Checksum 4 bytes src 4 bytes dst </p>
 
-<p>Definition at line <a class="el" href="_i_p_frame_8h_source.html#l00039">39</a> of file <a class="el" href="_i_p_frame_8h_source.html">IPFrame.h</a>.</p>
+<p>Definition at line <a class="el" href="_i_p_frame_8h_source.html#l00045">45</a> of file <a class="el" href="_i_p_frame_8h_source.html">IPFrame.h</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>lib/Frames/<a class="el" href="_i_p_frame_8h_source.html">IPFrame.h</a></li>
-<li>lib/Frames/<a class="el" href="_i_p_frame_8cpp_source.html">IPFrame.cpp</a></li>
+<li>Frames/<a class="el" href="_i_p_frame_8h_source.html">IPFrame.h</a></li>
+<li>Frames/<a class="el" href="_i_p_frame_8cpp_source.html">IPFrame.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

@@ -1,3 +1,7 @@
 <map id="Connection::Send" name="Connection::Send">
-<area shape="rect" id="node2" href="$class_connection.html#a06d22a37e22497e091418efd799f2852" title="Envoi d&#39;un segment TCP. " alt="" coords="180,5,307,32"/>
+<area shape="rect" id="node2" href="$class_connection.html#a06d22a37e22497e091418efd799f2852" title="Envoi d&#39;un segment TCP. " alt="" coords="180,31,307,57"/>
+<area shape="rect" id="node3" href="$class_t_c_p_frame.html#a61268d08ab70389ecfbcd07a5ac96e15" title="Fonction de mide en place d&#39;une trame TCP. " alt="" coords="355,31,497,57"/>
+<area shape="rect" id="node4" href="$class_t_c_p_frame.html#afdd645097397fa78521ba70020e7325e" title="Fonction de réalisation d&#39;un checksum TCP. " alt="" coords="545,5,749,32"/>
+<area shape="rect" id="node6" href="$class_t_c_p_frame.html#a8479decef77f88bba3f2c397ad661d5d" title="Fonction de réalisation d&#39;un checksum IP. " alt="" coords="549,56,745,83"/>
+<area shape="rect" id="node5" href="$class_t_c_p_frame.html#a81c8c0d306dc1028a3af594d8e9f4d66" title="Fonction de réalisation d&#39;un checksum. " alt="" coords="797,31,952,57"/>
 </map>

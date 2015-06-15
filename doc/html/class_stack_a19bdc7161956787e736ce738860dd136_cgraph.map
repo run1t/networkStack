@@ -1,0 +1,6 @@
+<map id="Stack::Send" name="Stack::Send">
+<area shape="rect" id="node2" href="$class_t_c_p_frame.html#a61268d08ab70389ecfbcd07a5ac96e15" title="Fonction de mide en place d&#39;une trame TCP. " alt="" coords="148,31,291,57"/>
+<area shape="rect" id="node3" href="$class_t_c_p_frame.html#afdd645097397fa78521ba70020e7325e" title="Fonction de réalisation d&#39;un checksum TCP. " alt="" coords="339,5,543,32"/>
+<area shape="rect" id="node5" href="$class_t_c_p_frame.html#a8479decef77f88bba3f2c397ad661d5d" title="Fonction de réalisation d&#39;un checksum IP. " alt="" coords="343,56,539,83"/>
+<area shape="rect" id="node4" href="$class_t_c_p_frame.html#a81c8c0d306dc1028a3af594d8e9f4d66" title="Fonction de réalisation d&#39;un checksum. " alt="" coords="591,31,745,57"/>
+</map>

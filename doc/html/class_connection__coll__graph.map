@@ -1,0 +1,5 @@
+<map id="Connection" name="Connection">
+<area shape="rect" id="node2" href="$class_t_c_p_frame.html" title="TCPFrame" alt="" coords="6,184,93,211"/>
+<area shape="rect" id="node3" href="$class_e_t_h_frame.html" title="ETHFrame" alt="" coords="15,5,102,32"/>
+<area shape="rect" id="node4" href="$class_i_p_frame.html" title="IPFrame" alt="" coords="75,95,147,121"/>
+</map>

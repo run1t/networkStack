@@ -1,0 +1,10 @@
+<map id="TCPFrame::get_tcp_checksum" name="TCPFrame::get_tcp_checksum">
+<area shape="rect" id="node2" href="$class_t_c_p_frame.html#a61268d08ab70389ecfbcd07a5ac96e15" title="Fonction de mide en place d&#39;une trame TCP. " alt="" coords="257,145,400,172"/>
+<area shape="rect" id="node3" href="$class_connection.html#a06d22a37e22497e091418efd799f2852" title="Envoi d&#39;un segment TCP. " alt="" coords="448,107,575,133"/>
+<area shape="rect" id="node8" href="$class_stack.html#a19bdc7161956787e736ce738860dd136" title="Fonction d&#39;envoie de trame TCP. " alt="" coords="464,183,559,209"/>
+<area shape="rect" id="node4" href="$class_connection.html#a134b7238777c95a005f10d16e1a93187" title="Gère la Connection en fonction de l&#39;ètat de la connection. " alt="" coords="623,5,825,32"/>
+<area shape="rect" id="node5" href="$class_connection.html#a3a1a976d12f85a2c66667f5b59abda53" title="Méthode permettant d&#39;envoyer un paquet contenant du protocole HTTP. " alt="" coords="643,56,805,83"/>
+<area shape="rect" id="node6" href="$class_connection.html#aae5567704c03de9d0f9d00be1da01606" title="Méthode envoyant de la Data brute sans protocole supérieur. Jusqu&#39;au protocole TCP. " alt="" coords="661,107,787,133"/>
+<area shape="rect" id="node7" href="$class_connection.html#ab47840ece7746e9de9eb78d3c9ac2a7a" title="Méthode permettant de fermer la connection. " alt="" coords="659,157,789,184"/>
+<area shape="rect" id="node9" href="$class_client.html#a0ac2de100aa9caa9b2632167c1f4ab1f" title="Méthode permettant de lancer la stack client. " alt="" coords="682,208,766,235"/>
+</map>

@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.9.1"/>
-<title>My Project: Stack.h Source File</title>
+<title>network_stack: Stack.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -23,7 +23,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">My Project
+   <div id="projectname">network_stack
    </div>
   </td>
  </tr>
@@ -100,11 +100,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">//Definition des protocoles</span></div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#define ICMP_PROTO 0x01</span></div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#define TCP_PROTO 0x06</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &quot;Frames/ETHFrame.h&quot;</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#include &quot;Frames/IPFrame.h&quot;</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#include &quot;Frames/TCPFrame.h&quot;</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#include &quot;Frames/ICMPFrame.h&quot;</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#include &quot;Frames/ARPFrame.h&quot;</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_e_t_h_frame_8h.html">Frames/ETHFrame.h</a>&quot;</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_i_p_frame_8h.html">Frames/IPFrame.h</a>&quot;</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_t_c_p_frame_8h.html">Frames/TCPFrame.h</a>&quot;</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_i_c_m_p_frame_8h.html">Frames/ICMPFrame.h</a>&quot;</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_a_r_p_frame_8h.html">Frames/ARPFrame.h</a>&quot;</span></div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_p_c_8h.html">PC.h</a>&quot;</span></div>
@@ -146,9 +146,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="comment">/*Methode de la stack*/</span> </div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <a class="code" href="class_stack.html">Stack</a>(<span class="keywordtype">string</span> ip,<span class="keywordtype">int</span> port);</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordtype">void</span> receiver();</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordtype">void</span> Send(TCPFrame tcp);</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordtype">void</span> Send(ICMPFrame icmp);</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordtype">void</span> Send(ARPFrame arp);</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordtype">void</span> Send(<a class="code" href="class_t_c_p_frame.html">TCPFrame</a> tcp);</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordtype">void</span> Send(<a class="code" href="class_i_c_m_p_frame.html">ICMPFrame</a> icmp);</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordtype">void</span> Send(<a class="code" href="class_a_r_p_frame.html">ARPFrame</a> arp);</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordtype">void</span> addDataEvent(<span class="keyword">function</span>&lt;<span class="keywordtype">void</span>(<a class="code" href="class_connection.html">Connection</a>*)&gt; func);</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  </div>
@@ -159,10 +159,18 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;</div>
 <div class="ttc" id="class_stack_html"><div class="ttname"><a href="class_stack.html">Stack</a></div><div class="ttdef"><b>Definition:</b> <a href="_stack_8h_source.html#l00051">Stack.h:51</a></div></div>
+<div class="ttc" id="class_t_c_p_frame_html"><div class="ttname"><a href="class_t_c_p_frame.html">TCPFrame</a></div><div class="ttdef"><b>Definition:</b> <a href="_t_c_p_frame_8h_source.html#l00039">TCPFrame.h:39</a></div></div>
 <div class="ttc" id="namespacestd_html"><div class="ttname"><a href="namespacestd.html">std</a></div></div>
+<div class="ttc" id="_i_c_m_p_frame_8h_html"><div class="ttname"><a href="_i_c_m_p_frame_8h.html">ICMPFrame.h</a></div><div class="ttdoc">fichier qui permet de lire les trames ICMP bruts </div></div>
 <div class="ttc" id="class_connection_html"><div class="ttname"><a href="class_connection.html">Connection</a></div><div class="ttdef"><b>Definition:</b> <a href="_connection_8h_source.html#l00043">Connection.h:43</a></div></div>
+<div class="ttc" id="_i_p_frame_8h_html"><div class="ttname"><a href="_i_p_frame_8h.html">IPFrame.h</a></div><div class="ttdoc">fichier qui permet de lire les trames ICMP bruts </div></div>
+<div class="ttc" id="_t_c_p_frame_8h_html"><div class="ttname"><a href="_t_c_p_frame_8h.html">TCPFrame.h</a></div><div class="ttdoc">fichier qui permet de gerer la lecture et l&#39;ecriture de trame pour la couche TCP </div></div>
+<div class="ttc" id="class_a_r_p_frame_html"><div class="ttname"><a href="class_a_r_p_frame.html">ARPFrame</a></div><div class="ttdef"><b>Definition:</b> <a href="_a_r_p_frame_8h_source.html#l00023">ARPFrame.h:23</a></div></div>
+<div class="ttc" id="_a_r_p_frame_8h_html"><div class="ttname"><a href="_a_r_p_frame_8h.html">ARPFrame.h</a></div><div class="ttdoc">fichier qui permet de lire les trames ARP bruts ainsi que de les créer </div></div>
 <div class="ttc" id="_connection_8h_html"><div class="ttname"><a href="_connection_8h.html">Connection.h</a></div><div class="ttdoc">Fichier de gestion de la connexion. </div></div>
+<div class="ttc" id="_e_t_h_frame_8h_html"><div class="ttname"><a href="_e_t_h_frame_8h.html">ETHFrame.h</a></div><div class="ttdoc">fichier qui permet de lire les trames ethernets bruts </div></div>
 <div class="ttc" id="_p_c_8h_html"><div class="ttname"><a href="_p_c_8h.html">PC.h</a></div><div class="ttdoc">Fichier de récupération des informations du pc. </div></div>
+<div class="ttc" id="class_i_c_m_p_frame_html"><div class="ttname"><a href="class_i_c_m_p_frame.html">ICMPFrame</a></div><div class="ttdef"><b>Definition:</b> <a href="_i_c_m_p_frame_8h_source.html#l00051">ICMPFrame.h:51</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

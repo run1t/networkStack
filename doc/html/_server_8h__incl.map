@@ -1,6 +1,11 @@
 <map id="Server.h" name="Server.h">
-<area shape="rect" id="node11" href="$_stack_8h.html" title="Fichier de gestion de l&#39;envoie et reception de packet TCP, ICMP et ARP. " alt="" coords="1105,155,1172,181"/>
-<area shape="rect" id="node33" href="$_connection_8h.html" title="Fichier de gestion de la connexion. " alt="" coords="948,229,1047,256"/>
-<area shape="rect" id="node34" href="$_client_8h.html" title="Fichier de gestion de la couche client. " alt="" coords="377,80,444,107"/>
-<area shape="rect" id="node17" href="$_p_c_8h.html" title="Fichier de récupération des informations du pc. " alt="" coords="879,304,931,331"/>
+<area shape="rect" id="node11" href="$_stack_8h.html" title="Fichier de gestion de l&#39;envoie et reception de packet TCP, ICMP et ARP. " alt="" coords="1285,155,1352,181"/>
+<area shape="rect" id="node39" href="$_connection_8h.html" title="Fichier de gestion de la connexion. " alt="" coords="767,229,865,256"/>
+<area shape="rect" id="node40" href="$_client_8h.html" title="Fichier de gestion de la couche client. " alt="" coords="987,80,1053,107"/>
+<area shape="rect" id="node12" href="$_e_t_h_frame_8h.html" title="fichier qui permet de lire les trames ethernets bruts " alt="" coords="2501,453,2646,480"/>
+<area shape="rect" id="node13" href="$_p_c_8h.html" title="Fichier de récupération des informations du pc. " alt="" coords="1781,528,1845,555"/>
+<area shape="rect" id="node26" href="$_i_p_frame_8h.html" title="fichier qui permet de lire les trames ICMP bruts " alt="" coords="2508,379,2639,405"/>
+<area shape="rect" id="node27" href="$_t_c_p_frame_8h.html" title="fichier qui permet de gerer la lecture et l&#39;ecriture de trame pour la couche TCP " alt="" coords="1646,304,1791,331"/>
+<area shape="rect" id="node33" href="$_i_c_m_p_frame_8h.html" title="fichier qui permet de lire les trames ICMP bruts " alt="" coords="2395,304,2547,331"/>
+<area shape="rect" id="node36" href="$_a_r_p_frame_8h.html" title="fichier qui permet de lire les trames ARP bruts ainsi que de les créer " alt="" coords="1160,304,1307,331"/>
 </map>

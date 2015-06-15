@@ -1,3 +1,6 @@
 <map id="Connection.h" name="Connection.h">
-<area shape="rect" id="node8" href="$_p_c_8h.html" title="Fichier de récupération des informations du pc. " alt="" coords="575,80,627,107"/>
+<area shape="rect" id="node8" href="$_p_c_8h.html" title="Fichier de récupération des informations du pc. " alt="" coords="837,304,889,331"/>
+<area shape="rect" id="node21" href="$_t_c_p_frame_8h.html" title="fichier qui permet de gerer la lecture et l&#39;ecriture de trame pour la couche TCP " alt="" coords="823,80,968,107"/>
+<area shape="rect" id="node22" href="$_e_t_h_frame_8h.html" title="fichier qui permet de lire les trames ethernets bruts " alt="" coords="1161,229,1259,256"/>
+<area shape="rect" id="node23" href="$_i_p_frame_8h.html" title="fichier qui permet de lire les trames ICMP bruts " alt="" coords="1009,155,1091,181"/>
 </map>

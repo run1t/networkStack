@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['receiver',['receiver',['../class_stack.html#a57631b70ddce6adc9d507209236ac1fe',1,'Stack']]]
+  ['ondatas',['onDatas',['../_server_8cpp.html#a9931a29f5086a322a977276119b7d43a',1,'Server.cpp']]]
 ];

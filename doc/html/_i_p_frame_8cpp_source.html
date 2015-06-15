@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.9.1"/>
-<title>Network_stack: lib/Frames/IPFrame.cpp Source File</title>
+<title>network_stack: Frames/IPFrame.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -23,7 +23,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">Network_stack
+   <div id="projectname">network_stack
    </div>
   </td>
  </tr>
@@ -38,7 +38,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -62,6 +61,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
       <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="globals.html"><span>File&#160;Members</span></a></li>
     </ul>
   </div>
 <!-- window showing the filter options -->
@@ -80,7 +80,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_97aefd0d527b934f1d99a682da8fe6a9.html">lib</a></li><li class="navelem"><a class="el" href="dir_36646c41dab4e1c29ab0367a946028dd.html">Frames</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_0411758b505da2f5abfa5514961a1116.html">Frames</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -88,71 +88,94 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">IPFrame.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;IPFrame.h&quot;</span></div>
+<a href="_i_p_frame_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_i_p_frame_8h.html">IPFrame.h</a>&quot;</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<a class="code" href="class_i_p_frame.html#a6c3e225798b3ad88ca74a37420048b06">IPFrame::IPFrame</a>(){</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;}</div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="class_i_p_frame.html#a6c3e225798b3ad88ca74a37420048b06">   20</a></span>&#160;<a class="code" href="class_i_p_frame.html#a6c3e225798b3ad88ca74a37420048b06">IPFrame::IPFrame</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>* buffer){</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    this-&gt;<a class="code" href="class_i_p_frame.html#a98af6dbeae8a0ab99394fc9958a69179">eth</a> = *<span class="keyword">new</span> <a class="code" href="class_e_t_h_frame.html">ETHFrame</a>(buffer);</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="comment">// Recuperation de la version IP</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    this-&gt;Version = buffer[14] &gt;&gt; 4;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    this-&gt;HeaderLength = (buffer[14] &amp; 0x0F)*32/8;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    this-&gt;DFS = 0;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    this-&gt;TotalLength = (buffer[16]*256+buffer[17]);</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    this-&gt;Id = (buffer[18]*256+buffer[19]);</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="comment">// Informations sur la fragmentation</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    this-&gt;Flag_Reserved = buffer[20] &gt;&gt; 7 &amp; 1;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    this-&gt;Flag_DF = buffer[20] &gt;&gt; 6 &amp; 1;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    this-&gt;Flag_MF = buffer[20] &gt;&gt; 5 &amp; 1;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    this-&gt;Flags = buffer[20];</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    this-&gt;PositionFragment = buffer[21];</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    this-&gt;TTL = buffer[22];</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    this-&gt;Protocol = buffer[23];</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    this-&gt;Checksum = (buffer[24]*256+buffer[25]);</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="comment">//IP src</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    this-&gt;src = <span class="stringliteral">&quot;&quot;</span>;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 26; i &lt; 30 ; i++){</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        std::stringstream stream;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        stream &lt;&lt; std::dec &lt;&lt; int (buffer[i]);</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        std::string result( stream.str() );</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="keywordflow">if</span>(i &lt; 29){</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            this-&gt;src += result + <span class="stringliteral">&quot;.&quot;</span>;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        }<span class="keywordflow">else</span>{</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;            this-&gt;src += result ;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        }</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    }</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="comment">//IP dst</span></div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    this-&gt;dst = <span class="stringliteral">&quot;&quot;</span>;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 30; i &lt; 34 ; i++){</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        std::stringstream stream;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        stream &lt;&lt; std::dec &lt;&lt; int (buffer[i]);</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        std::string result( stream.str() );</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        <span class="keywordflow">if</span>(i &lt; 33){</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            this-&gt;dst += result + <span class="stringliteral">&quot;.&quot;</span>;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        }<span class="keywordflow">else</span>{</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;            this-&gt;dst += result ;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        }</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    }</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 21 ; i &lt; this-&gt;HeaderLength; i++){</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        this-&gt;options.push_back(buffer[i+14]);</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    }</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;}</div>
-<div class="ttc" id="class_e_t_h_frame_html"><div class="ttname"><a href="class_e_t_h_frame.html">ETHFrame</a></div><div class="ttdef"><b>Definition:</b> <a href="_e_t_h_frame_8h_source.html#l00015">ETHFrame.h:15</a></div></div>
-<div class="ttc" id="class_i_p_frame_html_a6c3e225798b3ad88ca74a37420048b06"><div class="ttname"><a href="class_i_p_frame.html#a6c3e225798b3ad88ca74a37420048b06">IPFrame::IPFrame</a></div><div class="ttdeci">IPFrame(unsigned char *bufferr)</div><div class="ttdoc">Fonction de lecture d&#39;une trame brut sous forme de buffer. </div><div class="ttdef"><b>Definition:</b> <a href="_i_p_frame_8cpp_source.html#l00020">IPFrame.cpp:20</a></div></div>
-<div class="ttc" id="class_i_p_frame_html_a98af6dbeae8a0ab99394fc9958a69179"><div class="ttname"><a href="class_i_p_frame.html#a98af6dbeae8a0ab99394fc9958a69179">IPFrame::eth</a></div><div class="ttdeci">ETHFrame eth</div><div class="ttdef"><b>Definition:</b> <a href="_i_p_frame_8h_source.html#l00039">IPFrame.h:39</a></div></div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="class_i_p_frame.html#a74ecfacfe40f385a5d24de9ba5458801">   14</a></span>&#160;<a class="code" href="class_i_p_frame.html#a74ecfacfe40f385a5d24de9ba5458801">IPFrame::IPFrame</a>(){</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    this-&gt;<a class="code" href="class_i_p_frame.html#a98af6dbeae8a0ab99394fc9958a69179">eth</a> = *<span class="keyword">new</span> <a class="code" href="class_e_t_h_frame.html">ETHFrame</a>();</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="comment">// Recuperation de la version IP</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    this-&gt;Version = 4;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    this-&gt;HeaderLength = 20;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    this-&gt;DFS = 0;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    this-&gt;TotalLength = 0;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    this-&gt;Id = 0;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="comment">// Informations sur la fragmentation</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    this-&gt;Flag_Reserved = 0;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    this-&gt;Flag_DF = 0;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    this-&gt;Flag_MF = 0;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    this-&gt;Flags = 64;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    this-&gt;PositionFragment = 0;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    this-&gt;TTL = 255;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    this-&gt;Protocol = 6;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    this-&gt;Checksum = 0;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="comment">//IP src</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    this-&gt;src = <a class="code" href="class_p_c.html#a0f4e6f28ce983fa330d5014b79016e18">PC::getIP</a>();</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="comment">//IP dst</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    this-&gt;dst = <span class="stringliteral">&quot;0.0.0.0&quot;</span>;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;}</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;</div>
+<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="class_i_p_frame.html#a6c3e225798b3ad88ca74a37420048b06">   53</a></span>&#160;<a class="code" href="class_i_p_frame.html#a74ecfacfe40f385a5d24de9ba5458801">IPFrame::IPFrame</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>* buffer){</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    this-&gt;<a class="code" href="class_i_p_frame.html#a98af6dbeae8a0ab99394fc9958a69179">eth</a> = *<span class="keyword">new</span> <a class="code" href="class_e_t_h_frame.html">ETHFrame</a>(buffer);</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="comment">// Recuperation de la version IP</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    this-&gt;Version = buffer[14] &gt;&gt; 4;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    this-&gt;HeaderLength = (buffer[14] &amp; 0x0F)*32/8;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    this-&gt;DFS = 0;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    this-&gt;TotalLength = (buffer[16]*256+buffer[17]);</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    this-&gt;Id = (buffer[18]*256+buffer[19]);</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="comment">// Informations sur la fragmentation</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    this-&gt;Flag_Reserved = buffer[20] &gt;&gt; 7 &amp; 1;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    this-&gt;Flag_DF = buffer[20] &gt;&gt; 6 &amp; 1;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    this-&gt;Flag_MF = buffer[20] &gt;&gt; 5 &amp; 1;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    this-&gt;Flags = buffer[20];</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    this-&gt;PositionFragment = buffer[21];</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    this-&gt;TTL = buffer[22];</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    this-&gt;Protocol = buffer[23];</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    this-&gt;Checksum = (buffer[24]*256+buffer[25]);</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="comment">//IP src</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    this-&gt;src = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 26; i &lt; 30 ; i++){</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        std::stringstream stream;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        stream &lt;&lt; std::dec &lt;&lt; int (buffer[i]);</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        std::string result( stream.str() );</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        </div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        <span class="keywordflow">if</span>(i &lt; 29){</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;            this-&gt;src += result + <span class="stringliteral">&quot;.&quot;</span>;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        }<span class="keywordflow">else</span>{</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;            this-&gt;src += result ;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        }</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    }</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="comment">//IP dst</span></div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    this-&gt;dst = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 30; i &lt; 34 ; i++){</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        std::stringstream stream;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        stream &lt;&lt; std::dec &lt;&lt; int (buffer[i]);</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        std::string result( stream.str() );</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        </div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        <span class="keywordflow">if</span>(i &lt; 33){</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;            this-&gt;dst += result + <span class="stringliteral">&quot;.&quot;</span>;</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        }<span class="keywordflow">else</span>{</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;            this-&gt;dst += result ;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        }</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    }</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 21 ; i &lt; this-&gt;HeaderLength; i++){</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        this-&gt;options.push_back(buffer[i+14]);</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    }</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;}</div>
+<div class="ttc" id="class_e_t_h_frame_html"><div class="ttname"><a href="class_e_t_h_frame.html">ETHFrame</a></div><div class="ttdef"><b>Definition:</b> <a href="_e_t_h_frame_8h_source.html#l00016">ETHFrame.h:16</a></div></div>
+<div class="ttc" id="class_p_c_html_a0f4e6f28ce983fa330d5014b79016e18"><div class="ttname"><a href="class_p_c.html#a0f4e6f28ce983fa330d5014b79016e18">PC::getIP</a></div><div class="ttdeci">static string getIP()</div><div class="ttdoc">Fonction de récupération de l&#39;adresse ip de destination. </div><div class="ttdef"><b>Definition:</b> <a href="_p_c_8cpp_source.html#l00015">PC.cpp:15</a></div></div>
+<div class="ttc" id="_i_p_frame_8h_html"><div class="ttname"><a href="_i_p_frame_8h.html">IPFrame.h</a></div><div class="ttdoc">fichier qui permet de lire les trames ICMP bruts </div></div>
+<div class="ttc" id="class_i_p_frame_html_a98af6dbeae8a0ab99394fc9958a69179"><div class="ttname"><a href="class_i_p_frame.html#a98af6dbeae8a0ab99394fc9958a69179">IPFrame::eth</a></div><div class="ttdeci">ETHFrame eth</div><div class="ttdef"><b>Definition:</b> <a href="_i_p_frame_8h_source.html#l00045">IPFrame.h:45</a></div></div>
+<div class="ttc" id="class_i_p_frame_html_a74ecfacfe40f385a5d24de9ba5458801"><div class="ttname"><a href="class_i_p_frame.html#a74ecfacfe40f385a5d24de9ba5458801">IPFrame::IPFrame</a></div><div class="ttdeci">IPFrame()</div><div class="ttdoc">Constructeur par défaut d&#39;un paquet IP. </div><div class="ttdef"><b>Definition:</b> <a href="_i_p_frame_8cpp_source.html#l00014">IPFrame.cpp:14</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

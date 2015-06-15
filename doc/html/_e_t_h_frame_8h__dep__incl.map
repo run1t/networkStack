@@ -1,14 +1,19 @@
-<map id="lib/Frames/ETHFrame.h" name="lib/Frames/ETHFrame.h">
-<area shape="rect" id="node2" href="$_a_r_p_frame_8h.html" title="fichier qui permet de lire les trames ARP bruts ainsi que de les créer " alt="" coords="32,80,195,107"/>
-<area shape="rect" id="node4" href="$_stack_8h_source.html" title="lib/Stack.h" alt="" coords="249,229,333,256"/>
-<area shape="rect" id="node7" href="$_e_t_h_frame_8cpp.html" title="fichier qui permet de lire les trames ethernets bruts " alt="" coords="648,80,824,107"/>
-<area shape="rect" id="node8" href="$_i_c_m_p_frame_8h.html" title="fichier qui permet de lire les trames ICMP bruts " alt="" coords="515,155,685,181"/>
-<area shape="rect" id="node10" href="$_i_p_frame_8h_source.html" title="lib/Frames/IPFrame.h" alt="" coords="374,80,522,107"/>
-<area shape="rect" id="node12" href="$_t_c_p_frame_8h.html" title="fichier qui permet de gerer la lecture et l&#39;ecriture de trame pour la couche TCP " alt="" coords="709,155,872,181"/>
-<area shape="rect" id="node3" href="$_a_r_p_frame_8cpp.html" title="fichier qui permet de lire les trames ARP bruts ainsi que de les créer " alt="" coords="25,155,202,181"/>
-<area shape="rect" id="node5" href="$_stack_8cpp_source.html" title="lib/Stack.cpp" alt="" coords="187,304,285,331"/>
-<area shape="rect" id="node6" href="$main_8cpp_source.html" title="main.cpp" alt="" coords="309,304,384,331"/>
-<area shape="rect" id="node9" href="$_i_c_m_p_frame_8cpp.html" title="fichier qui permet de lire les trames ICMP bruts " alt="" coords="502,229,685,256"/>
-<area shape="rect" id="node11" href="$_i_p_frame_8cpp_source.html" title="lib/Frames/IPFrame.cpp" alt="" coords="328,155,491,181"/>
-<area shape="rect" id="node13" href="$_t_c_p_frame_8cpp.html" title="fichier qui permet de gerer la lecture et l&#39;ecriture de trame pour la couche TCP " alt="" coords="709,229,885,256"/>
+<map id="Frames/ETHFrame.h" name="Frames/ETHFrame.h">
+<area shape="rect" id="node2" href="$_stack_8h.html" title="Fichier de gestion de l&#39;envoie et reception de packet TCP, ICMP et ARP. " alt="" coords="577,304,644,331"/>
+<area shape="rect" id="node8" href="$_i_p_frame_8h.html" title="fichier qui permet de lire les trames ICMP bruts " alt="" coords="680,80,811,107"/>
+<area shape="rect" id="node9" href="$_t_c_p_frame_8h.html" title="fichier qui permet de gerer la lecture et l&#39;ecriture de trame pour la couche TCP " alt="" coords="451,155,597,181"/>
+<area shape="rect" id="node13" href="$_i_c_m_p_frame_8h.html" title="fichier qui permet de lire les trames ICMP bruts " alt="" coords="843,155,995,181"/>
+<area shape="rect" id="node16" href="$_a_r_p_frame_8h.html" title="fichier qui permet de lire les trames ARP bruts ainsi que de les créer " alt="" coords="69,229,216,256"/>
+<area shape="rect" id="node18" href="$_e_t_h_frame_8cpp.html" title="fichier qui permet de lire les trames ethernets bruts " alt="" coords="1070,80,1229,107"/>
+<area shape="rect" id="node3" href="$_client_8h.html" title="Fichier de gestion de la couche client. " alt="" coords="309,379,376,405"/>
+<area shape="rect" id="node5" href="$_server_8h.html" title="Fichier permettant de gérer le server. " alt="" coords="497,453,567,480"/>
+<area shape="rect" id="node7" href="$_stack_8cpp.html" title="Fichier de gestion de l&#39;envoi et réception de packet. " alt="" coords="621,379,702,405"/>
+<area shape="rect" id="node4" href="$_client_8cpp.html" title="Fichier de gestion de la couche client. " alt="" coords="302,453,383,480"/>
+<area shape="rect" id="node6" href="$_server_8cpp.html" title="Fichier gérant le serveur. " alt="" coords="489,528,575,555"/>
+<area shape="rect" id="node15" href="$_i_p_frame_8cpp.html" title="fichier qui permet de lire les trames ICMP bruts " alt="" coords="673,155,818,181"/>
+<area shape="rect" id="node10" href="$_connection_8h.html" title="Fichier de gestion de la connexion. " alt="" coords="475,229,573,256"/>
+<area shape="rect" id="node12" href="$_t_c_p_frame_8cpp.html" title="fichier qui permet de gerer la lecture et l&#39;ecriture de trame pour la couche TCP " alt="" coords="291,229,450,256"/>
+<area shape="rect" id="node11" href="$_connection_8cpp.html" title="Gère les connections. " alt="" coords="381,304,494,331"/>
+<area shape="rect" id="node14" href="$_i_c_m_p_frame_8cpp.html" title="fichier qui permet de lire les trames ICMP bruts " alt="" coords="827,229,994,256"/>
+<area shape="rect" id="node17" href="$_a_r_p_frame_8cpp.html" title="fichier qui permet de lire les trames ARP bruts ainsi que de les créer " alt="" coords="5,304,165,331"/>
 </map>

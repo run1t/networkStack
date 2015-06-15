@@ -13,7 +13,6 @@ Server* Server::server;
  * \param Connection *connection
  */
 void onDatas(Connection *connection){
-	cout << "on a notre premier niveau "<< endl;
 	Server::server->onData(connection);
 }
 

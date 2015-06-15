@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.9.1"/>
-<title>My Project: Connection Class Reference</title>
+<title>network_stack: Connection Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -23,7 +23,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">My Project
+   <div id="projectname">network_stack
    </div>
   </td>
  </tr>
@@ -90,16 +90,23 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">Connection Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+<div class="dynheader">
+Collaboration diagram for Connection:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_connection__coll__graph.png" border="0" usemap="#_connection_coll__map" alt="Collaboration graph"/></div>
+<map name="_connection_coll__map" id="_connection_coll__map">
+<area shape="rect" id="node2" href="class_t_c_p_frame.html" title="TCPFrame" alt="" coords="6,184,93,211"/><area shape="rect" id="node3" href="class_e_t_h_frame.html" title="ETHFrame" alt="" coords="15,5,102,32"/><area shape="rect" id="node4" href="class_i_p_frame.html" title="IPFrame" alt="" coords="75,95,147,121"/></map>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aad8a0cdce616f656250fa12edb59104a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_connection.html#aad8a0cdce616f656250fa12edb59104a">Connection</a> (int port)</td></tr>
 <tr class="memdesc:aad8a0cdce616f656250fa12edb59104a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructeur d'une connection.  <a href="#aad8a0cdce616f656250fa12edb59104a">More...</a><br /></td></tr>
 <tr class="separator:aad8a0cdce616f656250fa12edb59104a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a134b7238777c95a005f10d16e1a93187"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_connection.html#a134b7238777c95a005f10d16e1a93187">HandleConnection</a> (TCPFrame tcpframe)</td></tr>
+<tr class="memitem:a134b7238777c95a005f10d16e1a93187"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_connection.html#a134b7238777c95a005f10d16e1a93187">HandleConnection</a> (<a class="el" href="class_t_c_p_frame.html">TCPFrame</a> tcpframe)</td></tr>
 <tr class="memdesc:a134b7238777c95a005f10d16e1a93187"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gère la <a class="el" href="class_connection.html">Connection</a> en fonction de l'ètat de la connection.  <a href="#a134b7238777c95a005f10d16e1a93187">More...</a><br /></td></tr>
 <tr class="separator:a134b7238777c95a005f10d16e1a93187"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a06d22a37e22497e091418efd799f2852"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_connection.html#a06d22a37e22497e091418efd799f2852">Send</a> (TCPFrame tcp)</td></tr>
+<tr class="memitem:a06d22a37e22497e091418efd799f2852"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_connection.html#a06d22a37e22497e091418efd799f2852">Send</a> (<a class="el" href="class_t_c_p_frame.html">TCPFrame</a> tcp)</td></tr>
 <tr class="memdesc:a06d22a37e22497e091418efd799f2852"><td class="mdescLeft">&#160;</td><td class="mdescRight">Envoi d'un segment TCP.  <a href="#a06d22a37e22497e091418efd799f2852">More...</a><br /></td></tr>
 <tr class="separator:a06d22a37e22497e091418efd799f2852"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aae5567704c03de9d0f9d00be1da01606"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_connection.html#aae5567704c03de9d0f9d00be1da01606">Send</a> (string data)</td></tr>
@@ -132,13 +139,13 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>DataOn</b></td></tr>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>Type</b></td></tr>
 <tr class="separator:a904d5dc60e0f615950349f1e42be10c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a22e6c5b9726294aab89bddb61a1b6287"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a22e6c5b9726294aab89bddb61a1b6287"></a>
-TCPFrame&#160;</td><td class="memItemRight" valign="bottom"><b>Response</b></td></tr>
+<a class="el" href="class_t_c_p_frame.html">TCPFrame</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Response</b></td></tr>
 <tr class="separator:a22e6c5b9726294aab89bddb61a1b6287"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a63d071452093465b8849ac522cb92526"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a63d071452093465b8849ac522cb92526"></a>
 string&#160;</td><td class="memItemRight" valign="bottom"><b>Data</b></td></tr>
 <tr class="separator:a63d071452093465b8849ac522cb92526"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab666a05c11e0eb7d7fed55fd80f08c2d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab666a05c11e0eb7d7fed55fd80f08c2d"></a>
-vector&lt; TCPFrame &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>Frames</b></td></tr>
+vector&lt; <a class="el" href="class_t_c_p_frame.html">TCPFrame</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>Frames</b></td></tr>
 <tr class="separator:ab666a05c11e0eb7d7fed55fd80f08c2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
@@ -185,7 +192,7 @@ static int&#160;</td><td class="memItemRight" valign="bottom"><b>ConnectionNumbe
         <tr>
           <td class="memname">void Connection::HandleConnection </td>
           <td>(</td>
-          <td class="paramtype">TCPFrame&#160;</td>
+          <td class="paramtype"><a class="el" href="class_t_c_p_frame.html">TCPFrame</a>&#160;</td>
           <td class="paramname"><em>tcp</em></td><td>)</td>
           <td></td>
         </tr>
@@ -207,7 +214,7 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_connection_a134b7238777c95a005f10d16e1a93187_cgraph.png" border="0" usemap="#class_connection_a134b7238777c95a005f10d16e1a93187_cgraph" alt=""/></div>
 <map name="class_connection_a134b7238777c95a005f10d16e1a93187_cgraph" id="class_connection_a134b7238777c95a005f10d16e1a93187_cgraph">
-<area shape="rect" id="node2" href="class_connection.html#a06d22a37e22497e091418efd799f2852" title="Envoi d&#39;un segment TCP. " alt="" coords="256,5,383,32"/></map>
+<area shape="rect" id="node2" href="class_connection.html#a06d22a37e22497e091418efd799f2852" title="Envoi d&#39;un segment TCP. " alt="" coords="256,31,383,57"/><area shape="rect" id="node3" href="class_t_c_p_frame.html#a61268d08ab70389ecfbcd07a5ac96e15" title="Fonction de mide en place d&#39;une trame TCP. " alt="" coords="431,31,573,57"/><area shape="rect" id="node4" href="class_t_c_p_frame.html#afdd645097397fa78521ba70020e7325e" title="Fonction de réalisation d&#39;un checksum TCP. " alt="" coords="621,5,825,32"/><area shape="rect" id="node6" href="class_t_c_p_frame.html#a8479decef77f88bba3f2c397ad661d5d" title="Fonction de réalisation d&#39;un checksum IP. " alt="" coords="625,56,821,83"/><area shape="rect" id="node5" href="class_t_c_p_frame.html#a81c8c0d306dc1028a3af594d8e9f4d66" title="Fonction de réalisation d&#39;un checksum. " alt="" coords="873,31,1028,57"/></map>
 </div>
 </p>
 
@@ -220,7 +227,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">void Connection::Send </td>
           <td>(</td>
-          <td class="paramtype">TCPFrame&#160;</td>
+          <td class="paramtype"><a class="el" href="class_t_c_p_frame.html">TCPFrame</a>&#160;</td>
           <td class="paramname"><em>tcp</em></td><td>)</td>
           <td></td>
         </tr>
@@ -236,6 +243,15 @@ Here is the call graph for this function:</div>
 </dl>
 
 <p>Definition at line <a class="el" href="_connection_8cpp_source.html#l00188">188</a> of file <a class="el" href="_connection_8cpp_source.html">Connection.cpp</a>.</p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_connection_a06d22a37e22497e091418efd799f2852_cgraph.png" border="0" usemap="#class_connection_a06d22a37e22497e091418efd799f2852_cgraph" alt=""/></div>
+<map name="class_connection_a06d22a37e22497e091418efd799f2852_cgraph" id="class_connection_a06d22a37e22497e091418efd799f2852_cgraph">
+<area shape="rect" id="node2" href="class_t_c_p_frame.html#a61268d08ab70389ecfbcd07a5ac96e15" title="Fonction de mide en place d&#39;une trame TCP. " alt="" coords="180,31,323,57"/><area shape="rect" id="node3" href="class_t_c_p_frame.html#afdd645097397fa78521ba70020e7325e" title="Fonction de réalisation d&#39;un checksum TCP. " alt="" coords="371,5,575,32"/><area shape="rect" id="node5" href="class_t_c_p_frame.html#a8479decef77f88bba3f2c397ad661d5d" title="Fonction de réalisation d&#39;un checksum IP. " alt="" coords="375,56,571,83"/><area shape="rect" id="node4" href="class_t_c_p_frame.html#a81c8c0d306dc1028a3af594d8e9f4d66" title="Fonction de réalisation d&#39;un checksum. " alt="" coords="623,31,777,57"/></map>
+</div>
+</p>
 
 <p><div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -277,7 +293,7 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_connection_aae5567704c03de9d0f9d00be1da01606_cgraph.png" border="0" usemap="#class_connection_aae5567704c03de9d0f9d00be1da01606_cgraph" alt=""/></div>
 <map name="class_connection_aae5567704c03de9d0f9d00be1da01606_cgraph" id="class_connection_aae5567704c03de9d0f9d00be1da01606_cgraph">
-<area shape="rect" id="node2" href="class_connection.html#a06d22a37e22497e091418efd799f2852" title="Envoi d&#39;un segment TCP. " alt="" coords="180,5,307,32"/></map>
+<area shape="rect" id="node2" href="class_connection.html#a06d22a37e22497e091418efd799f2852" title="Envoi d&#39;un segment TCP. " alt="" coords="180,31,307,57"/><area shape="rect" id="node3" href="class_t_c_p_frame.html#a61268d08ab70389ecfbcd07a5ac96e15" title="Fonction de mide en place d&#39;une trame TCP. " alt="" coords="355,31,497,57"/><area shape="rect" id="node4" href="class_t_c_p_frame.html#afdd645097397fa78521ba70020e7325e" title="Fonction de réalisation d&#39;un checksum TCP. " alt="" coords="545,5,749,32"/><area shape="rect" id="node6" href="class_t_c_p_frame.html#a8479decef77f88bba3f2c397ad661d5d" title="Fonction de réalisation d&#39;un checksum IP. " alt="" coords="549,56,745,83"/><area shape="rect" id="node5" href="class_t_c_p_frame.html#a81c8c0d306dc1028a3af594d8e9f4d66" title="Fonction de réalisation d&#39;un checksum. " alt="" coords="797,31,952,57"/></map>
 </div>
 </p>
 
@@ -312,7 +328,7 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_connection_a3a1a976d12f85a2c66667f5b59abda53_cgraph.png" border="0" usemap="#class_connection_a3a1a976d12f85a2c66667f5b59abda53_cgraph" alt=""/></div>
 <map name="class_connection_a3a1a976d12f85a2c66667f5b59abda53_cgraph" id="class_connection_a3a1a976d12f85a2c66667f5b59abda53_cgraph">
-<area shape="rect" id="node2" href="class_connection.html#a06d22a37e22497e091418efd799f2852" title="Envoi d&#39;un segment TCP. " alt="" coords="215,5,341,32"/></map>
+<area shape="rect" id="node2" href="class_connection.html#a06d22a37e22497e091418efd799f2852" title="Envoi d&#39;un segment TCP. " alt="" coords="215,31,341,57"/><area shape="rect" id="node3" href="class_t_c_p_frame.html#a61268d08ab70389ecfbcd07a5ac96e15" title="Fonction de mide en place d&#39;une trame TCP. " alt="" coords="389,31,532,57"/><area shape="rect" id="node4" href="class_t_c_p_frame.html#afdd645097397fa78521ba70020e7325e" title="Fonction de réalisation d&#39;un checksum TCP. " alt="" coords="580,5,784,32"/><area shape="rect" id="node6" href="class_t_c_p_frame.html#a8479decef77f88bba3f2c397ad661d5d" title="Fonction de réalisation d&#39;un checksum IP. " alt="" coords="584,56,780,83"/><area shape="rect" id="node5" href="class_t_c_p_frame.html#a81c8c0d306dc1028a3af594d8e9f4d66" title="Fonction de réalisation d&#39;un checksum. " alt="" coords="832,31,987,57"/></map>
 </div>
 </p>
 

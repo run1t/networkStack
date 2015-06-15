@@ -1,6 +1,11 @@
-<map id="lib/Frames/TCPFrame.h" name="lib/Frames/TCPFrame.h">
-<area shape="rect" id="node2" href="$_t_c_p_frame_8cpp.html" title="fichier qui permet de gerer la lecture et l&#39;ecriture de trame pour la couche TCP " alt="" coords="5,80,181,107"/>
-<area shape="rect" id="node3" href="$_stack_8h_source.html" title="lib/Stack.h" alt="" coords="206,80,290,107"/>
-<area shape="rect" id="node4" href="$_stack_8cpp_source.html" title="lib/Stack.cpp" alt="" coords="143,155,241,181"/>
-<area shape="rect" id="node5" href="$main_8cpp_source.html" title="main.cpp" alt="" coords="265,155,340,181"/>
+<map id="Frames/TCPFrame.h" name="Frames/TCPFrame.h">
+<area shape="rect" id="node2" href="$_stack_8h.html" title="Fichier de gestion de l&#39;envoie et reception de packet TCP, ICMP et ARP. " alt="" coords="229,155,295,181"/>
+<area shape="rect" id="node3" href="$_client_8h.html" title="Fichier de gestion de la couche client. " alt="" coords="13,229,79,256"/>
+<area shape="rect" id="node8" href="$_connection_8h.html" title="Fichier de gestion de la connexion. " alt="" coords="86,80,185,107"/>
+<area shape="rect" id="node10" href="$_t_c_p_frame_8cpp.html" title="fichier qui permet de gerer la lecture et l&#39;ecriture de trame pour la couche TCP " alt="" coords="260,80,419,107"/>
+<area shape="rect" id="node5" href="$_server_8h.html" title="Fichier permettant de gérer le server. " alt="" coords="156,304,227,331"/>
+<area shape="rect" id="node7" href="$_stack_8cpp.html" title="Fichier de gestion de l&#39;envoi et réception de packet. " alt="" coords="229,229,311,256"/>
+<area shape="rect" id="node4" href="$_client_8cpp.html" title="Fichier de gestion de la couche client. " alt="" coords="5,304,87,331"/>
+<area shape="rect" id="node6" href="$_server_8cpp.html" title="Fichier gérant le serveur. " alt="" coords="149,379,234,405"/>
+<area shape="rect" id="node9" href="$_connection_8cpp.html" title="Gère les connections. " alt="" coords="40,155,153,181"/>
 </map>

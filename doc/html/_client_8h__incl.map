@@ -1,5 +1,10 @@
 <map id="Client.h" name="Client.h">
-<area shape="rect" id="node7" href="$_stack_8h.html" title="Fichier de gestion de l&#39;envoie et reception de packet TCP, ICMP et ARP. " alt="" coords="1113,80,1180,107"/>
-<area shape="rect" id="node31" href="$_connection_8h.html" title="Fichier de gestion de la connexion. " alt="" coords="837,155,936,181"/>
-<area shape="rect" id="node13" href="$_p_c_8h.html" title="Fichier de récupération des informations du pc. " alt="" coords="659,229,711,256"/>
+<area shape="rect" id="node7" href="$_stack_8h.html" title="Fichier de gestion de l&#39;envoie et reception de packet TCP, ICMP et ARP. " alt="" coords="961,80,1028,107"/>
+<area shape="rect" id="node24" href="$_t_c_p_frame_8h.html" title="fichier qui permet de gerer la lecture et l&#39;ecriture de trame pour la couche TCP " alt="" coords="2495,229,2641,256"/>
+<area shape="rect" id="node33" href="$_a_r_p_frame_8h.html" title="fichier qui permet de lire les trames ARP bruts ainsi que de les créer " alt="" coords="653,229,800,256"/>
+<area shape="rect" id="node37" href="$_connection_8h.html" title="Fichier de gestion de la connexion. " alt="" coords="1225,155,1324,181"/>
+<area shape="rect" id="node8" href="$_e_t_h_frame_8h.html" title="fichier qui permet de lire les trames ethernets bruts " alt="" coords="1455,379,1601,405"/>
+<area shape="rect" id="node10" href="$_p_c_8h.html" title="Fichier de récupération des informations du pc. " alt="" coords="2008,453,2072,480"/>
+<area shape="rect" id="node22" href="$_i_p_frame_8h.html" title="fichier qui permet de lire les trames ICMP bruts " alt="" coords="1471,304,1601,331"/>
+<area shape="rect" id="node30" href="$_i_c_m_p_frame_8h.html" title="fichier qui permet de lire les trames ICMP bruts " alt="" coords="1664,229,1816,256"/>
 </map>

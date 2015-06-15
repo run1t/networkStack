@@ -1,3 +1,7 @@
 <map id="Connection::HandleConnection" name="Connection::HandleConnection">
-<area shape="rect" id="node2" href="$class_connection.html#a06d22a37e22497e091418efd799f2852" title="Envoi d&#39;un segment TCP. " alt="" coords="256,5,383,32"/>
+<area shape="rect" id="node2" href="$class_connection.html#a06d22a37e22497e091418efd799f2852" title="Envoi d&#39;un segment TCP. " alt="" coords="256,31,383,57"/>
+<area shape="rect" id="node3" href="$class_t_c_p_frame.html#a61268d08ab70389ecfbcd07a5ac96e15" title="Fonction de mide en place d&#39;une trame TCP. " alt="" coords="431,31,573,57"/>
+<area shape="rect" id="node4" href="$class_t_c_p_frame.html#afdd645097397fa78521ba70020e7325e" title="Fonction de réalisation d&#39;un checksum TCP. " alt="" coords="621,5,825,32"/>
+<area shape="rect" id="node6" href="$class_t_c_p_frame.html#a8479decef77f88bba3f2c397ad661d5d" title="Fonction de réalisation d&#39;un checksum IP. " alt="" coords="625,56,821,83"/>
+<area shape="rect" id="node5" href="$class_t_c_p_frame.html#a81c8c0d306dc1028a3af594d8e9f4d66" title="Fonction de réalisation d&#39;un checksum. " alt="" coords="873,31,1028,57"/>
 </map>

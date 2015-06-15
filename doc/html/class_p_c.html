@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.9.1"/>
-<title>My Project: PC Class Reference</title>
+<title>network_stack: PC Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -23,7 +23,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">My Project
+   <div id="projectname">network_stack
    </div>
   </td>
  </tr>
@@ -147,7 +147,7 @@ static int&#160;</td><td class="memItemRight" valign="bottom"><b>activateARP</b>
 <p>Fonction l'activation des réponses ICMP du kernel. </p>
 <dl class="section return"><dt>Returns</dt><dd>-1 si erreur 0 si aucune erreur </dd></dl>
 
-<p>Definition at line <a class="el" href="_p_c_8cpp_source.html#l00181">181</a> of file <a class="el" href="_p_c_8cpp_source.html">PC.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_p_c_8cpp_source.html#l00186">186</a> of file <a class="el" href="_p_c_8cpp_source.html">PC.cpp</a>.</p>
 
 <p><div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -184,7 +184,7 @@ Here is the caller graph for this function:</div>
 <p>Fonction d'activation des reset du kernel. </p>
 <dl class="section return"><dt>Returns</dt><dd>-1 si erreur 0 si aucune erreur </dd></dl>
 
-<p>Definition at line <a class="el" href="_p_c_8cpp_source.html#l00135">135</a> of file <a class="el" href="_p_c_8cpp_source.html">PC.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_p_c_8cpp_source.html#l00139">139</a> of file <a class="el" href="_p_c_8cpp_source.html">PC.cpp</a>.</p>
 
 <p><div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -222,7 +222,7 @@ Here is the caller graph for this function:</div>
 <p>Fonction de l'activation des requêtes ARP automatiques du kernel.</p>
 <dl class="section return"><dt>Returns</dt><dd>-1 si erreur 0 si aucune erreur </dd></dl>
 
-<p>Definition at line <a class="el" href="_p_c_8cpp_source.html#l00214">214</a> of file <a class="el" href="_p_c_8cpp_source.html">PC.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_p_c_8cpp_source.html#l00219">219</a> of file <a class="el" href="_p_c_8cpp_source.html">PC.cpp</a>.</p>
 
 <p><div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -259,7 +259,7 @@ Here is the caller graph for this function:</div>
 <p>Fonction de désactivation des réponses ICMP du kernel. </p>
 <dl class="section return"><dt>Returns</dt><dd>-1 si erreur 0 si aucune erreur </dd></dl>
 
-<p>Definition at line <a class="el" href="_p_c_8cpp_source.html#l00149">149</a> of file <a class="el" href="_p_c_8cpp_source.html">PC.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_p_c_8cpp_source.html#l00153">153</a> of file <a class="el" href="_p_c_8cpp_source.html">PC.cpp</a>.</p>
 
 <p><div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -296,7 +296,7 @@ Here is the caller graph for this function:</div>
 <p>Fonction de désactivation des reset du kernel. </p>
 <dl class="section return"><dt>Returns</dt><dd>-1 si erreur 0 si aucune erreur </dd></dl>
 
-<p>Definition at line <a class="el" href="_p_c_8cpp_source.html#l00122">122</a> of file <a class="el" href="_p_c_8cpp_source.html">PC.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_p_c_8cpp_source.html#l00126">126</a> of file <a class="el" href="_p_c_8cpp_source.html">PC.cpp</a>.</p>
 
 <p><div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -341,7 +341,7 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_p_c_a0f4e6f28ce983fa330d5014b79016e18_icgraph.png" border="0" usemap="#class_p_c_a0f4e6f28ce983fa330d5014b79016e18_icgraph" alt=""/></div>
 <map name="class_p_c_a0f4e6f28ce983fa330d5014b79016e18_icgraph" id="class_p_c_a0f4e6f28ce983fa330d5014b79016e18_icgraph">
-<area shape="rect" id="node2" href="class_client.html#a0ac2de100aa9caa9b2632167c1f4ab1f" title="Méthode permettant de lancer la stack client. " alt="" coords="133,5,217,32"/></map>
+<area shape="rect" id="node2" href="class_client.html#a0ac2de100aa9caa9b2632167c1f4ab1f" title="Méthode permettant de lancer la stack client. " alt="" coords="171,5,255,32"/><area shape="rect" id="node3" href="class_a_r_p_frame.html#a330db7f3fead88db1860fa288a499c06" title="Constructeur par défaut d&#39;une requête ARP. " alt="" coords="133,56,293,83"/><area shape="rect" id="node4" href="class_i_p_frame.html#a74ecfacfe40f385a5d24de9ba5458801" title="Constructeur par défaut d&#39;un paquet IP. " alt="" coords="148,107,279,133"/></map>
 </div>
 </p>
 
@@ -376,6 +376,15 @@ La fonction retourne l'interface réseau de la machine </dd></dl>
 <p>On recupère l'adresse Mac de la machine</p>
 
 <p>Definition at line <a class="el" href="_p_c_8cpp_source.html#l00035">35</a> of file <a class="el" href="_p_c_8cpp_source.html">PC.cpp</a>.</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_p_c_abc8e6e57002089e0ffe37f7fb8e1eb36_icgraph.png" border="0" usemap="#class_p_c_abc8e6e57002089e0ffe37f7fb8e1eb36_icgraph" alt=""/></div>
+<map name="class_p_c_abc8e6e57002089e0ffe37f7fb8e1eb36_icgraph" id="class_p_c_abc8e6e57002089e0ffe37f7fb8e1eb36_icgraph">
+<area shape="rect" id="node2" href="class_a_r_p_frame.html#a330db7f3fead88db1860fa288a499c06" title="Constructeur par défaut d&#39;une requête ARP. " alt="" coords="151,5,311,32"/><area shape="rect" id="node3" href="class_e_t_h_frame.html#a507ab18995533b088b2d318598db8c79" title="Constructeur par défaut d&#39;une trame Ethernet. " alt="" coords="151,56,310,83"/></map>
+</div>
+</p>
 
 </div>
 </div>

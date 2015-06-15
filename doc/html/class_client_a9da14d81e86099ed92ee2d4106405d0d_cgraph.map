@@ -2,6 +2,8 @@
 <area shape="rect" id="node2" href="$class_p_c.html#abb3e634df57e0751d161d111876bdceb" title="Fonction de désactivation des réponses ICMP du kernel. " alt="" coords="180,5,331,32"/>
 <area shape="rect" id="node3" href="$class_p_c.html#a6cba2d267c6d729fba5dd3fa917a5de2" title="Fonction de désactivation des reset du kernel. " alt="" coords="184,56,327,83"/>
 <area shape="rect" id="node4" href="$class_p_c.html#a81c3b990bbe17e48d4a625be86a0d275" title="Fonction de désactivation des requêtes ARP automatiques du kernel. " alt="" coords="183,107,327,133"/>
-<area shape="rect" id="node5" href="$class_p_c.html#a49de5fed6137759e7342f2587ecd0bb0" title="Fonction l&#39;activation des réponses ICMP du kernel. " alt="" coords="191,157,320,184"/>
-<area shape="rect" id="node6" href="$class_p_c.html#ab56f8ae8dd5c8910f66b0f56b4675748" title="Fonction d&#39;activation des reset du kernel. " alt="" coords="194,208,317,235"/>
+<area shape="rect" id="node5" href="$class_a_r_p_frame.html#a334f7ddad6f47cd2824eda8085ade770" title="Méthode envoyant une requête ARP. " alt="" coords="193,157,318,184"/>
+<area shape="rect" id="node7" href="$class_p_c.html#a49de5fed6137759e7342f2587ecd0bb0" title="Fonction l&#39;activation des réponses ICMP du kernel. " alt="" coords="191,208,320,235"/>
+<area shape="rect" id="node8" href="$class_p_c.html#ab56f8ae8dd5c8910f66b0f56b4675748" title="Fonction d&#39;activation des reset du kernel. " alt="" coords="194,259,317,285"/>
+<area shape="rect" id="node6" href="$class_a_r_p_frame.html#aca0393691a03bcc935027f2cae51f298" title="Fonction création de la trame ARP pour l&#39;envoie. " alt="" coords="379,157,521,184"/>
 </map>

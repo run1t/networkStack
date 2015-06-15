@@ -1,4 +1,5 @@
-<map id="lib/Frames/ICMPFrame.h" name="lib/Frames/ICMPFrame.h">
-<area shape="rect" id="node5" href="$_e_t_h_frame_8h.html" title="fichier qui permet de lire les trames ethernets bruts " alt="" coords="72,155,169,181"/>
-<area shape="rect" id="node6" href="$_i_p_frame_8h_source.html" title="IPFrame.h" alt="" coords="185,80,267,107"/>
+<map id="Frames/ICMPFrame.h" name="Frames/ICMPFrame.h">
+<area shape="rect" id="node5" href="$_e_t_h_frame_8h.html" title="fichier qui permet de lire les trames ethernets bruts " alt="" coords="213,155,311,181"/>
+<area shape="rect" id="node20" href="$_i_p_frame_8h.html" title="fichier qui permet de lire les trames ICMP bruts " alt="" coords="358,80,441,107"/>
+<area shape="rect" id="node6" href="$_p_c_8h.html" title="Fichier de récupération des informations du pc. " alt="" coords="621,229,685,256"/>
 </map>

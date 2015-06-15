@@ -46,7 +46,6 @@ unsigned short ICMPFrame::checksum(unsigned short *ptr, unsigned int nbBytes) {
 	//On fait le complément de la somme avec l'opérateur ~(bitwise NOT), autrement dit on donne l'inverse au niveau des bits 1=0 et 0=1;
 	answer=(short)~sum;
 
-	cout << hex << answer << endl;
 	//On retourne le checksum
 	return(answer);
 }
@@ -280,8 +279,6 @@ unsigned char* ICMPFrame::toFrame(){
 		std::stringstream stream;
 		stream << std::hex << std::uppercase << int (frame.at(i));
 		std::string result( stream.str() );
-		cout << result << " ";
 	}
-	cout << endl;
 	return ret;
 }

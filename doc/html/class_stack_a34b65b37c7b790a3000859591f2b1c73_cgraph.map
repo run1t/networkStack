@@ -1,0 +1,6 @@
+<map id="Stack::Send" name="Stack::Send">
+<area shape="rect" id="node2" href="$class_i_c_m_p_frame.html#a9f4c6cf6a6b68066713cb2367f6cda65" title="Fonction de création de la trame brut a partir des parametres. " alt="" coords="148,35,297,61"/>
+<area shape="rect" id="node3" href="$class_i_c_m_p_frame.html#af1b6110a4c2a72a09b3c074eb8bac367" title="Fonction de réalisation d&#39;un checksum pour l&#39;IP. " alt="" coords="345,5,548,32"/>
+<area shape="rect" id="node5" href="$class_i_c_m_p_frame.html#a14c78644117a4bdee236cc234c31b8f0" title="Fonction de réalisation d&#39;un checksum ICMP. " alt="" coords="369,57,524,98"/>
+<area shape="rect" id="node4" href="$class_i_c_m_p_frame.html#a4d37aca024ff4842bb4e6393d01d6ae8" title="Fonction de réalisation d&#39;un checksum pour l&#39;intégrité des données. " alt="" coords="596,35,757,61"/>
+</map>

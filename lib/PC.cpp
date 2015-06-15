@@ -49,6 +49,10 @@ string PC::getMAC(){
     		stringstream stream;
 			stream << hex << uppercase << (int ) s.ifr_addr.sa_data[i];
 			string result( stream.str() );
+            if(result.length() > 2)
+            {
+                result = result.substr(result.length() - 2, result.length() - 1);
+            }
 			if(result.length() == 1){
 				result = "0" + result;
 			}
@@ -163,7 +167,8 @@ int PC::desactivateICMP(){
 		}
 		else if(nbByteWrite > 0){
 			int closeSuccess = close(fdProc);
-			if(closeSuccess == 0
+			if(closeSuccess == 0)
+            {
 				return 0;
 			}else if(closeSuccess == -1){
 				printf("Error closing the file\n");

@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.9.1"/>
-<title>My Project: Connection.cpp Source File</title>
+<title>network_stack: Connection.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -23,7 +23,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">My Project
+   <div id="projectname">network_stack
    </div>
   </td>
  </tr>
@@ -93,9 +93,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    this-&gt;State = CLOSED;</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;}</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;</div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="class_connection.html#a134b7238777c95a005f10d16e1a93187">   27</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="class_connection.html#a134b7238777c95a005f10d16e1a93187">Connection::HandleConnection</a>(TCPFrame tcp){</div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="class_connection.html#a134b7238777c95a005f10d16e1a93187">   27</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="class_connection.html#a134b7238777c95a005f10d16e1a93187">Connection::HandleConnection</a>(<a class="code" href="class_t_c_p_frame.html">TCPFrame</a> tcp){</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="comment">//On declare notre Trame de reponse</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    TCPFrame tcpRes = tcp;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <a class="code" href="class_t_c_p_frame.html">TCPFrame</a> tcpRes = tcp;</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    tcpRes.eth.src = tcp.eth.dst;</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    tcpRes.eth.dst = tcp.eth.src;</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div>
@@ -230,7 +230,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;    this-&gt;<a class="code" href="class_connection.html#a06d22a37e22497e091418efd799f2852">Send</a>(this-&gt;Response);</div>
 <div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;}</div>
 <div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;</div>
-<div class="line"><a name="l00188"></a><span class="lineno"><a class="line" href="class_connection.html#a06d22a37e22497e091418efd799f2852">  188</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="class_connection.html#a06d22a37e22497e091418efd799f2852">Connection::Send</a>(TCPFrame tcp){</div>
+<div class="line"><a name="l00188"></a><span class="lineno"><a class="line" href="class_connection.html#a06d22a37e22497e091418efd799f2852">  188</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="class_connection.html#a06d22a37e22497e091418efd799f2852">Connection::Send</a>(<a class="code" href="class_t_c_p_frame.html">TCPFrame</a> tcp){</div>
 <div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;<span class="preprocessor">    #define DEFAULT_IF  &quot;eth0&quot;</span></div>
 <div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;</div>
 <div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    <span class="keywordtype">int</span> sockfd;</div>
@@ -250,7 +250,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;    <span class="keywordflow">if</span> (ioctl(sockfd, SIOCGIFINDEX, &amp;if_idx) &lt; 0)</div>
 <div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;        perror(<span class="stringliteral">&quot;SIOCGIFINDEX&quot;</span>);</div>
 <div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;</div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>* datagram = tcp.toFrame();</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>* datagram = tcp.<a class="code" href="class_t_c_p_frame.html#a61268d08ab70389ecfbcd07a5ac96e15">toFrame</a>();</div>
 <div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;</div>
 <div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;    <span class="comment">/* Index of the network device */</span></div>
 <div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;    socket_address.sll_ifindex = if_idx.ifr_ifindex;</div>
@@ -268,8 +268,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;    sendto(sockfd, datagram, tcp.frameLength, 0, (<span class="keyword">struct</span> sockaddr*)&amp;socket_address, <span class="keyword">sizeof</span>(<span class="keyword">struct</span> sockaddr_ll));      </div>
 <div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;    close(sockfd);</div>
 <div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;}</div>
+<div class="ttc" id="class_t_c_p_frame_html"><div class="ttname"><a href="class_t_c_p_frame.html">TCPFrame</a></div><div class="ttdef"><b>Definition:</b> <a href="_t_c_p_frame_8h_source.html#l00039">TCPFrame.h:39</a></div></div>
 <div class="ttc" id="class_connection_html_a3a1a976d12f85a2c66667f5b59abda53"><div class="ttname"><a href="class_connection.html#a3a1a976d12f85a2c66667f5b59abda53">Connection::SendHTTP</a></div><div class="ttdeci">void SendHTTP(string data)</div><div class="ttdoc">Méthode permettant d&#39;envoyer un paquet contenant du protocole HTTP. </div><div class="ttdef"><b>Definition:</b> <a href="_connection_8cpp_source.html#l00152">Connection.cpp:152</a></div></div>
 <div class="ttc" id="class_connection_html_a06d22a37e22497e091418efd799f2852"><div class="ttname"><a href="class_connection.html#a06d22a37e22497e091418efd799f2852">Connection::Send</a></div><div class="ttdeci">void Send(TCPFrame tcp)</div><div class="ttdoc">Envoi d&#39;un segment TCP. </div><div class="ttdef"><b>Definition:</b> <a href="_connection_8cpp_source.html#l00188">Connection.cpp:188</a></div></div>
+<div class="ttc" id="class_t_c_p_frame_html_a61268d08ab70389ecfbcd07a5ac96e15"><div class="ttname"><a href="class_t_c_p_frame.html#a61268d08ab70389ecfbcd07a5ac96e15">TCPFrame::toFrame</a></div><div class="ttdeci">unsigned char * toFrame()</div><div class="ttdoc">Fonction de mide en place d&#39;une trame TCP. </div><div class="ttdef"><b>Definition:</b> <a href="_t_c_p_frame_8cpp_source.html#l00178">TCPFrame.cpp:178</a></div></div>
 <div class="ttc" id="class_connection_html_ab47840ece7746e9de9eb78d3c9ac2a7a"><div class="ttname"><a href="class_connection.html#ab47840ece7746e9de9eb78d3c9ac2a7a">Connection::Close</a></div><div class="ttdeci">void Close()</div><div class="ttdoc">Méthode permettant de fermer la connection. </div><div class="ttdef"><b>Definition:</b> <a href="_connection_8cpp_source.html#l00177">Connection.cpp:177</a></div></div>
 <div class="ttc" id="class_connection_html_af52934a4776bf0fd58ac60c4407cec04"><div class="ttname"><a href="class_connection.html#af52934a4776bf0fd58ac60c4407cec04">Connection::getData</a></div><div class="ttdeci">string getData()</div><div class="ttdoc">Permet de récupérer les data de la connection. </div><div class="ttdef"><b>Definition:</b> <a href="_connection_8cpp_source.html#l00143">Connection.cpp:143</a></div></div>
 <div class="ttc" id="_connection_8h_html"><div class="ttname"><a href="_connection_8h.html">Connection.h</a></div><div class="ttdoc">Fichier de gestion de la connexion. </div></div>

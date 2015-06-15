@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.9.1"/>
-<title>My Project: Stack.cpp Source File</title>
+<title>network_stack: Stack.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -23,7 +23,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">My Project
+   <div id="projectname">network_stack
    </div>
   </td>
  </tr>
@@ -167,21 +167,21 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        <span class="keywordtype">int</span> numbytes = recvfrom(sock, buf, 1024, 0, NULL, NULL);</div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;            <span class="comment">//On verifie que l&#39;on a bien des donnée</span></div>
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        <span class="keywordflow">if</span>(numbytes &gt; 0){</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;            ETHFrame eth = *<span class="keyword">new</span> ETHFrame(buf);</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;            <a class="code" href="class_e_t_h_frame.html">ETHFrame</a> eth = *<span class="keyword">new</span> <a class="code" href="class_e_t_h_frame.html">ETHFrame</a>(buf);</div>
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;                <span class="comment">//c&#39;est pour nous ?</span></div>
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;</div>
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;            <span class="keywordflow">if</span>(eth.dst.compare(<a class="code" href="class_p_c.html#abc8e6e57002089e0ffe37f7fb8e1eb36">PC::getMAC</a>()) == 0){</div>
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;</div>
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;                <span class="keywordflow">if</span>(eth.Type == ETHERTYPE_IPv4){</div>
 <div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;                    IPFrame ip = *<span class="keyword">new</span> IPFrame(buf);</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;                    <a class="code" href="class_i_p_frame.html">IPFrame</a> ip = *<span class="keyword">new</span> <a class="code" href="class_i_p_frame.html">IPFrame</a>(buf);</div>
 <div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;</div>
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;                    <span class="keywordflow">if</span>(ip.dst.compare(<a class="code" href="class_p_c.html#a0f4e6f28ce983fa330d5014b79016e18">PC::getIP</a>()) == 0){</div>
 <div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;</div>
 <div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;                            <span class="comment">//on check si c&#39;est pour</span></div>
 <div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;                        <span class="keywordflow">if</span>(ip.Protocol == 6){</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;                            TCPFrame tcp = *<span class="keyword">new</span> TCPFrame(buf);</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;                            TCPFrame tcpRes = tcp;</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;                            <a class="code" href="class_t_c_p_frame.html">TCPFrame</a> tcp = *<span class="keyword">new</span> <a class="code" href="class_t_c_p_frame.html">TCPFrame</a>(buf);</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;                            <a class="code" href="class_t_c_p_frame.html">TCPFrame</a> tcpRes = tcp;</div>
 <div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;                            <span class="keywordflow">if</span>(this-&gt;port == tcp.dst){</div>
 <div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;                                    <span class="comment">/* on recupere la connection associer a notre propre */</span></div>
 <div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;                                <span class="keywordflow">if</span>(this-&gt;<a class="code" href="class_stack.html#a2a3970bc0f29300fecb5fbf3ed22b5ca">getConnection</a>(tcp.src)-&gt;port &lt; 0){</div>
@@ -200,8 +200,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;                            <span class="comment">//On a de l&#39;ICMP</span></div>
 <div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;                        <span class="keywordflow">else</span> <span class="keywordflow">if</span>(ip.Protocol == 1){</div>
 <div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;                            ICMPFrame icmp = *<span class="keyword">new</span> ICMPFrame(buf);</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;                            ICMPFrame icmpRes = icmp;</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;                            <a class="code" href="class_i_c_m_p_frame.html">ICMPFrame</a> icmp = *<span class="keyword">new</span> <a class="code" href="class_i_c_m_p_frame.html">ICMPFrame</a>(buf);</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;                            <a class="code" href="class_i_c_m_p_frame.html">ICMPFrame</a> icmpRes = icmp;</div>
 <div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;                            icmpRes.eth.src = icmp.eth.dst;</div>
 <div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;                            icmpRes.eth.dst = icmp.eth.src;</div>
 <div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;</div>
@@ -218,15 +218,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;            }<span class="keywordflow">else</span>{</div>
 <div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;                <span class="keywordflow">if</span>(eth.Type == 0x0806){</div>
 <div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;                    ARPFrame arp = *<span class="keyword">new</span> ARPFrame(buf);</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;                    <a class="code" href="class_a_r_p_frame.html">ARPFrame</a> arp = *<span class="keyword">new</span> <a class="code" href="class_a_r_p_frame.html">ARPFrame</a>(buf);</div>
 <div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;</div>
 <div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;                        <span class="comment">//On prend que ethernet et ipv4</span></div>
 <div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;                    <span class="keywordflow">if</span>(arp.HardwareSize == 6 &amp;&amp; arp.ProtocolSize == 4 &amp;&amp; arp.opCode == 1){</div>
 <div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;</div>
 <div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;                        <span class="keywordflow">if</span>(arp.targetIp.compare(<a class="code" href="class_p_c.html#a0f4e6f28ce983fa330d5014b79016e18">PC::getIP</a>()) == 0){</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;                            ARPFrame arpRes = arp;</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;                            arpRes.eth.dst = arp.eth.src;</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;                            arpRes.eth.src = <a class="code" href="class_p_c.html#abc8e6e57002089e0ffe37f7fb8e1eb36">PC::getMAC</a>();</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;                            <a class="code" href="class_a_r_p_frame.html">ARPFrame</a> arpRes = arp;</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;                            arpRes.<a class="code" href="class_a_r_p_frame.html#a74c31c43b090755365ccd0c57440dfa1">eth</a>.dst = arp.<a class="code" href="class_a_r_p_frame.html#a74c31c43b090755365ccd0c57440dfa1">eth</a>.src;</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;                            arpRes.<a class="code" href="class_a_r_p_frame.html#a74c31c43b090755365ccd0c57440dfa1">eth</a>.src = <a class="code" href="class_p_c.html#abc8e6e57002089e0ffe37f7fb8e1eb36">PC::getMAC</a>();</div>
 <div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;                            arpRes.opCode = 2;</div>
 <div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;                            arpRes.senderMac = <a class="code" href="class_p_c.html#abc8e6e57002089e0ffe37f7fb8e1eb36">PC::getMAC</a>();</div>
 <div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;                            arpRes.senderIp = arp.targetIp;</div>
@@ -242,7 +242,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160; }</div>
 <div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;</div>
 <div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;</div>
-<div class="line"><a name="l00191"></a><span class="lineno"><a class="line" href="class_stack.html#a19bdc7161956787e736ce738860dd136">  191</a></span>&#160; <span class="keywordtype">void</span> <a class="code" href="class_stack.html#a19bdc7161956787e736ce738860dd136">Stack::Send</a>(TCPFrame tcp){</div>
+<div class="line"><a name="l00191"></a><span class="lineno"><a class="line" href="class_stack.html#a19bdc7161956787e736ce738860dd136">  191</a></span>&#160; <span class="keywordtype">void</span> <a class="code" href="class_stack.html#a19bdc7161956787e736ce738860dd136">Stack::Send</a>(<a class="code" href="class_t_c_p_frame.html">TCPFrame</a> tcp){</div>
 <div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;<span class="preprocessor">    #define DEFAULT_IF  &quot;eth0&quot;</span></div>
 <div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;</div>
 <div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    <span class="keywordtype">int</span> sockfd;</div>
@@ -264,7 +264,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;    <span class="keywordflow">if</span> (ioctl(sockfd, SIOCGIFINDEX, &amp;if_idx) &lt; 0)</div>
 <div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;        perror(<span class="stringliteral">&quot;SIOCGIFINDEX&quot;</span>);</div>
 <div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;</div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>* datagram = tcp.toFrame();</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>* datagram = tcp.<a class="code" href="class_t_c_p_frame.html#a61268d08ab70389ecfbcd07a5ac96e15">toFrame</a>();</div>
 <div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;</div>
 <div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;    <span class="comment">/* Index of the network device */</span></div>
 <div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;    socket_address.sll_ifindex = if_idx.ifr_ifindex;</div>
@@ -284,7 +284,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;    close(sockfd);</div>
 <div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160; }</div>
 <div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;</div>
-<div class="line"><a name="l00240"></a><span class="lineno"><a class="line" href="class_stack.html#a34b65b37c7b790a3000859591f2b1c73">  240</a></span>&#160; <span class="keywordtype">void</span> <a class="code" href="class_stack.html#a19bdc7161956787e736ce738860dd136">Stack::Send</a>(ICMPFrame icmp){</div>
+<div class="line"><a name="l00240"></a><span class="lineno"><a class="line" href="class_stack.html#a34b65b37c7b790a3000859591f2b1c73">  240</a></span>&#160; <span class="keywordtype">void</span> <a class="code" href="class_stack.html#a19bdc7161956787e736ce738860dd136">Stack::Send</a>(<a class="code" href="class_i_c_m_p_frame.html">ICMPFrame</a> icmp){</div>
 <div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;<span class="preprocessor">    #define DEFAULT_IF  &quot;eth0&quot;</span></div>
 <div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;    <span class="keywordtype">int</span> sockfd;</div>
 <div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;    <span class="keyword">struct </span>ifreq if_idx;</div>
@@ -304,7 +304,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;        perror(<span class="stringliteral">&quot;SIOCGIFINDEX&quot;</span>);</div>
 <div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;</div>
 <div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;    <span class="comment">/* Construct the Ethernet header */</span></div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>* datagram = icmp.toFrame();</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>* datagram = icmp.<a class="code" href="class_i_c_m_p_frame.html#a9f4c6cf6a6b68066713cb2367f6cda65">toFrame</a>();</div>
 <div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;</div>
 <div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;    <span class="comment">/* Index of the network device */</span></div>
 <div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;    socket_address.sll_ifindex = if_idx.ifr_ifindex;</div>
@@ -323,7 +323,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;    close(sockfd);</div>
 <div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160; }</div>
 <div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;</div>
-<div class="line"><a name="l00286"></a><span class="lineno"><a class="line" href="class_stack.html#ae47a87137f88a6a3503ef4c25fe1cfd7">  286</a></span>&#160; <span class="keywordtype">void</span> <a class="code" href="class_stack.html#a19bdc7161956787e736ce738860dd136">Stack::Send</a>(ARPFrame arp){</div>
+<div class="line"><a name="l00286"></a><span class="lineno"><a class="line" href="class_stack.html#ae47a87137f88a6a3503ef4c25fe1cfd7">  286</a></span>&#160; <span class="keywordtype">void</span> <a class="code" href="class_stack.html#a19bdc7161956787e736ce738860dd136">Stack::Send</a>(<a class="code" href="class_a_r_p_frame.html">ARPFrame</a> arp){</div>
 <div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;<span class="preprocessor">    #define DEFAULT_IF  &quot;eth0&quot;</span></div>
 <div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;</div>
 <div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;    <span class="keywordtype">int</span> sockfd;</div>
@@ -344,7 +344,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;    <span class="keywordflow">if</span> (ioctl(sockfd, SIOCGIFINDEX, &amp;if_idx) &lt; 0)</div>
 <div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;        perror(<span class="stringliteral">&quot;SIOCGIFINDEX&quot;</span>);</div>
 <div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;</div>
-<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>* datagram = arp.toFrame();</div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>* datagram = arp.<a class="code" href="class_a_r_p_frame.html#aca0393691a03bcc935027f2cae51f298">toFrame</a>();</div>
 <div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;</div>
 <div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;    <span class="comment">/* Index of the network device */</span></div>
 <div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;    socket_address.sll_ifindex = if_idx.ifr_ifindex;</div>
@@ -392,17 +392,26 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160; }</div>
 <div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;</div>
 <div class="ttc" id="class_stack_html_a19bdc7161956787e736ce738860dd136"><div class="ttname"><a href="class_stack.html#a19bdc7161956787e736ce738860dd136">Stack::Send</a></div><div class="ttdeci">void Send(TCPFrame tcp)</div><div class="ttdoc">Fonction d&#39;envoie de trame TCP. </div><div class="ttdef"><b>Definition:</b> <a href="_stack_8cpp_source.html#l00191">Stack.cpp:191</a></div></div>
+<div class="ttc" id="class_t_c_p_frame_html"><div class="ttname"><a href="class_t_c_p_frame.html">TCPFrame</a></div><div class="ttdef"><b>Definition:</b> <a href="_t_c_p_frame_8h_source.html#l00039">TCPFrame.h:39</a></div></div>
+<div class="ttc" id="class_e_t_h_frame_html"><div class="ttname"><a href="class_e_t_h_frame.html">ETHFrame</a></div><div class="ttdef"><b>Definition:</b> <a href="_e_t_h_frame_8h_source.html#l00016">ETHFrame.h:16</a></div></div>
 <div class="ttc" id="class_p_c_html_abc8e6e57002089e0ffe37f7fb8e1eb36"><div class="ttname"><a href="class_p_c.html#abc8e6e57002089e0ffe37f7fb8e1eb36">PC::getMAC</a></div><div class="ttdeci">static string getMAC()</div><div class="ttdoc">Fonction de récupération de l&#39;adresse MAC de la machine. </div><div class="ttdef"><b>Definition:</b> <a href="_p_c_8cpp_source.html#l00035">PC.cpp:35</a></div></div>
 <div class="ttc" id="class_p_c_html_a0f4e6f28ce983fa330d5014b79016e18"><div class="ttname"><a href="class_p_c.html#a0f4e6f28ce983fa330d5014b79016e18">PC::getIP</a></div><div class="ttdeci">static string getIP()</div><div class="ttdoc">Fonction de récupération de l&#39;adresse ip de destination. </div><div class="ttdef"><b>Definition:</b> <a href="_p_c_8cpp_source.html#l00015">PC.cpp:15</a></div></div>
-<div class="ttc" id="class_p_c_html_ab56f8ae8dd5c8910f66b0f56b4675748"><div class="ttname"><a href="class_p_c.html#ab56f8ae8dd5c8910f66b0f56b4675748">PC::activateRST</a></div><div class="ttdeci">static int activateRST()</div><div class="ttdoc">Fonction d&#39;activation des reset du kernel. </div><div class="ttdef"><b>Definition:</b> <a href="_p_c_8cpp_source.html#l00135">PC.cpp:135</a></div></div>
-<div class="ttc" id="class_p_c_html_a6cba2d267c6d729fba5dd3fa917a5de2"><div class="ttname"><a href="class_p_c.html#a6cba2d267c6d729fba5dd3fa917a5de2">PC::desactivateRST</a></div><div class="ttdeci">static int desactivateRST()</div><div class="ttdoc">Fonction de désactivation des reset du kernel. </div><div class="ttdef"><b>Definition:</b> <a href="_p_c_8cpp_source.html#l00122">PC.cpp:122</a></div></div>
+<div class="ttc" id="class_t_c_p_frame_html_a61268d08ab70389ecfbcd07a5ac96e15"><div class="ttname"><a href="class_t_c_p_frame.html#a61268d08ab70389ecfbcd07a5ac96e15">TCPFrame::toFrame</a></div><div class="ttdeci">unsigned char * toFrame()</div><div class="ttdoc">Fonction de mide en place d&#39;une trame TCP. </div><div class="ttdef"><b>Definition:</b> <a href="_t_c_p_frame_8cpp_source.html#l00178">TCPFrame.cpp:178</a></div></div>
+<div class="ttc" id="class_p_c_html_ab56f8ae8dd5c8910f66b0f56b4675748"><div class="ttname"><a href="class_p_c.html#ab56f8ae8dd5c8910f66b0f56b4675748">PC::activateRST</a></div><div class="ttdeci">static int activateRST()</div><div class="ttdoc">Fonction d&#39;activation des reset du kernel. </div><div class="ttdef"><b>Definition:</b> <a href="_p_c_8cpp_source.html#l00139">PC.cpp:139</a></div></div>
+<div class="ttc" id="class_p_c_html_a6cba2d267c6d729fba5dd3fa917a5de2"><div class="ttname"><a href="class_p_c.html#a6cba2d267c6d729fba5dd3fa917a5de2">PC::desactivateRST</a></div><div class="ttdeci">static int desactivateRST()</div><div class="ttdoc">Fonction de désactivation des reset du kernel. </div><div class="ttdef"><b>Definition:</b> <a href="_p_c_8cpp_source.html#l00126">PC.cpp:126</a></div></div>
 <div class="ttc" id="class_connection_html"><div class="ttname"><a href="class_connection.html">Connection</a></div><div class="ttdef"><b>Definition:</b> <a href="_connection_8h_source.html#l00043">Connection.h:43</a></div></div>
-<div class="ttc" id="class_p_c_html_abb3e634df57e0751d161d111876bdceb"><div class="ttname"><a href="class_p_c.html#abb3e634df57e0751d161d111876bdceb">PC::desactivateICMP</a></div><div class="ttdeci">static int desactivateICMP()</div><div class="ttdoc">Fonction de désactivation des réponses ICMP du kernel. </div><div class="ttdef"><b>Definition:</b> <a href="_p_c_8cpp_source.html#l00149">PC.cpp:149</a></div></div>
+<div class="ttc" id="class_p_c_html_abb3e634df57e0751d161d111876bdceb"><div class="ttname"><a href="class_p_c.html#abb3e634df57e0751d161d111876bdceb">PC::desactivateICMP</a></div><div class="ttdeci">static int desactivateICMP()</div><div class="ttdoc">Fonction de désactivation des réponses ICMP du kernel. </div><div class="ttdef"><b>Definition:</b> <a href="_p_c_8cpp_source.html#l00153">PC.cpp:153</a></div></div>
 <div class="ttc" id="class_stack_html_a2a3970bc0f29300fecb5fbf3ed22b5ca"><div class="ttname"><a href="class_stack.html#a2a3970bc0f29300fecb5fbf3ed22b5ca">Stack::getConnection</a></div><div class="ttdeci">Connection * getConnection(int port)</div><div class="ttdef"><b>Definition:</b> <a href="_stack_8cpp_source.html#l00342">Stack.cpp:342</a></div></div>
-<div class="ttc" id="class_p_c_html_a49de5fed6137759e7342f2587ecd0bb0"><div class="ttname"><a href="class_p_c.html#a49de5fed6137759e7342f2587ecd0bb0">PC::activateICMP</a></div><div class="ttdeci">static int activateICMP()</div><div class="ttdoc">Fonction l&#39;activation des réponses ICMP du kernel. </div><div class="ttdef"><b>Definition:</b> <a href="_p_c_8cpp_source.html#l00181">PC.cpp:181</a></div></div>
+<div class="ttc" id="class_a_r_p_frame_html"><div class="ttname"><a href="class_a_r_p_frame.html">ARPFrame</a></div><div class="ttdef"><b>Definition:</b> <a href="_a_r_p_frame_8h_source.html#l00023">ARPFrame.h:23</a></div></div>
+<div class="ttc" id="class_a_r_p_frame_html_aca0393691a03bcc935027f2cae51f298"><div class="ttname"><a href="class_a_r_p_frame.html#aca0393691a03bcc935027f2cae51f298">ARPFrame::toFrame</a></div><div class="ttdeci">unsigned char * toFrame()</div><div class="ttdoc">Fonction création de la trame ARP pour l&#39;envoie. </div><div class="ttdef"><b>Definition:</b> <a href="_a_r_p_frame_8cpp_source.html#l00118">ARPFrame.cpp:118</a></div></div>
+<div class="ttc" id="class_p_c_html_a49de5fed6137759e7342f2587ecd0bb0"><div class="ttname"><a href="class_p_c.html#a49de5fed6137759e7342f2587ecd0bb0">PC::activateICMP</a></div><div class="ttdeci">static int activateICMP()</div><div class="ttdoc">Fonction l&#39;activation des réponses ICMP du kernel. </div><div class="ttdef"><b>Definition:</b> <a href="_p_c_8cpp_source.html#l00186">PC.cpp:186</a></div></div>
+<div class="ttc" id="class_i_c_m_p_frame_html_a9f4c6cf6a6b68066713cb2367f6cda65"><div class="ttname"><a href="class_i_c_m_p_frame.html#a9f4c6cf6a6b68066713cb2367f6cda65">ICMPFrame::toFrame</a></div><div class="ttdeci">unsigned char * toFrame()</div><div class="ttdoc">Fonction de création de la trame brut a partir des parametres. </div><div class="ttdef"><b>Definition:</b> <a href="_i_c_m_p_frame_8cpp_source.html#l00141">ICMPFrame.cpp:141</a></div></div>
 <div class="ttc" id="class_stack_html_a88223ccd084ecfd0f66875693ede8b18"><div class="ttname"><a href="class_stack.html#a88223ccd084ecfd0f66875693ede8b18">Stack::addDataEvent</a></div><div class="ttdeci">void addDataEvent(function&lt; void(Connection *)&gt; func)</div><div class="ttdoc">Fonction permettant de binder une fonction sur la réception de Data. </div><div class="ttdef"><b>Definition:</b> <a href="_stack_8cpp_source.html#l00332">Stack.cpp:332</a></div></div>
+<div class="ttc" id="class_i_c_m_p_frame_html"><div class="ttname"><a href="class_i_c_m_p_frame.html">ICMPFrame</a></div><div class="ttdef"><b>Definition:</b> <a href="_i_c_m_p_frame_8h_source.html#l00051">ICMPFrame.h:51</a></div></div>
 <div class="ttc" id="_stack_8cpp_html_ab40e1e1bfdbabedc1ebecf9db6adc1ad"><div class="ttname"><a href="_stack_8cpp.html#ab40e1e1bfdbabedc1ebecf9db6adc1ad">handle_SIGINT</a></div><div class="ttdeci">void handle_SIGINT(int signal)</div><div class="ttdoc">Fonction qui permet de gérer les signaux provenant de l&#39;utilisateur. </div><div class="ttdef"><b>Definition:</b> <a href="_stack_8cpp_source.html#l00367">Stack.cpp:367</a></div></div>
-<div class="ttc" id="class_p_c_html_a81c3b990bbe17e48d4a625be86a0d275"><div class="ttname"><a href="class_p_c.html#a81c3b990bbe17e48d4a625be86a0d275">PC::desactivateARP</a></div><div class="ttdeci">static int desactivateARP()</div><div class="ttdoc">Fonction de désactivation des requêtes ARP automatiques du kernel. </div><div class="ttdef"><b>Definition:</b> <a href="_p_c_8cpp_source.html#l00214">PC.cpp:214</a></div></div>
+<div class="ttc" id="class_p_c_html_a81c3b990bbe17e48d4a625be86a0d275"><div class="ttname"><a href="class_p_c.html#a81c3b990bbe17e48d4a625be86a0d275">PC::desactivateARP</a></div><div class="ttdeci">static int desactivateARP()</div><div class="ttdoc">Fonction de désactivation des requêtes ARP automatiques du kernel. </div><div class="ttdef"><b>Definition:</b> <a href="_p_c_8cpp_source.html#l00219">PC.cpp:219</a></div></div>
+<div class="ttc" id="class_a_r_p_frame_html_a74c31c43b090755365ccd0c57440dfa1"><div class="ttname"><a href="class_a_r_p_frame.html#a74c31c43b090755365ccd0c57440dfa1">ARPFrame::eth</a></div><div class="ttdeci">ETHFrame eth</div><div class="ttdef"><b>Definition:</b> <a href="_a_r_p_frame_8h_source.html#l00045">ARPFrame.h:45</a></div></div>
+<div class="ttc" id="class_i_p_frame_html"><div class="ttname"><a href="class_i_p_frame.html">IPFrame</a></div><div class="ttdef"><b>Definition:</b> <a href="_i_p_frame_8h_source.html#l00023">IPFrame.h:23</a></div></div>
 <div class="ttc" id="class_stack_html_a57631b70ddce6adc9d507209236ac1fe"><div class="ttname"><a href="class_stack.html#a57631b70ddce6adc9d507209236ac1fe">Stack::receiver</a></div><div class="ttdeci">void receiver()</div><div class="ttdoc">Fonction de gestion de réception de packet IP et ICMP, elle permet d&#39;écouter, trier et répondre corre...</div><div class="ttdef"><b>Definition:</b> <a href="_stack_8cpp_source.html#l00091">Stack.cpp:91</a></div></div>
 <div class="ttc" id="class_connection_html_a134b7238777c95a005f10d16e1a93187"><div class="ttname"><a href="class_connection.html#a134b7238777c95a005f10d16e1a93187">Connection::HandleConnection</a></div><div class="ttdeci">void HandleConnection(TCPFrame tcpframe)</div><div class="ttdoc">Gère la Connection en fonction de l&#39;ètat de la connection. </div><div class="ttdef"><b>Definition:</b> <a href="_connection_8cpp_source.html#l00027">Connection.cpp:27</a></div></div>
 <div class="ttc" id="class_stack_html_aa62e7ec1e7fe11521148a799f1776011"><div class="ttname"><a href="class_stack.html#aa62e7ec1e7fe11521148a799f1776011">Stack::Stack</a></div><div class="ttdeci">Stack(string ip, int port)</div><div class="ttdoc">Fonction de gestion du socket. </div><div class="ttdef"><b>Definition:</b> <a href="_stack_8cpp_source.html#l00025">Stack.cpp:25</a></div></div>

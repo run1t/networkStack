@@ -1,3 +1,5 @@
 <map id="PC::getIP" name="PC::getIP">
-<area shape="rect" id="node2" href="$class_client.html#a0ac2de100aa9caa9b2632167c1f4ab1f" title="Méthode permettant de lancer la stack client. " alt="" coords="133,5,217,32"/>
+<area shape="rect" id="node2" href="$class_client.html#a0ac2de100aa9caa9b2632167c1f4ab1f" title="Méthode permettant de lancer la stack client. " alt="" coords="171,5,255,32"/>
+<area shape="rect" id="node3" href="$class_a_r_p_frame.html#a330db7f3fead88db1860fa288a499c06" title="Constructeur par défaut d&#39;une requête ARP. " alt="" coords="133,56,293,83"/>
+<area shape="rect" id="node4" href="$class_i_p_frame.html#a74ecfacfe40f385a5d24de9ba5458801" title="Constructeur par défaut d&#39;un paquet IP. " alt="" coords="148,107,279,133"/>
 </map>

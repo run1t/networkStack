@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.9.1"/>
-<title>Network_stack: lib/Frames/ARPFrame.h File Reference</title>
+<title>network_stack: Frames/ARPFrame.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -23,7 +23,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">Network_stack
+   <div id="projectname">network_stack
    </div>
   </td>
  </tr>
@@ -38,7 +38,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -62,6 +61,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
       <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="globals.html"><span>File&#160;Members</span></a></li>
     </ul>
   </div>
 <!-- window showing the filter options -->
@@ -80,7 +80,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_97aefd0d527b934f1d99a682da8fe6a9.html">lib</a></li><li class="navelem"><a class="el" href="dir_36646c41dab4e1c29ab0367a946028dd.html">Frames</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_0411758b505da2f5abfa5514961a1116.html">Frames</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -98,19 +98,23 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <code>#include &lt;sstream&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 <code>#include &quot;<a class="el" href="_e_t_h_frame_8h_source.html">ETHFrame.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_p_c_8h_source.html">../PC.h</a>&quot;</code><br />
+<code>#include &lt;sys/socket.h&gt;</code><br />
+<code>#include &lt;netpacket/packet.h&gt;</code><br />
+<code>#include &lt;net/ethernet.h&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for ARPFrame.h:</div>
 <div class="dyncontent">
-<div class="center"><img src="_a_r_p_frame_8h__incl.png" border="0" usemap="#lib_2_frames_2_a_r_p_frame_8h" alt=""/></div>
-<map name="lib_2_frames_2_a_r_p_frame_8h" id="lib_2_frames_2_a_r_p_frame_8h">
-<area shape="rect" id="node6" href="_e_t_h_frame_8h.html" title="fichier qui permet de lire les trames ethernets bruts " alt="" coords="116,80,213,107"/></map>
+<div class="center"><img src="_a_r_p_frame_8h__incl.png" border="0" usemap="#_frames_2_a_r_p_frame_8h" alt=""/></div>
+<map name="_frames_2_a_r_p_frame_8h" id="_frames_2_a_r_p_frame_8h">
+<area shape="rect" id="node6" href="_e_t_h_frame_8h.html" title="fichier qui permet de lire les trames ethernets bruts " alt="" coords="623,80,720,107"/><area shape="rect" id="node7" href="_p_c_8h.html" title="Fichier de récupération des informations du pc. " alt="" coords="657,155,721,181"/></map>
 </div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
-<div class="center"><img src="_a_r_p_frame_8h__dep__incl.png" border="0" usemap="#lib_2_frames_2_a_r_p_frame_8hdep" alt=""/></div>
-<map name="lib_2_frames_2_a_r_p_frame_8hdep" id="lib_2_frames_2_a_r_p_frame_8hdep">
-<area shape="rect" id="node2" href="_a_r_p_frame_8cpp.html" title="fichier qui permet de lire les trames ARP bruts ainsi que de les créer " alt="" coords="5,80,183,107"/><area shape="rect" id="node3" href="_stack_8h_source.html" title="lib/Stack.h" alt="" coords="207,80,291,107"/><area shape="rect" id="node4" href="_stack_8cpp_source.html" title="lib/Stack.cpp" alt="" coords="143,155,242,181"/><area shape="rect" id="node5" href="main_8cpp_source.html" title="main.cpp" alt="" coords="266,155,341,181"/></map>
+<div class="center"><img src="_a_r_p_frame_8h__dep__incl.png" border="0" usemap="#_frames_2_a_r_p_frame_8hdep" alt=""/></div>
+<map name="_frames_2_a_r_p_frame_8hdep" id="_frames_2_a_r_p_frame_8hdep">
+<area shape="rect" id="node2" href="_stack_8h.html" title="Fichier de gestion de l&#39;envoie et reception de packet TCP, ICMP et ARP. " alt="" coords="113,80,179,107"/><area shape="rect" id="node3" href="_client_8h.html" title="Fichier de gestion de la couche client. " alt="" coords="42,155,109,181"/><area shape="rect" id="node8" href="_a_r_p_frame_8cpp.html" title="fichier qui permet de lire les trames ARP bruts ainsi que de les créer " alt="" coords="203,80,363,107"/><area shape="rect" id="node5" href="_server_8h.html" title="Fichier permettant de gérer le server. " alt="" coords="111,229,181,256"/><area shape="rect" id="node7" href="_stack_8cpp.html" title="Fichier de gestion de l&#39;envoi et réception de packet. " alt="" coords="184,155,265,181"/><area shape="rect" id="node4" href="_client_8cpp.html" title="Fichier de gestion de la couche client. " alt="" coords="5,229,87,256"/><area shape="rect" id="node6" href="_server_8cpp.html" title="Fichier gérant le serveur. " alt="" coords="103,304,189,331"/></map>
 </div>
 </div>
 <p><a href="_a_r_p_frame_8h_source.html">Go to the source code of this file.</a></p>

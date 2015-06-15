@@ -106,7 +106,6 @@ string Client::getArpMac(){
 
  				if(eth.Type == 0x0806){
  					ARPFrame arp = *new ARPFrame(buf);
- 						cout << "test" << arp.senderIp << endl;
 					if(arp.HardwareSize == 6 && arp.ProtocolSize == 4 && arp.opCode == 2){
  						if(arp.senderIp.compare(this->ip) == 0){
  							PC::activateICMP();
@@ -133,7 +132,6 @@ void Client::join(){
 	tcp.Flags = TCP_SYN;
 	string arpMac = this->getArpMac();
 	tcp.eth.dst = arpMac;
-	cout << tcp.eth.dst << endl;
 	tcp.ip.dst = this->ip;
 	tcp.ip.src = PC::getIP();
 	tcp.dst = this->portLocal;

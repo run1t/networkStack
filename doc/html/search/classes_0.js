@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['client',['Client',['../class_client.html',1,'']]],
-  ['connection',['Connection',['../class_connection.html',1,'']]]
+  ['arpframe',['ARPFrame',['../class_a_r_p_frame.html',1,'']]]
 ];

@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['pc',['PC',['../class_p_c.html',1,'']]],
-  ['pc_2ecpp',['PC.cpp',['../_p_c_8cpp.html',1,'']]],
-  ['pc_2eh',['PC.h',['../_p_c_8h.html',1,'']]]
+  ['join',['join',['../class_client.html#a0ac2de100aa9caa9b2632167c1f4ab1f',1,'Client::join()'],['../class_server.html#a7c4501173cd10b9dfff472be5b3ebb5d',1,'Server::join()']]]
 ];

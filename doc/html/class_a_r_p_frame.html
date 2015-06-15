@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.9.1"/>
-<title>Network_stack: ARPFrame Class Reference</title>
+<title>network_stack: ARPFrame Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -23,7 +23,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">Network_stack
+   <div id="projectname">network_stack
    </div>
   </td>
  </tr>
@@ -38,7 +38,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -106,6 +105,14 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aca0393691a03bcc935027f2cae51f298"><td class="memItemLeft" align="right" valign="top">unsigned char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_r_p_frame.html#aca0393691a03bcc935027f2cae51f298">toFrame</a> ()</td></tr>
 <tr class="memdesc:aca0393691a03bcc935027f2cae51f298"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction création de la trame ARP pour l'envoie.  <a href="#aca0393691a03bcc935027f2cae51f298">More...</a><br /></td></tr>
 <tr class="separator:aca0393691a03bcc935027f2cae51f298"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a334f7ddad6f47cd2824eda8085ade770"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a334f7ddad6f47cd2824eda8085ade770"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_r_p_frame.html#a334f7ddad6f47cd2824eda8085ade770">Send</a> ()</td></tr>
+<tr class="memdesc:a334f7ddad6f47cd2824eda8085ade770"><td class="mdescLeft">&#160;</td><td class="mdescRight">Méthode envoyant une requête ARP. <br /></td></tr>
+<tr class="separator:a334f7ddad6f47cd2824eda8085ade770"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a330db7f3fead88db1860fa288a499c06"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a330db7f3fead88db1860fa288a499c06"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_r_p_frame.html#a330db7f3fead88db1860fa288a499c06">ARPFrame</a> ()</td></tr>
+<tr class="memdesc:a330db7f3fead88db1860fa288a499c06"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructeur par défaut d'une requête ARP. <br /></td></tr>
+<tr class="separator:a330db7f3fead88db1860fa288a499c06"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -144,7 +151,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>frameLength</b></td></
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p>Definition at line <a class="el" href="_a_r_p_frame_8h_source.html#l00017">17</a> of file <a class="el" href="_a_r_p_frame_8h_source.html">ARPFrame.h</a>.</p>
+<p>Definition at line <a class="el" href="_a_r_p_frame_8h_source.html#l00023">23</a> of file <a class="el" href="_a_r_p_frame_8h_source.html">ARPFrame.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="aae150c6d332be48e96d11aa4520ec408"></a>
 <div class="memitem">
@@ -163,14 +170,14 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>frameLength</b></td></
 <p>Fonction de lecture de la trame ARP. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">la</td><td>fonction prend en parametres le buffer brut de la trame </td></tr>
+    <tr><td class="paramname">unsigned</td><td>char* buffer la fonction prend en parametres le buffer brut de la trame </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>la fonction retourne la trame une fois analysé et parsé </dd></dl>
 <p>On commence le remplissage de la trame IP juste après le header Ethernet au byte 14</p>
 
-<p>Definition at line <a class="el" href="_a_r_p_frame_8cpp_source.html#l00020">20</a> of file <a class="el" href="_a_r_p_frame_8cpp_source.html">ARPFrame.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_a_r_p_frame_8cpp_source.html#l00035">35</a> of file <a class="el" href="_a_r_p_frame_8cpp_source.html">ARPFrame.cpp</a>.</p>
 
 </div>
 </div>
@@ -189,17 +196,20 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>frameLength</b></td></
 </div><div class="memdoc">
 
 <p>Fonction création de la trame ARP pour l'envoie. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">la</td><td>fonction ne prend pas de parametres </td></tr>
-  </table>
-  </dd>
-</dl>
 <dl class="section return"><dt>Returns</dt><dd>la fonction retourne la trame sous forme de buffer </dd></dl>
 <p>Remplissage du Header Ethernet</p>
 <p>Remplissage de ARP</p>
 
-<p>Definition at line <a class="el" href="_a_r_p_frame_8cpp_source.html#l00106">106</a> of file <a class="el" href="_a_r_p_frame_8cpp_source.html">ARPFrame.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_a_r_p_frame_8cpp_source.html#l00118">118</a> of file <a class="el" href="_a_r_p_frame_8cpp_source.html">ARPFrame.cpp</a>.</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_a_r_p_frame_aca0393691a03bcc935027f2cae51f298_icgraph.png" border="0" usemap="#class_a_r_p_frame_aca0393691a03bcc935027f2cae51f298_icgraph" alt=""/></div>
+<map name="class_a_r_p_frame_aca0393691a03bcc935027f2cae51f298_icgraph" id="class_a_r_p_frame_aca0393691a03bcc935027f2cae51f298_icgraph">
+<area shape="rect" id="node2" href="class_a_r_p_frame.html#a334f7ddad6f47cd2824eda8085ade770" title="Méthode envoyant une requête ARP. " alt="" coords="196,5,321,32"/><area shape="rect" id="node5" href="class_stack.html#ae47a87137f88a6a3503ef4c25fe1cfd7" title="Fonction d&#39;envoie de trame ARP. " alt="" coords="211,56,306,83"/><area shape="rect" id="node3" href="class_client.html#a9da14d81e86099ed92ee2d4106405d0d" title="Méthode permettant d&#39;avoir l&#39;adresse MAC du destinataire grâce à une requète ARP. ..." alt="" coords="369,5,496,32"/><area shape="rect" id="node4" href="class_client.html#a0ac2de100aa9caa9b2632167c1f4ab1f" title="Méthode permettant de lancer la stack client. " alt="" coords="544,5,628,32"/></map>
+</div>
+</p>
 
 </div>
 </div>
@@ -215,13 +225,13 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>frameLength</b></td></
 </div><div class="memdoc">
 <p>Trame IP 4 bits Version 4 bits HeaderLength 1 bytes DFS 2 bytes TotalLength 2 bytes ID 3 bits Flags -&gt; 1 Reserved -&gt; 1 DF -&gt; 1 MF 13 bits Fragments Offset 1 byte TTL 1 byte Protocol 2 bytes Checksum 4 bytes src 4 bytes dst </p>
 
-<p>Definition at line <a class="el" href="_a_r_p_frame_8h_source.html#l00039">39</a> of file <a class="el" href="_a_r_p_frame_8h_source.html">ARPFrame.h</a>.</p>
+<p>Definition at line <a class="el" href="_a_r_p_frame_8h_source.html#l00045">45</a> of file <a class="el" href="_a_r_p_frame_8h_source.html">ARPFrame.h</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>lib/Frames/<a class="el" href="_a_r_p_frame_8h_source.html">ARPFrame.h</a></li>
-<li>lib/Frames/<a class="el" href="_a_r_p_frame_8cpp_source.html">ARPFrame.cpp</a></li>
+<li>Frames/<a class="el" href="_a_r_p_frame_8h_source.html">ARPFrame.h</a></li>
+<li>Frames/<a class="el" href="_a_r_p_frame_8cpp_source.html">ARPFrame.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

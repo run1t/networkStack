@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.9.1"/>
-<title>Network_stack: TCPFrame Class Reference</title>
+<title>network_stack: TCPFrame Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -23,7 +23,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">Network_stack
+   <div id="projectname">network_stack
    </div>
   </td>
  </tr>
@@ -38,7 +38,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -112,6 +111,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a03f5517def8af0887028e5266ca055d5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_t_c_p_frame.html#a03f5517def8af0887028e5266ca055d5">TCPFrame</a> (unsigned char *buffer)</td></tr>
 <tr class="memdesc:a03f5517def8af0887028e5266ca055d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction de lecture d'une trame TCP brut sous forme de buffer.  <a href="#a03f5517def8af0887028e5266ca055d5">More...</a><br /></td></tr>
 <tr class="separator:a03f5517def8af0887028e5266ca055d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b0d9144c1166dbccd4e99380f30cd00"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_t_c_p_frame.html#a9b0d9144c1166dbccd4e99380f30cd00">TCPFrame</a> ()</td></tr>
+<tr class="memdesc:a9b0d9144c1166dbccd4e99380f30cd00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructeur par défaut d'un segment TCP.  <a href="#a9b0d9144c1166dbccd4e99380f30cd00">More...</a><br /></td></tr>
+<tr class="separator:a9b0d9144c1166dbccd4e99380f30cd00"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a61268d08ab70389ecfbcd07a5ac96e15"><td class="memItemLeft" align="right" valign="top">unsigned char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_t_c_p_frame.html#a61268d08ab70389ecfbcd07a5ac96e15">toFrame</a> ()</td></tr>
 <tr class="memdesc:a61268d08ab70389ecfbcd07a5ac96e15"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction de mide en place d'une trame TCP.  <a href="#a61268d08ab70389ecfbcd07a5ac96e15">More...</a><br /></td></tr>
 <tr class="separator:a61268d08ab70389ecfbcd07a5ac96e15"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -163,7 +165,7 @@ vector&lt; unsigned char &gt;&#160;</td><td class="memItemRight" valign="bottom"
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p>Definition at line <a class="el" href="_t_c_p_frame_8h_source.html#l00038">38</a> of file <a class="el" href="_t_c_p_frame_8h_source.html">TCPFrame.h</a>.</p>
+<p>Definition at line <a class="el" href="_t_c_p_frame_8h_source.html#l00039">39</a> of file <a class="el" href="_t_c_p_frame_8h_source.html">TCPFrame.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a03f5517def8af0887028e5266ca055d5"></a>
 <div class="memitem">
@@ -182,7 +184,7 @@ vector&lt; unsigned char &gt;&#160;</td><td class="memItemRight" valign="bottom"
 <p>Fonction de lecture d'une trame TCP brut sous forme de buffer. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">la</td><td>fonction prend en parametres le buffer contenant la trame </td></tr>
+    <tr><td class="paramname">unsigned</td><td>char* buffer la fonction prend en parametres le buffer contenant la trame </td></tr>
   </table>
   </dd>
 </dl>
@@ -190,7 +192,27 @@ vector&lt; unsigned char &gt;&#160;</td><td class="memItemRight" valign="bottom"
 <p>On recupere les autres couches</p>
 <p>On recupere TCP</p>
 
-<p>Definition at line <a class="el" href="_t_c_p_frame_8cpp_source.html#l00110">110</a> of file <a class="el" href="_t_c_p_frame_8cpp_source.html">TCPFrame.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_t_c_p_frame_8cpp_source.html#l00113">113</a> of file <a class="el" href="_t_c_p_frame_8cpp_source.html">TCPFrame.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a9b0d9144c1166dbccd4e99380f30cd00"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TCPFrame::TCPFrame </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Constructeur par défaut d'un segment TCP. </p>
+<p>On recupere TCP</p>
+
+<p>Definition at line <a class="el" href="_t_c_p_frame_8cpp_source.html#l00149">149</a> of file <a class="el" href="_t_c_p_frame_8cpp_source.html">TCPFrame.cpp</a>.</p>
 
 </div>
 </div>
@@ -222,13 +244,23 @@ vector&lt; unsigned char &gt;&#160;</td><td class="memItemRight" valign="bottom"
 <p>Fonction de réalisation d'un checksum. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">la</td><td>fonction prend en parametres la structure sur laquelle réaliser le checksum ainsi que sa taille </td></tr>
+    <tr><td class="paramname">unsigned</td><td>short *ptr la fonction prend en parametres la structure sur laquelle réaliser le checksum ainsi que sa taille </td></tr>
+    <tr><td class="paramname">unsigned</td><td>int nbBytes la fonction prend en parametres la taille de la structure </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>la fonction retourne le checksum </dd></dl>
 
-<p>Definition at line <a class="el" href="_t_c_p_frame_8cpp_source.html#l00025">25</a> of file <a class="el" href="_t_c_p_frame_8cpp_source.html">TCPFrame.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_t_c_p_frame_8cpp_source.html#l00026">26</a> of file <a class="el" href="_t_c_p_frame_8cpp_source.html">TCPFrame.cpp</a>.</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_t_c_p_frame_a81c8c0d306dc1028a3af594d8e9f4d66_icgraph.png" border="0" usemap="#class_t_c_p_frame_a81c8c0d306dc1028a3af594d8e9f4d66_icgraph" alt=""/></div>
+<map name="class_t_c_p_frame_a81c8c0d306dc1028a3af594d8e9f4d66_icgraph" id="class_t_c_p_frame_a81c8c0d306dc1028a3af594d8e9f4d66_icgraph">
+<area shape="rect" id="node2" href="class_t_c_p_frame.html#afdd645097397fa78521ba70020e7325e" title="Fonction de réalisation d&#39;un checksum TCP. " alt="" coords="208,132,412,159"/><area shape="rect" id="node11" href="class_t_c_p_frame.html#a8479decef77f88bba3f2c397ad661d5d" title="Fonction de réalisation d&#39;un checksum IP. " alt="" coords="212,183,408,209"/><area shape="rect" id="node3" href="class_t_c_p_frame.html#a61268d08ab70389ecfbcd07a5ac96e15" title="Fonction de mide en place d&#39;une trame TCP. " alt="" coords="460,157,603,184"/><area shape="rect" id="node4" href="class_connection.html#a06d22a37e22497e091418efd799f2852" title="Envoi d&#39;un segment TCP. " alt="" coords="651,107,777,133"/><area shape="rect" id="node9" href="class_stack.html#a19bdc7161956787e736ce738860dd136" title="Fonction d&#39;envoie de trame TCP. " alt="" coords="667,183,761,209"/><area shape="rect" id="node5" href="class_connection.html#a134b7238777c95a005f10d16e1a93187" title="Gère la Connection en fonction de l&#39;ètat de la connection. " alt="" coords="825,5,1028,32"/><area shape="rect" id="node6" href="class_connection.html#a3a1a976d12f85a2c66667f5b59abda53" title="Méthode permettant d&#39;envoyer un paquet contenant du protocole HTTP. " alt="" coords="846,56,1007,83"/><area shape="rect" id="node7" href="class_connection.html#aae5567704c03de9d0f9d00be1da01606" title="Méthode envoyant de la Data brute sans protocole supérieur. Jusqu&#39;au protocole TCP. " alt="" coords="863,107,990,133"/><area shape="rect" id="node8" href="class_connection.html#ab47840ece7746e9de9eb78d3c9ac2a7a" title="Méthode permettant de fermer la connection. " alt="" coords="861,157,992,184"/><area shape="rect" id="node10" href="class_client.html#a0ac2de100aa9caa9b2632167c1f4ab1f" title="Méthode permettant de lancer la stack client. " alt="" coords="885,208,969,235"/></map>
+</div>
+</p>
 
 </div>
 </div>
@@ -249,13 +281,31 @@ vector&lt; unsigned char &gt;&#160;</td><td class="memItemRight" valign="bottom"
 <p>Fonction de réalisation d'un checksum IP. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">la</td><td>fonction prend en parametres la structure sur laquelle réaliser le checksum </td></tr>
+    <tr><td class="paramname">struct</td><td>iphdr * myip la fonction prend en parametres la structure sur laquelle réaliser le checksum </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>la fonction retourne le checksum </dd></dl>
 
-<p>Definition at line <a class="el" href="_t_c_p_frame_8cpp_source.html#l00099">99</a> of file <a class="el" href="_t_c_p_frame_8cpp_source.html">TCPFrame.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_t_c_p_frame_8cpp_source.html#l00102">102</a> of file <a class="el" href="_t_c_p_frame_8cpp_source.html">TCPFrame.cpp</a>.</p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_t_c_p_frame_a8479decef77f88bba3f2c397ad661d5d_cgraph.png" border="0" usemap="#class_t_c_p_frame_a8479decef77f88bba3f2c397ad661d5d_cgraph" alt=""/></div>
+<map name="class_t_c_p_frame_a8479decef77f88bba3f2c397ad661d5d_cgraph" id="class_t_c_p_frame_a8479decef77f88bba3f2c397ad661d5d_cgraph">
+<area shape="rect" id="node2" href="class_t_c_p_frame.html#a81c8c0d306dc1028a3af594d8e9f4d66" title="Fonction de réalisation d&#39;un checksum. " alt="" coords="249,5,404,32"/></map>
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_t_c_p_frame_a8479decef77f88bba3f2c397ad661d5d_icgraph.png" border="0" usemap="#class_t_c_p_frame_a8479decef77f88bba3f2c397ad661d5d_icgraph" alt=""/></div>
+<map name="class_t_c_p_frame_a8479decef77f88bba3f2c397ad661d5d_icgraph" id="class_t_c_p_frame_a8479decef77f88bba3f2c397ad661d5d_icgraph">
+<area shape="rect" id="node2" href="class_t_c_p_frame.html#a61268d08ab70389ecfbcd07a5ac96e15" title="Fonction de mide en place d&#39;une trame TCP. " alt="" coords="249,145,392,172"/><area shape="rect" id="node3" href="class_connection.html#a06d22a37e22497e091418efd799f2852" title="Envoi d&#39;un segment TCP. " alt="" coords="440,107,567,133"/><area shape="rect" id="node8" href="class_stack.html#a19bdc7161956787e736ce738860dd136" title="Fonction d&#39;envoie de trame TCP. " alt="" coords="456,183,551,209"/><area shape="rect" id="node4" href="class_connection.html#a134b7238777c95a005f10d16e1a93187" title="Gère la Connection en fonction de l&#39;ètat de la connection. " alt="" coords="615,5,817,32"/><area shape="rect" id="node5" href="class_connection.html#a3a1a976d12f85a2c66667f5b59abda53" title="Méthode permettant d&#39;envoyer un paquet contenant du protocole HTTP. " alt="" coords="635,56,797,83"/><area shape="rect" id="node6" href="class_connection.html#aae5567704c03de9d0f9d00be1da01606" title="Méthode envoyant de la Data brute sans protocole supérieur. Jusqu&#39;au protocole TCP. " alt="" coords="653,107,779,133"/><area shape="rect" id="node7" href="class_connection.html#ab47840ece7746e9de9eb78d3c9ac2a7a" title="Méthode permettant de fermer la connection. " alt="" coords="651,157,781,184"/><area shape="rect" id="node9" href="class_client.html#a0ac2de100aa9caa9b2632167c1f4ab1f" title="Méthode permettant de lancer la stack client. " alt="" coords="674,208,758,235"/></map>
+</div>
+</p>
 
 </div>
 </div>
@@ -286,13 +336,32 @@ vector&lt; unsigned char &gt;&#160;</td><td class="memItemRight" valign="bottom"
 <p>Fonction de réalisation d'un checksum TCP. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">la</td><td>fonction prend en parametres la structure sur laquelle réaliser le checksum ainsi que sa taille </td></tr>
+    <tr><td class="paramname">struct</td><td>iphdr * myip la fonction prend en parametres la structure sur laquelle réaliser le checksum ainsi que sa taille </td></tr>
+    <tr><td class="paramname">struct</td><td>tcphdr * mytcp la fonction prend en parametres la taille de la structure </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>la fonction retourne le checksum </dd></dl>
 
-<p>Definition at line <a class="el" href="_t_c_p_frame_8cpp_source.html#l00067">67</a> of file <a class="el" href="_t_c_p_frame_8cpp_source.html">TCPFrame.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_t_c_p_frame_8cpp_source.html#l00069">69</a> of file <a class="el" href="_t_c_p_frame_8cpp_source.html">TCPFrame.cpp</a>.</p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_t_c_p_frame_afdd645097397fa78521ba70020e7325e_cgraph.png" border="0" usemap="#class_t_c_p_frame_afdd645097397fa78521ba70020e7325e_cgraph" alt=""/></div>
+<map name="class_t_c_p_frame_afdd645097397fa78521ba70020e7325e_cgraph" id="class_t_c_p_frame_afdd645097397fa78521ba70020e7325e_cgraph">
+<area shape="rect" id="node2" href="class_t_c_p_frame.html#a81c8c0d306dc1028a3af594d8e9f4d66" title="Fonction de réalisation d&#39;un checksum. " alt="" coords="257,5,412,32"/></map>
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_t_c_p_frame_afdd645097397fa78521ba70020e7325e_icgraph.png" border="0" usemap="#class_t_c_p_frame_afdd645097397fa78521ba70020e7325e_icgraph" alt=""/></div>
+<map name="class_t_c_p_frame_afdd645097397fa78521ba70020e7325e_icgraph" id="class_t_c_p_frame_afdd645097397fa78521ba70020e7325e_icgraph">
+<area shape="rect" id="node2" href="class_t_c_p_frame.html#a61268d08ab70389ecfbcd07a5ac96e15" title="Fonction de mide en place d&#39;une trame TCP. " alt="" coords="257,145,400,172"/><area shape="rect" id="node3" href="class_connection.html#a06d22a37e22497e091418efd799f2852" title="Envoi d&#39;un segment TCP. " alt="" coords="448,107,575,133"/><area shape="rect" id="node8" href="class_stack.html#a19bdc7161956787e736ce738860dd136" title="Fonction d&#39;envoie de trame TCP. " alt="" coords="464,183,559,209"/><area shape="rect" id="node4" href="class_connection.html#a134b7238777c95a005f10d16e1a93187" title="Gère la Connection en fonction de l&#39;ètat de la connection. " alt="" coords="623,5,825,32"/><area shape="rect" id="node5" href="class_connection.html#a3a1a976d12f85a2c66667f5b59abda53" title="Méthode permettant d&#39;envoyer un paquet contenant du protocole HTTP. " alt="" coords="643,56,805,83"/><area shape="rect" id="node6" href="class_connection.html#aae5567704c03de9d0f9d00be1da01606" title="Méthode envoyant de la Data brute sans protocole supérieur. Jusqu&#39;au protocole TCP. " alt="" coords="661,107,787,133"/><area shape="rect" id="node7" href="class_connection.html#ab47840ece7746e9de9eb78d3c9ac2a7a" title="Méthode permettant de fermer la connection. " alt="" coords="659,157,789,184"/><area shape="rect" id="node9" href="class_client.html#a0ac2de100aa9caa9b2632167c1f4ab1f" title="Méthode permettant de lancer la stack client. " alt="" coords="682,208,766,235"/></map>
+</div>
+</p>
 
 </div>
 </div>
@@ -310,24 +379,36 @@ vector&lt; unsigned char &gt;&#160;</td><td class="memItemRight" valign="bottom"
 </div><div class="memdoc">
 
 <p>Fonction de mide en place d'une trame TCP. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">la</td><td>fonction ne prend aucun parametres </td></tr>
-  </table>
-  </dd>
-</dl>
 <dl class="section return"><dt>Returns</dt><dd>la fonction retourne la trame brut </dd></dl>
 <p>Remplissage du Header Ethernet</p>
 <p>Remplissage du header Ip</p>
 <p>On va recupere la position du checksum dans la tram</p>
 
-<p>Definition at line <a class="el" href="_t_c_p_frame_8cpp_source.html#l00154">154</a> of file <a class="el" href="_t_c_p_frame_8cpp_source.html">TCPFrame.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_t_c_p_frame_8cpp_source.html#l00178">178</a> of file <a class="el" href="_t_c_p_frame_8cpp_source.html">TCPFrame.cpp</a>.</p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_t_c_p_frame_a61268d08ab70389ecfbcd07a5ac96e15_cgraph.png" border="0" usemap="#class_t_c_p_frame_a61268d08ab70389ecfbcd07a5ac96e15_cgraph" alt=""/></div>
+<map name="class_t_c_p_frame_a61268d08ab70389ecfbcd07a5ac96e15_cgraph" id="class_t_c_p_frame_a61268d08ab70389ecfbcd07a5ac96e15_cgraph">
+<area shape="rect" id="node2" href="class_t_c_p_frame.html#afdd645097397fa78521ba70020e7325e" title="Fonction de réalisation d&#39;un checksum TCP. " alt="" coords="196,5,400,32"/><area shape="rect" id="node4" href="class_t_c_p_frame.html#a8479decef77f88bba3f2c397ad661d5d" title="Fonction de réalisation d&#39;un checksum IP. " alt="" coords="200,56,396,83"/><area shape="rect" id="node3" href="class_t_c_p_frame.html#a81c8c0d306dc1028a3af594d8e9f4d66" title="Fonction de réalisation d&#39;un checksum. " alt="" coords="448,31,603,57"/></map>
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_t_c_p_frame_a61268d08ab70389ecfbcd07a5ac96e15_icgraph.png" border="0" usemap="#class_t_c_p_frame_a61268d08ab70389ecfbcd07a5ac96e15_icgraph" alt=""/></div>
+<map name="class_t_c_p_frame_a61268d08ab70389ecfbcd07a5ac96e15_icgraph" id="class_t_c_p_frame_a61268d08ab70389ecfbcd07a5ac96e15_icgraph">
+<area shape="rect" id="node2" href="class_connection.html#a06d22a37e22497e091418efd799f2852" title="Envoi d&#39;un segment TCP. " alt="" coords="196,107,323,133"/><area shape="rect" id="node7" href="class_stack.html#a19bdc7161956787e736ce738860dd136" title="Fonction d&#39;envoie de trame TCP. " alt="" coords="212,183,307,209"/><area shape="rect" id="node3" href="class_connection.html#a134b7238777c95a005f10d16e1a93187" title="Gère la Connection en fonction de l&#39;ètat de la connection. " alt="" coords="371,5,573,32"/><area shape="rect" id="node4" href="class_connection.html#a3a1a976d12f85a2c66667f5b59abda53" title="Méthode permettant d&#39;envoyer un paquet contenant du protocole HTTP. " alt="" coords="391,56,553,83"/><area shape="rect" id="node5" href="class_connection.html#aae5567704c03de9d0f9d00be1da01606" title="Méthode envoyant de la Data brute sans protocole supérieur. Jusqu&#39;au protocole TCP. " alt="" coords="409,107,535,133"/><area shape="rect" id="node6" href="class_connection.html#ab47840ece7746e9de9eb78d3c9ac2a7a" title="Méthode permettant de fermer la connection. " alt="" coords="407,157,537,184"/><area shape="rect" id="node8" href="class_client.html#a0ac2de100aa9caa9b2632167c1f4ab1f" title="Méthode permettant de lancer la stack client. " alt="" coords="430,208,514,235"/></map>
+</div>
+</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>lib/Frames/<a class="el" href="_t_c_p_frame_8h_source.html">TCPFrame.h</a></li>
-<li>lib/Frames/<a class="el" href="_t_c_p_frame_8cpp_source.html">TCPFrame.cpp</a></li>
+<li>Frames/<a class="el" href="_t_c_p_frame_8h_source.html">TCPFrame.h</a></li>
+<li>Frames/<a class="el" href="_t_c_p_frame_8cpp_source.html">TCPFrame.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
