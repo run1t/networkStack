@@ -143,7 +143,9 @@ void Client::join(){
 	Client::client = this;
 	TCPFrame tcp = *new TCPFrame();
 	tcp.Flags = TCP_SYN;
-	tcp.eth.dst = "c8:e0:eb:14:57:f3";
+	string arpMac = this->getArpMac();
+	cout << "MAc arp" << arpMac << endl;
+	tcp.eth.dst = arpMac;
 	cout << tcp.eth.dst << endl;
 	tcp.ip.dst = this->ip;
 	tcp.ip.src = PC::getIP();
