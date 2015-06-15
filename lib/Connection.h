@@ -1,3 +1,9 @@
+/*!
+ * \file Connection.h
+ * \brief Fichier de gestion de la connexion
+ * \author LE NOC Reunan, HIPEAU Kevin, VIAUD Thommas, TRICHARD Guillaume
+ * \version 1.0
+ */
 #define TCP_ACK 16
 #define TCP_PSH 8
 #define TCP_RST 4
