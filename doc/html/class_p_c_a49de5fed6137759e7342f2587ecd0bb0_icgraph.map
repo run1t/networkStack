@@ -1,0 +1,6 @@
+<map id="PC::activateICMP" name="PC::activateICMP">
+<area shape="rect" id="node2" href="$class_client.html#a9da14d81e86099ed92ee2d4106405d0d" title="Méthode permettant d&#39;avoir l&#39;adresse MAC du destinataire grâce à une requète ARP. ..." alt="" coords="183,5,309,32"/>
+<area shape="rect" id="node4" href="$_stack_8cpp.html#ab40e1e1bfdbabedc1ebecf9db6adc1ad" title="Fonction qui permet de gérer les signaux provenant de l&#39;utilisateur. " alt="" coords="190,56,302,83"/>
+<area shape="rect" id="node3" href="$class_client.html#a0ac2de100aa9caa9b2632167c1f4ab1f" title="Méthode permettant de lancer la stack client. " alt="" coords="365,5,449,32"/>
+<area shape="rect" id="node5" href="$class_stack.html#aa62e7ec1e7fe11521148a799f1776011" title="Fonction de gestion du socket. " alt="" coords="357,56,456,83"/>
+</map>

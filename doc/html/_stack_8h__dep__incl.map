@@ -1,0 +1,7 @@
+<map id="Stack.h" name="Stack.h">
+<area shape="rect" id="node2" href="$_client_8h.html" title="Fichier de gestion de la couche client. " alt="" coords="42,80,109,107"/>
+<area shape="rect" id="node4" href="$_server_8h.html" title="Fichier permettant de gérer le server. " alt="" coords="111,155,181,181"/>
+<area shape="rect" id="node6" href="$_stack_8cpp.html" title="Fichier de gestion de l&#39;envoi et réception de packet. " alt="" coords="184,80,265,107"/>
+<area shape="rect" id="node3" href="$_client_8cpp.html" title="Fichier de gestion de la couche client. " alt="" coords="5,155,87,181"/>
+<area shape="rect" id="node5" href="$_server_8cpp.html" title="Fichier gérant le serveur. " alt="" coords="103,229,189,256"/>
+</map>

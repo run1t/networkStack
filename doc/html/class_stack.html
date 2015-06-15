@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.9.1"/>
-<title>Network_stack: Stack Class Reference</title>
+<title>My Project: Stack Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -23,7 +23,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">Network_stack
+   <div id="projectname">My Project
    </div>
   </td>
  </tr>
@@ -38,7 +38,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -99,21 +98,29 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a57631b70ddce6adc9d507209236ac1fe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_stack.html#a57631b70ddce6adc9d507209236ac1fe">receiver</a> ()</td></tr>
 <tr class="memdesc:a57631b70ddce6adc9d507209236ac1fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction de gestion de réception de packet IP et ICMP, elle permet d'écouter, trier et répondre correctement.  <a href="#a57631b70ddce6adc9d507209236ac1fe">More...</a><br /></td></tr>
 <tr class="separator:a57631b70ddce6adc9d507209236ac1fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a19bdc7161956787e736ce738860dd136"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_stack.html#a19bdc7161956787e736ce738860dd136">Send</a> (<a class="el" href="class_t_c_p_frame.html">TCPFrame</a> tcp)</td></tr>
+<tr class="memitem:a19bdc7161956787e736ce738860dd136"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_stack.html#a19bdc7161956787e736ce738860dd136">Send</a> (TCPFrame tcp)</td></tr>
 <tr class="memdesc:a19bdc7161956787e736ce738860dd136"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction d'envoie de trame TCP.  <a href="#a19bdc7161956787e736ce738860dd136">More...</a><br /></td></tr>
 <tr class="separator:a19bdc7161956787e736ce738860dd136"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a34b65b37c7b790a3000859591f2b1c73"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_stack.html#a34b65b37c7b790a3000859591f2b1c73">Send</a> (<a class="el" href="class_i_c_m_p_frame.html">ICMPFrame</a> icmp)</td></tr>
+<tr class="memitem:a34b65b37c7b790a3000859591f2b1c73"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_stack.html#a34b65b37c7b790a3000859591f2b1c73">Send</a> (ICMPFrame icmp)</td></tr>
 <tr class="memdesc:a34b65b37c7b790a3000859591f2b1c73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction d'envoie de trame ICMP.  <a href="#a34b65b37c7b790a3000859591f2b1c73">More...</a><br /></td></tr>
 <tr class="separator:a34b65b37c7b790a3000859591f2b1c73"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae47a87137f88a6a3503ef4c25fe1cfd7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_stack.html#ae47a87137f88a6a3503ef4c25fe1cfd7">Send</a> (<a class="el" href="class_a_r_p_frame.html">ARPFrame</a> arp)</td></tr>
+<tr class="memitem:ae47a87137f88a6a3503ef4c25fe1cfd7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_stack.html#ae47a87137f88a6a3503ef4c25fe1cfd7">Send</a> (ARPFrame arp)</td></tr>
 <tr class="memdesc:ae47a87137f88a6a3503ef4c25fe1cfd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction d'envoie de trame ARP.  <a href="#ae47a87137f88a6a3503ef4c25fe1cfd7">More...</a><br /></td></tr>
 <tr class="separator:ae47a87137f88a6a3503ef4c25fe1cfd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88223ccd084ecfd0f66875693ede8b18"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_stack.html#a88223ccd084ecfd0f66875693ede8b18">addDataEvent</a> (function&lt; void(<a class="el" href="class_connection.html">Connection</a> *)&gt; func)</td></tr>
+<tr class="memdesc:a88223ccd084ecfd0f66875693ede8b18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction permettant de binder une fonction sur la réception de Data.  <a href="#a88223ccd084ecfd0f66875693ede8b18">More...</a><br /></td></tr>
+<tr class="separator:a88223ccd084ecfd0f66875693ede8b18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a3970bc0f29300fecb5fbf3ed22b5ca"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_connection.html">Connection</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_stack.html#a2a3970bc0f29300fecb5fbf3ed22b5ca">getConnection</a> (int port)</td></tr>
+<tr class="separator:a2a3970bc0f29300fecb5fbf3ed22b5ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa655e066777be799dfd5ee96ecb03e1b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_stack.html#aa655e066777be799dfd5ee96ecb03e1b">addConnection</a> (<a class="el" href="class_connection.html">Connection</a> *connection)</td></tr>
+<tr class="memdesc:aa655e066777be799dfd5ee96ecb03e1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction permettant d'ajouter une connection.  <a href="#aa655e066777be799dfd5ee96ecb03e1b">More...</a><br /></td></tr>
+<tr class="separator:aa655e066777be799dfd5ee96ecb03e1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:aa2718c28770b854c285bd9cfbdbd7937"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa2718c28770b854c285bd9cfbdbd7937"></a>
-string&#160;</td><td class="memItemRight" valign="bottom"><b>IP</b></td></tr>
-<tr class="separator:aa2718c28770b854c285bd9cfbdbd7937"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66e2988dea4de1c1ea8552f5784bccf7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a66e2988dea4de1c1ea8552f5784bccf7"></a>
+string&#160;</td><td class="memItemRight" valign="bottom"><b>ip</b></td></tr>
+<tr class="separator:a66e2988dea4de1c1ea8552f5784bccf7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a75b058a44fceafca0d90265a347cbf41"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a75b058a44fceafca0d90265a347cbf41"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>port</b></td></tr>
 <tr class="separator:a75b058a44fceafca0d90265a347cbf41"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -123,16 +130,19 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>sock</b></td></tr>
 <tr class="memitem:a5dbe2131e6885f380cbd9afe5b9983aa"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5dbe2131e6885f380cbd9afe5b9983aa"></a>
 function&lt; void()&gt;&#160;</td><td class="memItemRight" valign="bottom"><b>onSyn</b></td></tr>
 <tr class="separator:a5dbe2131e6885f380cbd9afe5b9983aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa2b867b85147da535133991eebe5ebd5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa2b867b85147da535133991eebe5ebd5"></a>
-function&lt; void()&gt;&#160;</td><td class="memItemRight" valign="bottom"><b>onData</b></td></tr>
-<tr class="separator:aa2b867b85147da535133991eebe5ebd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2bb2115c8564d7d9b4c2154017480d60"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2bb2115c8564d7d9b4c2154017480d60"></a>
+function&lt; void(<a class="el" href="class_connection.html">Connection</a> *)&gt;&#160;</td><td class="memItemRight" valign="bottom"><b>onData</b></td></tr>
+<tr class="separator:a2bb2115c8564d7d9b4c2154017480d60"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a950875e27f42d4053673a765329a55f8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a950875e27f42d4053673a765329a55f8"></a>
 function&lt; void()&gt;&#160;</td><td class="memItemRight" valign="bottom"><b>onFin</b></td></tr>
 <tr class="separator:a950875e27f42d4053673a765329a55f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7079a2aca76018d8b79bcd00a8ea6e92"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7079a2aca76018d8b79bcd00a8ea6e92"></a>
+vector&lt; <a class="el" href="class_connection.html">Connection</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>Connections</b></td></tr>
+<tr class="separator:a7079a2aca76018d8b79bcd00a8ea6e92"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p>Definition at line <a class="el" href="_stack_8h_source.html#l00045">45</a> of file <a class="el" href="_stack_8h_source.html">Stack.h</a>.</p>
+<p>Definition at line <a class="el" href="_stack_8h_source.html#l00051">51</a> of file <a class="el" href="_stack_8h_source.html">Stack.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="aa62e7ec1e7fe11521148a799f1776011"></a>
 <div class="memitem">
@@ -159,7 +169,6 @@ function&lt; void()&gt;&#160;</td><td class="memItemRight" valign="bottom"><b>on
 </div><div class="memdoc">
 
 <p>Fonction de gestion du socket. </p>
-<p>On va mettre dans ce fichier toutes les mecanique de la stack</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">la</td><td>fonction prend en parametre l'ip et le port </td></tr>
@@ -168,11 +177,100 @@ function&lt; void()&gt;&#160;</td><td class="memItemRight" valign="bottom"><b>on
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>La fonction retourne la stack </dd></dl>
 
-<p>Definition at line <a class="el" href="_stack_8cpp_source.html#l00023">23</a> of file <a class="el" href="_stack_8cpp_source.html">Stack.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_stack_8cpp_source.html#l00025">25</a> of file <a class="el" href="_stack_8cpp_source.html">Stack.cpp</a>.</p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_stack_aa62e7ec1e7fe11521148a799f1776011_cgraph.png" border="0" usemap="#class_stack_aa62e7ec1e7fe11521148a799f1776011_cgraph" alt=""/></div>
+<map name="class_stack_aa62e7ec1e7fe11521148a799f1776011_cgraph" id="class_stack_aa62e7ec1e7fe11521148a799f1776011_cgraph">
+<area shape="rect" id="node2" href="class_p_c.html#abb3e634df57e0751d161d111876bdceb" title="Fonction de désactivation des réponses ICMP du kernel. " alt="" coords="152,5,303,32"/><area shape="rect" id="node3" href="class_p_c.html#a6cba2d267c6d729fba5dd3fa917a5de2" title="Fonction de désactivation des reset du kernel. " alt="" coords="156,56,299,83"/><area shape="rect" id="node4" href="class_p_c.html#a81c3b990bbe17e48d4a625be86a0d275" title="Fonction de désactivation des requêtes ARP automatiques du kernel. " alt="" coords="155,107,299,133"/><area shape="rect" id="node5" href="_stack_8cpp.html#ab40e1e1bfdbabedc1ebecf9db6adc1ad" title="Fonction qui permet de gérer les signaux provenant de l&#39;utilisateur. " alt="" coords="171,157,283,184"/><area shape="rect" id="node6" href="class_p_c.html#ab56f8ae8dd5c8910f66b0f56b4675748" title="Fonction d&#39;activation des reset du kernel. " alt="" coords="354,132,477,159"/><area shape="rect" id="node7" href="class_p_c.html#a49de5fed6137759e7342f2587ecd0bb0" title="Fonction l&#39;activation des réponses ICMP du kernel. " alt="" coords="351,183,480,209"/></map>
+</div>
+</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="aa655e066777be799dfd5ee96ecb03e1b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Stack::addConnection </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_connection.html">Connection</a> *&#160;</td>
+          <td class="paramname"><em>connection</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction permettant d'ajouter une connection. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">connection</td><td>connection à ajouter </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="_stack_8cpp_source.html#l00356">356</a> of file <a class="el" href="_stack_8cpp_source.html">Stack.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a88223ccd084ecfd0f66875693ede8b18"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Stack::addDataEvent </td>
+          <td>(</td>
+          <td class="paramtype">function&lt; void(<a class="el" href="class_connection.html">Connection</a> *)&gt;&#160;</td>
+          <td class="paramname"><em>func</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction permettant de binder une fonction sur la réception de Data. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">func</td><td>prend une fonction à binder en paramètre </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="_stack_8cpp_source.html#l00332">332</a> of file <a class="el" href="_stack_8cpp_source.html">Stack.cpp</a>.</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_stack_a88223ccd084ecfd0f66875693ede8b18_icgraph.png" border="0" usemap="#class_stack_a88223ccd084ecfd0f66875693ede8b18_icgraph" alt=""/></div>
+<map name="class_stack_a88223ccd084ecfd0f66875693ede8b18_icgraph" id="class_stack_a88223ccd084ecfd0f66875693ede8b18_icgraph">
+<area shape="rect" id="node2" href="class_client.html#a97408ef5bae030f475b8fd5ae511ec1f" title="Constructeur de Client. " alt="" coords="204,5,303,32"/><area shape="rect" id="node3" href="class_server.html#a3fae1efe21a489f9ec59785398007a45" title="Constructeur de la classe Server. " alt="" coords="200,56,307,83"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a2a3970bc0f29300fecb5fbf3ed22b5ca"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_connection.html">Connection</a> * Stack::getConnection </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>port</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Gestion des Connections </p>
+
+<p>Definition at line <a class="el" href="_stack_8cpp_source.html#l00342">342</a> of file <a class="el" href="_stack_8cpp_source.html">Stack.cpp</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a57631b70ddce6adc9d507209236ac1fe"></a>
 <div class="memitem">
 <div class="memproto">
@@ -195,7 +293,16 @@ function&lt; void()&gt;&#160;</td><td class="memItemRight" valign="bottom"><b>on
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>La fonction ne retoure rien </dd></dl>
 
-<p>Definition at line <a class="el" href="_stack_8cpp_source.html#l00096">96</a> of file <a class="el" href="_stack_8cpp_source.html">Stack.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_stack_8cpp_source.html#l00091">91</a> of file <a class="el" href="_stack_8cpp_source.html">Stack.cpp</a>.</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_stack_a57631b70ddce6adc9d507209236ac1fe_icgraph.png" border="0" usemap="#class_stack_a57631b70ddce6adc9d507209236ac1fe_icgraph" alt=""/></div>
+<map name="class_stack_a57631b70ddce6adc9d507209236ac1fe_icgraph" id="class_stack_a57631b70ddce6adc9d507209236ac1fe_icgraph">
+<area shape="rect" id="node2" href="class_client.html#a0ac2de100aa9caa9b2632167c1f4ab1f" title="Méthode permettant de lancer la stack client. " alt="" coords="166,5,250,32"/><area shape="rect" id="node3" href="class_server.html#a7c4501173cd10b9dfff472be5b3ebb5d" title="lance l&#39;écoute " alt="" coords="164,56,252,83"/></map>
+</div>
+</p>
 
 </div>
 </div>
@@ -206,7 +313,7 @@ function&lt; void()&gt;&#160;</td><td class="memItemRight" valign="bottom"><b>on
         <tr>
           <td class="memname">void Stack::Send </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_t_c_p_frame.html">TCPFrame</a>&#160;</td>
+          <td class="paramtype">TCPFrame&#160;</td>
           <td class="paramname"><em>tcp</em></td><td>)</td>
           <td></td>
         </tr>
@@ -222,7 +329,16 @@ function&lt; void()&gt;&#160;</td><td class="memItemRight" valign="bottom"><b>on
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>La fonction ne retoure rien </dd></dl>
 
-<p>Definition at line <a class="el" href="_stack_8cpp_source.html#l00231">231</a> of file <a class="el" href="_stack_8cpp_source.html">Stack.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_stack_8cpp_source.html#l00191">191</a> of file <a class="el" href="_stack_8cpp_source.html">Stack.cpp</a>.</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_stack_a19bdc7161956787e736ce738860dd136_icgraph.png" border="0" usemap="#class_stack_a19bdc7161956787e736ce738860dd136_icgraph" alt=""/></div>
+<map name="class_stack_a19bdc7161956787e736ce738860dd136_icgraph" id="class_stack_a19bdc7161956787e736ce738860dd136_icgraph">
+<area shape="rect" id="node2" href="class_client.html#a0ac2de100aa9caa9b2632167c1f4ab1f" title="Méthode permettant de lancer la stack client. " alt="" coords="148,5,232,32"/></map>
+</div>
+</p>
 
 </div>
 </div>
@@ -233,7 +349,7 @@ function&lt; void()&gt;&#160;</td><td class="memItemRight" valign="bottom"><b>on
         <tr>
           <td class="memname">void Stack::Send </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_i_c_m_p_frame.html">ICMPFrame</a>&#160;</td>
+          <td class="paramtype">ICMPFrame&#160;</td>
           <td class="paramname"><em>icmp</em></td><td>)</td>
           <td></td>
         </tr>
@@ -249,7 +365,7 @@ function&lt; void()&gt;&#160;</td><td class="memItemRight" valign="bottom"><b>on
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>La fonction ne retoure rien </dd></dl>
 
-<p>Definition at line <a class="el" href="_stack_8cpp_source.html#l00281">281</a> of file <a class="el" href="_stack_8cpp_source.html">Stack.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_stack_8cpp_source.html#l00240">240</a> of file <a class="el" href="_stack_8cpp_source.html">Stack.cpp</a>.</p>
 
 </div>
 </div>
@@ -260,7 +376,7 @@ function&lt; void()&gt;&#160;</td><td class="memItemRight" valign="bottom"><b>on
         <tr>
           <td class="memname">void Stack::Send </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_a_r_p_frame.html">ARPFrame</a>&#160;</td>
+          <td class="paramtype">ARPFrame&#160;</td>
           <td class="paramname"><em>arp</em></td><td>)</td>
           <td></td>
         </tr>
@@ -276,13 +392,13 @@ function&lt; void()&gt;&#160;</td><td class="memItemRight" valign="bottom"><b>on
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>La fonction ne retoure rien </dd></dl>
 
-<p>Definition at line <a class="el" href="_stack_8cpp_source.html#l00328">328</a> of file <a class="el" href="_stack_8cpp_source.html">Stack.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_stack_8cpp_source.html#l00286">286</a> of file <a class="el" href="_stack_8cpp_source.html">Stack.cpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>lib/<a class="el" href="_stack_8h_source.html">Stack.h</a></li>
-<li>lib/<a class="el" href="_stack_8cpp_source.html">Stack.cpp</a></li>
+<li><a class="el" href="_stack_8h_source.html">Stack.h</a></li>
+<li><a class="el" href="_stack_8cpp_source.html">Stack.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

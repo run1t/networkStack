@@ -1,0 +1,4 @@
+<map id="Stack::receiver" name="Stack::receiver">
+<area shape="rect" id="node2" href="$class_client.html#a0ac2de100aa9caa9b2632167c1f4ab1f" title="Méthode permettant de lancer la stack client. " alt="" coords="166,5,250,32"/>
+<area shape="rect" id="node3" href="$class_server.html#a7c4501173cd10b9dfff472be5b3ebb5d" title="lance l&#39;écoute " alt="" coords="164,56,252,83"/>
+</map>

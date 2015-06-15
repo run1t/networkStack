@@ -1,7 +1,4 @@
 var searchData=
 [
-  ['icmpframe',['ICMPFrame',['../class_i_c_m_p_frame.html',1,'ICMPFrame'],['../class_i_c_m_p_frame.html#aa74b2673a8d2e7ed863ec439d0754ae9',1,'ICMPFrame::ICMPFrame()']]],
-  ['icmpframe_2ecpp',['ICMPFrame.cpp',['../_i_c_m_p_frame_8cpp.html',1,'']]],
-  ['icmpframe_2eh',['ICMPFrame.h',['../_i_c_m_p_frame_8h.html',1,'']]],
-  ['ipframe',['IPFrame',['../class_i_p_frame.html',1,'IPFrame'],['../class_i_p_frame.html#a6c3e225798b3ad88ca74a37420048b06',1,'IPFrame::IPFrame()']]]
+  ['join',['join',['../class_client.html#a0ac2de100aa9caa9b2632167c1f4ab1f',1,'Client::join()'],['../class_server.html#a7c4501173cd10b9dfff472be5b3ebb5d',1,'Server::join()']]]
 ];

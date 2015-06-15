@@ -1,8 +1,11 @@
 var searchData=
 [
-  ['tcp_5fpseudo',['tcp_pseudo',['../structtcp__pseudo.html',1,'']]],
-  ['tcpframe',['TCPFrame',['../class_t_c_p_frame.html',1,'TCPFrame'],['../class_t_c_p_frame.html#a03f5517def8af0887028e5266ca055d5',1,'TCPFrame::TCPFrame()']]],
-  ['tcpframe_2ecpp',['TCPFrame.cpp',['../_t_c_p_frame_8cpp.html',1,'']]],
-  ['tcpframe_2eh',['TCPFrame.h',['../_t_c_p_frame_8h.html',1,'']]],
-  ['toframe',['toFrame',['../class_a_r_p_frame.html#aca0393691a03bcc935027f2cae51f298',1,'ARPFrame::toFrame()'],['../class_i_c_m_p_frame.html#a9f4c6cf6a6b68066713cb2367f6cda65',1,'ICMPFrame::toFrame()'],['../class_t_c_p_frame.html#a61268d08ab70389ecfbcd07a5ac96e15',1,'TCPFrame::toFrame()']]]
+  ['send',['Send',['../class_client.html#a28dfaecdc3f1f6b3cceea337251d3f69',1,'Client::Send()'],['../class_connection.html#a06d22a37e22497e091418efd799f2852',1,'Connection::Send(TCPFrame tcp)'],['../class_connection.html#aae5567704c03de9d0f9d00be1da01606',1,'Connection::Send(string data)'],['../class_stack.html#a19bdc7161956787e736ce738860dd136',1,'Stack::Send(TCPFrame tcp)'],['../class_stack.html#a34b65b37c7b790a3000859591f2b1c73',1,'Stack::Send(ICMPFrame icmp)'],['../class_stack.html#ae47a87137f88a6a3503ef4c25fe1cfd7',1,'Stack::Send(ARPFrame arp)']]],
+  ['sendhttp',['SendHTTP',['../class_connection.html#a3a1a976d12f85a2c66667f5b59abda53',1,'Connection']]],
+  ['server',['Server',['../class_server.html',1,'Server'],['../class_server.html#a3fae1efe21a489f9ec59785398007a45',1,'Server::Server()']]],
+  ['server_2ecpp',['Server.cpp',['../_server_8cpp.html',1,'']]],
+  ['server_2eh',['Server.h',['../_server_8h.html',1,'']]],
+  ['stack',['Stack',['../class_stack.html',1,'Stack'],['../class_stack.html#aa62e7ec1e7fe11521148a799f1776011',1,'Stack::Stack()']]],
+  ['stack_2ecpp',['Stack.cpp',['../_stack_8cpp.html',1,'']]],
+  ['stack_2eh',['Stack.h',['../_stack_8h.html',1,'']]]
 ];

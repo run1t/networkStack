@@ -1,0 +1,400 @@
+/* Overcloud CSS Override for Doxygen */
+
+/* FONTS !!1! */
+
+@import url(http://fonts.googleapis.com/css?family=Cantarell:400,700,400italic);
+@import url(http://fonts.googleapis.com/css?family=Roboto:300);
+/*
+@import url(http://localhost/doxygen/cantarell.css);
+@import url(http://localhost/doxygen/roboto.css);
+*/
+body, table, div, p, dl
+{
+	font-family: Cantarell, sans-serif;
+}
+
+/* Global things */
+
+hr
+{
+	border-top: 1px solid #ddd;
+}
+
+div#titlearea table,
+div.contents,
+div.footer, hr.footer, address.footer
+{
+	width: 940px;
+	padding: 0px 10px;
+	margin: auto;
+}
+
+/* Title - Description - Version of project */
+
+div#titlearea table
+{
+	position: relative;
+}
+
+div#titlearea
+{
+	border-bottom: 0px;
+	padding-bottom: 20px;
+	padding-top: 10px;
+}
+
+div#titlearea div#projectname
+{
+	font: 300 36px Roboto;
+}
+
+div#titlearea div#projectbrief
+{
+	font-family: Cantarell;
+}
+
+div#titlearea span#projectnumber:before
+{
+	content: "v.";
+}
+
+div#titlearea span#projectnumber
+{
+	display: block;
+	position: absolute;
+	bottom: 5px;
+	right: 5px;
+	font: 400 14px Cantarell;
+}
+
+div#titlearea table
+{
+	padding-left: 110px;
+}
+
+div#titlearea table td:before
+{
+	content: " ";
+	display: block;
+	width: 100px;
+	height: 100px;
+	position: absolute;
+	top: -7px;
+	left: 0px;
+	background-image: url(logo.png);
+}
+
+
+/* Navbar */
+
+.tabs, .tabs2, .tabs3
+{
+	font-family: inherit;
+}
+
+div#navrow1,
+div#navrow2
+{
+	position: relative;
+	z-index: 10;
+}
+
+div#navrow1,
+div#navrow1 ul.tablist li
+{
+	background: #76b0ea;
+}
+
+div#navrow1 ul.tablist li a,
+div#navrow2 ul.tablist li a
+{
+	background: transparent;
+}
+
+div#navrow1 ul.tablist li:hover a,
+div#navrow1 ul.tablist li.current a
+{
+	background: #5b8fc4;
+}
+
+div#navrow1 ul.tablist li a span
+{
+	text-shadow:none;
+	color: #fff;
+}
+
+div#navrow2 ul.tablist li a span
+{
+	text-shadow:none;
+	color: #444;
+}
+
+div#navrow1 ul.tablist li:hover a span,
+div#navrow1 ul.tablist li.current a span
+{
+	color: #fff;
+}
+
+div#navrow1 ul.tablist,
+div#navrow2 ul.tablist,
+div#nav-path ul.tablist
+{
+	width: 960px;
+	margin: auto;
+	position: relative;
+}
+
+
+div#navrow2,
+div#navrow2 ul.tablist li
+{
+	background: #B3CDE6;
+	margin-top: 0px;
+}
+
+div#navrow2 ul.tablist li:hover a,
+div#navrow2 ul.tablist li.current a
+{
+	background: #9EBFDF;
+}
+
+div#nav-path ul
+{
+	width: 960px;
+	margin: auto;
+	background: transparent;
+	border: 0px;
+}
+
+div#nav-path
+{
+	background: #CBDAE3;
+	margin-top: 0px;
+}
+
+div#nav-path ul li.navelem
+{
+	position: relative;
+	background: transparent;
+	margin-right: 8px;
+	color: #364D7C;
+}
+
+div#nav-path ul li.navelem:after
+{
+    content:">";
+    position: absolute;
+    right: -5px;
+    line-height: 32px;
+    height: 32px;
+	top: -2px;
+	font-size: 14px;
+	color: #8AA0CC;
+}
+
+div#nav-path ul li.navelem a
+{
+	color: #5A7BBB;
+	text-shadow: none;
+	font: inherit;
+	font-weight: bold;
+}
+
+/* Content header */
+
+div.header
+{
+	box-shadow: inset 0px 3px 0px #eee;
+	background: #f4f4f4;
+	border-bottom: 0px;
+	margin-bottom: 10px;
+}
+
+div.header div.headertitle
+{
+	width: 960px;
+	margin: auto;
+}
+
+div.header div.title
+{
+	font-family: Cantarell;
+	font-size: 32px;
+	font-weight: 300;
+	margin: 15px 0px;
+}
+
+div.header div.summary
+{
+	width: 960px;
+	height: 0px;
+	overflow: visible;
+	float:none;
+	margin:auto;
+	color: #ccc;
+}
+
+/* Function prototype */
+
+div.memproto table.memname tr
+{
+	float: left;
+}
+
+div.memproto table.memname td.paramkey
+{
+	display: none;
+}
+
+/* Directory */
+
+div.directory
+{
+	border: 0px;
+}
+
+/* Footer */
+
+address.footer a:before
+{
+	content: "Doxygen";
+	display: inline-block;
+	width: 50px;
+}
+
+address.footer img.footer
+{
+	display: inline-block;
+	width: 0px;
+}
+
+/* Links */
+
+a,
+.contents a,
+a:visited,
+.contents a:visited
+{
+	color: #428bca;
+}
+
+/* Tables */
+
+.directory table td
+{
+	border: 1px solid #dddddd;
+}
+
+.directory table td,
+.directory table td.entry
+{
+	padding: 5px 8px;
+}
+
+.directory table td.entry > img:first-of-type
+{
+	display: none;
+}
+
+.directory table tr.even
+{
+	background: transparent;
+}
+
+/* Method list */
+
+table.memberdecls tr td.memItemLeft,
+table.memberdecls tr td.memItemRight
+{
+	background: transparent;
+}
+
+/* Method box */
+
+div.memitem div.memproto
+{
+	border-color: #ccc;
+	background: #f4f4f4;
+	box-shadow: none;
+}
+
+div.memitem div.memdoc
+{
+	border-top: 1px solid #ccc;
+	border-color: #ccc;
+	box-shadow: none;
+	background: transparent;
+}
+
+div.memitem div.memdoc td.paramname
+{
+	padding-right: 10px;
+}
+
+/* Alphabetic list */
+
+div.ah
+{
+	background: #76b0ea;
+	border: 0px;
+	box-shadow: none;
+}
+
+div.qindex a
+{
+	font-family: Cantarell;
+}
+
+div.qindex
+{
+	background: transparent;
+	border: 0px;
+	margin: 10px 0px;
+	color: #ddd;
+	font-family: Roboto;
+}
+
+div.contents div.qindex + table
+{
+	white-space: normal !important;
+}
+
+/* Code */
+div.fragment
+{
+	background: transparent;
+	border: 0px;
+}
+
+div.fragment code
+{
+	border-radius: 5px;
+	line-height: 1.3em;
+}
+
+td.mlabels-right
+{
+	vertical-align: inherit;
+}
+
+span.mlabel
+{
+	color: black;
+	font-weight: bold;
+	margin-right: 15px;
+	background-color: transparent;
+	border: 0px;
+	padding: 0px;
+	border-radius: 0px;
+	font-size: inherit;
+	text-shadow: none;
+}
+
+dl.section.warning
+{
+	margin-left: auto;
+	border: 1px solid #FFAB5C; 
+	padding: 5px 8px;
+	border-radius: 3px;
+	background-color: #FFD88B;
+}

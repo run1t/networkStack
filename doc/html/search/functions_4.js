@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['icmpframe',['ICMPFrame',['../class_i_c_m_p_frame.html#aa74b2673a8d2e7ed863ec439d0754ae9',1,'ICMPFrame']]],
-  ['ipframe',['IPFrame',['../class_i_p_frame.html#a6c3e225798b3ad88ca74a37420048b06',1,'IPFrame']]]
+  ['handle_5fsigint',['handle_SIGINT',['../_stack_8cpp.html#ab40e1e1bfdbabedc1ebecf9db6adc1ad',1,'Stack.cpp']]],
+  ['handleconnection',['HandleConnection',['../class_connection.html#a134b7238777c95a005f10d16e1a93187',1,'Connection']]]
 ];

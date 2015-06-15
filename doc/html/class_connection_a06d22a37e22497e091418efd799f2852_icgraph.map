@@ -1,0 +1,6 @@
+<map id="Connection::Send" name="Connection::Send">
+<area shape="rect" id="node2" href="$class_connection.html#a134b7238777c95a005f10d16e1a93187" title="Gère la Connection en fonction de l&#39;ètat de la connection. " alt="" coords="180,5,383,32"/>
+<area shape="rect" id="node3" href="$class_connection.html#a3a1a976d12f85a2c66667f5b59abda53" title="Méthode permettant d&#39;envoyer un paquet contenant du protocole HTTP. " alt="" coords="201,56,362,83"/>
+<area shape="rect" id="node4" href="$class_connection.html#aae5567704c03de9d0f9d00be1da01606" title="Méthode envoyant de la Data brute sans protocole supérieur. Jusqu&#39;au protocole TCP. " alt="" coords="218,107,345,133"/>
+<area shape="rect" id="node5" href="$class_connection.html#ab47840ece7746e9de9eb78d3c9ac2a7a" title="Méthode permettant de fermer la connection. " alt="" coords="216,157,347,184"/>
+</map>

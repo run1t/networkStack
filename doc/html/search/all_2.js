@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['eth',['eth',['../class_a_r_p_frame.html#a74c31c43b090755365ccd0c57440dfa1',1,'ARPFrame::eth()'],['../class_i_p_frame.html#a98af6dbeae8a0ab99394fc9958a69179',1,'IPFrame::eth()']]],
-  ['ethframe',['ETHFrame',['../class_e_t_h_frame.html',1,'ETHFrame'],['../class_e_t_h_frame.html#a435674779cacfa315ae04f18c0056caf',1,'ETHFrame::ETHFrame()']]],
-  ['ethframe_2ecpp',['ETHFrame.cpp',['../_e_t_h_frame_8cpp.html',1,'']]],
-  ['ethframe_2eh',['ETHFrame.h',['../_e_t_h_frame_8h.html',1,'']]]
+  ['desactivatearp',['desactivateARP',['../class_p_c.html#a81c3b990bbe17e48d4a625be86a0d275',1,'PC']]],
+  ['desactivateicmp',['desactivateICMP',['../class_p_c.html#abb3e634df57e0751d161d111876bdceb',1,'PC']]],
+  ['desactivaterst',['desactivateRST',['../class_p_c.html#a6cba2d267c6d729fba5dd3fa917a5de2',1,'PC']]]
 ];

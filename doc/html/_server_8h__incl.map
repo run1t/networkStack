@@ -1,0 +1,6 @@
+<map id="Server.h" name="Server.h">
+<area shape="rect" id="node11" href="$_stack_8h.html" title="Fichier de gestion de l&#39;envoie et reception de packet TCP, ICMP et ARP. " alt="" coords="1105,155,1172,181"/>
+<area shape="rect" id="node33" href="$_connection_8h.html" title="Fichier de gestion de la connexion. " alt="" coords="948,229,1047,256"/>
+<area shape="rect" id="node34" href="$_client_8h.html" title="Fichier de gestion de la couche client. " alt="" coords="377,80,444,107"/>
+<area shape="rect" id="node17" href="$_p_c_8h.html" title="Fichier de récupération des informations du pc. " alt="" coords="879,304,931,331"/>
+</map>
