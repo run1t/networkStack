@@ -1,7 +1,7 @@
 /*!
  * \file stack.cpp
  * \brief Fichier de gestion de l'envoi et réception de packet
- * \author LE NOC Reunan, HIPEAU Kevin, VIAUD Thommas, TRICHARD Guillaume
+ * \author LE NOC Reunan, HIPEAU Kevin, VIAUD Thomas, TRICHARD Guillaume
  * \version 1.0
  */
 
