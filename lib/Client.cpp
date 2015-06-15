@@ -10,7 +10,12 @@ void onDatass(Connection* connection){
 	Client::client->onData(connection);
 }
 
-
+/**
+ * \fn Client::Client(string ip,int port)
+ * \brief Constructeur de Client 
+ * \param string ip adresse IP
+ * \param int port numéro de port
+ */
 Client::Client(string ip,int port){
 	srand (time(NULL));
 	this->portLocal = (ushort)rand();
@@ -20,14 +25,29 @@ Client::Client(string ip,int port){
     this->stacker->addDataEvent(onDatass);
 }
 
+/**
+ * \fn void Client::Send(string Message)
+ * \brief Méthode afin d'envoyer un message
+ * \param string Message
+ */
 void Client::Send(string Message){
 	
 }
 
+/**
+ * \fn void Client::addEventData (function<void(Connection*)> func)
+ * \brief Méthode permettant de binder une fonction à l'event de réception de Data
+ * \param function<void(Connection*)> func Fonction à passer en paramètre
+ */
 void Client::addEventData (function<void(Connection*)> func){
 	this->onData = func;
 }
 
+/**
+ * \fn string Client::getArpMac()
+ * \brief Méthode permettant d'avoir l'adresse MAC du destinataire grâce à une requète ARP
+ * \return string Nous renvoie l'adresse MAC sous forme de string
+ */
 string Client::getArpMac(){
 	PC::desactivateICMP();
  	PC::desactivateRST();
@@ -115,6 +135,10 @@ string Client::getArpMac(){
 	return "FF:FF:FF:FF:FF:FF";
 }
 
+/**
+ * \fn void Client::join()
+ * \brief Méthode permettant de lancer la stack client
+ */
 void Client::join(){
 	Client::client = this;
 	TCPFrame tcp = *new TCPFrame();
